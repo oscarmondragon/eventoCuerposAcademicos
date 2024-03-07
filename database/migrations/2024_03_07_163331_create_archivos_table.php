@@ -10,13 +10,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('archivos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignUuid('registro_id')
+                ->constrained()
+                ->noActionOnUpdate()
+                ->onDelete('cascade');
+            $table->string('ruta');
+            $table->enum('tipo', ['Video', 'Documento']);
+            $table->uuid('user_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('archivos');
     }
 };
