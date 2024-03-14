@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
+use App\Livewire\Participantes\RegistroParticipantes;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,8 @@ use Livewire\Volt\Volt;
 
 Route::view('/', 'welcome');
 
+Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
 
-Volt::route('/registro-participantes', 'participantes.registro')
-    ->name('registro-participantes');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

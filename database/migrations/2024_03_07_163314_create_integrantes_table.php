@@ -26,6 +26,11 @@ return new class extends Migration {
             $table->string('email', 100)->unique();
             $table->string('telefono', 20);
             $table->enum('tipo', ['Lider', 'Integrante']);
+            $table->foreignUuid('tipo_lider')
+                ->nullable()
+                ->constrained(table: 'tipos_lider')
+                ->noActionOnUpdate()
+                ->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });
