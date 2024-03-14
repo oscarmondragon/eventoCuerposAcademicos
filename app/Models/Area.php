@@ -10,4 +10,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Area extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+    public function subAreas()
+    {
+        return $this->hasMany(Subarea::class, 'area_tematica_id');
+    }
 }
