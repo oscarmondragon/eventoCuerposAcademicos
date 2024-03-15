@@ -14,7 +14,7 @@ class SubAreaSeeder extends Seeder
     public function run(): void
     {
         Subarea::factory()->count(73)->sequence(
-            // GRUPO 1
+            // AREA 1
             ['area_id' => '9b9027b5-8a87-402c-8f0a-75002db35b7d', 'grupo_id' => '9b903144-8fb2-4480-938b-1083d48ffaa2', 'nombre' => 'Acceso a recursos básicos'],
             ['area_id' => '9b9027b5-8a87-402c-8f0a-75002db35b7d', 'grupo_id' => '9b903144-8fb2-4480-938b-1083d48ffaa2', 'nombre' => 'Microfinanzas y desarrollo económico local'],
             ['area_id' => '9b9027b5-8a87-402c-8f0a-75002db35b7d', 'grupo_id' => '9b903144-8fb2-4480-938b-1083d48ffaa2', 'nombre' => 'Reducción de desigualdades'],
@@ -35,7 +35,7 @@ class SubAreaSeeder extends Seeder
             ['area_id' => '9b9027b5-8a87-402c-8f0a-75002db35b7d', 'grupo_id' => '9b903144-bb30-4176-836c-21ca2ac27f5b', 'nombre' => 'Preservación de ecosistemas'],
             ['area_id' => '9b9027b5-8a87-402c-8f0a-75002db35b7d', 'grupo_id' => '9b903144-bb30-4176-836c-21ca2ac27f5b', 'nombre' => 'Educación ambiental'],
 
-            // GRUPO 2
+            // AREA 2
             ['area_id' => '9b902a68-8f0f-427a-baa6-5abffb160a08', 'grupo_id' => '9b903144-c0d1-4c0f-ab8c-2b4b9885fe54', 'nombre' => 'Acceso a servicios de salud'],
             ['area_id' => '9b902a68-8f0f-427a-baa6-5abffb160a08', 'grupo_id' => '9b903144-c0d1-4c0f-ab8c-2b4b9885fe54', 'nombre' => 'Salud mental'],
             ['area_id' => '9b902a68-8f0f-427a-baa6-5abffb160a08', 'grupo_id' => '9b903144-c0d1-4c0f-ab8c-2b4b9885fe54', 'nombre' => 'Salud materno-infantil'],
@@ -56,7 +56,7 @@ class SubAreaSeeder extends Seeder
             ['area_id' => '9b902a68-8f0f-427a-baa6-5abffb160a08', 'grupo_id' => '9b903144-d97e-47ac-907a-79cf70dc3cf7', 'nombre' => 'Urbanismo social'],
             ['area_id' => '9b902a68-8f0f-427a-baa6-5abffb160a08', 'grupo_id' => '9b903144-d97e-47ac-907a-79cf70dc3cf7', 'nombre' => 'Desarrollo rural'],
 
-            // GRUPO 3
+            // AREA 3
             ['area_id' => '9b902a68-9a00-47c5-ac84-830b32daa9e9', 'grupo_id' => '9b9044b1-a1d0-42e8-b766-1216bb4d7d5e', 'nombre' => 'Avances en ciencia básica'],
             ['area_id' => '9b902a68-9a00-47c5-ac84-830b32daa9e9', 'grupo_id' => '9b9044b1-a1d0-42e8-b766-1216bb4d7d5e', 'nombre' => 'Investigación aplicada'],
             ['area_id' => '9b902a68-9a00-47c5-ac84-830b32daa9e9', 'grupo_id' => '9b9044b1-a1d0-42e8-b766-1216bb4d7d5e', 'nombre' => 'Innovación tecnológica'],
@@ -77,7 +77,7 @@ class SubAreaSeeder extends Seeder
             ['area_id' => '9b902a68-9a00-47c5-ac84-830b32daa9e9', 'grupo_id' => '9b903144-ed84-4ce4-9ad2-4509aa7306a6', 'nombre' => 'Inteligencia artificial'],
             ['area_id' => '9b902a68-9a00-47c5-ac84-830b32daa9e9', 'grupo_id' => '9b903144-ed84-4ce4-9ad2-4509aa7306a6', 'nombre' => 'Tecnologías emergentes'],
 
-            // GRUPO 4
+            // AREA 4
             ['area_id' => '9b902a68-9ec4-4dc6-a192-6e6fbe96f705', 'grupo_id' => '9b903144-f2d5-4138-ab5f-5c580b65e8b5', 'nombre' => 'Políticas sostenibles'],
             ['area_id' => '9b902a68-9ec4-4dc6-a192-6e6fbe96f705', 'grupo_id' => '9b903144-f2d5-4138-ab5f-5c580b65e8b5', 'nombre' => 'Transparencia gubernamental'],
             ['area_id' => '9b902a68-9ec4-4dc6-a192-6e6fbe96f705', 'grupo_id' => '9b903144-f2d5-4138-ab5f-5c580b65e8b5', 'nombre' => 'Participación ciudadana'],
@@ -99,7 +99,7 @@ class SubAreaSeeder extends Seeder
             ['area_id' => '9b902a68-9ec4-4dc6-a192-6e6fbe96f705', 'grupo_id' => '9b903145-0681-4cce-a0e3-07221f1e7d56', 'nombre' => 'Participación cívica'],
             ['area_id' => '9b902a68-9ec4-4dc6-a192-6e6fbe96f705', 'grupo_id' => '9b903145-0681-4cce-a0e3-07221f1e7d56', 'nombre' => 'Bioética'],
 
-            // GRUPO 5
+            // AREA 5
             ['area_id' => '9b902a68-a40b-4c31-9eb8-f2d395fdac61', 'grupo_id' => '9b903145-0bbd-4f77-ba62-f815dc47c72f', 'nombre' => 'Metodologías educativas'],
             ['area_id' => '9b902a68-a40b-4c31-9eb8-f2d395fdac61', 'grupo_id' => '9b903145-0bbd-4f77-ba62-f815dc47c72f', 'nombre' => 'Aprendizaje basado en proyectos'],
             ['area_id' => '9b902a68-a40b-4c31-9eb8-f2d395fdac61', 'grupo_id' => '9b903145-0bbd-4f77-ba62-f815dc47c72f', 'nombre' => 'Evaluación educativa'],

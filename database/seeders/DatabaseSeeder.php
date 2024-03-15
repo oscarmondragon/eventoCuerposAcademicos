@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
                 AreaSeeder::class,
                 GrupoSeeder::class,
                 SubAreaSeeder::class,
+                TipoLiderSeeder::class
             ]);
     }
 }
