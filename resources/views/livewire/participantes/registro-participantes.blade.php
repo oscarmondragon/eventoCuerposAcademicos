@@ -7,7 +7,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
+                <div class="p-10 text-gray-900 dark:text-gray-100">
                     <div id="alert-1"
                         class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
                         role="alert">
@@ -70,95 +70,138 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1">
+                                    <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1"
+                                        class="">
                                         <div class="p-5 border border-t-0 border-gray-200 dark:border-gray-700">
-                                            <label for="small-input"
-                                                class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Nombre
-                                                del Cuerpo Académico, red o grupo de investigación</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-                                            <label for="small-input"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Pais
-                                                procedente</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <div class="sm:flex flex-row items-center gap-x-4">
+                                                <div class="flex-initial sm:w-3/4 w-full">
+                                                    <label for="small-input"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Nombre del Cuerpo Académico, red o grupo de investigación<span
+                                                            class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="small-input"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="nombre">
+                                                </div>
+                                                <div class="flex-initial sm:w-1/4 w-full sm:mt-0 mt-5">
+                                                    <label for="small-input"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Pais procedente<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="small-input"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                </div>
+                                            </div>
 
-                                            <label for="small-input"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
-                                                completo de la universidad, dependencia o departamento de
-                                                adcripción</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            <div class="mt-5">
+                                                <label for="small-input"
+                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    Nombre completo de la universidad, dependencia o departamento de
+                                                    adcripción<span class="font-bold text-red-600">*</span>
+                                                </label>
+                                                <input type="text" id="small-input"
+                                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            </div>
 
 
-                                            <label for="tipo_registro"
-                                                class="block mb-2  mt-2 text-sm font-medium text-gray-900 dark:text-white">Área
-                                                temática</label>
-                                            <select id="tipo_registro" x-on:click="open = ! open"
-                                                x-model="selectedRegistro" wire:model.live="form.tipo_registro"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="0">Seleccione una opción</option>
-                                                <option value="1">Desarrollo Sostenible</option>
-                                                <option value="2">Desarrollo Humano</option>
-                                            </select>
+                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                    <label for="tipo_registro"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Área temática<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <select id="tipo_registro" x-on:click="open = ! open"
+                                                        x-model="selectedRegistro"
+                                                        wire:model.live="form.tipo_registro"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        <option value="0">Seleccione una opción</option>
+                                                        <option value="1">Desarrollo Sostenible</option>
+                                                        <option value="2">Desarrollo Humano</option>
+                                                    </select>
+                                                </div>
 
-                                            <label for="tipo_registro"
-                                                class="block mb-2  mt-2 text-sm font-medium text-gray-900 dark:text-white">Subárea
-                                                temática</label>
-                                            <select id="tipo_registro" x-on:click="open = ! open"
-                                                x-model="selectedRegistro" wire:model.live="form.tipo_registro"
-                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                <option value="0">Seleccione una opción</option>
-                                                <optgroup label="Erradicación de la Pobrezas">
-                                                    <option value="Azul">Acceso a recursos básicos.</option>
-                                                    <option value="Rojo">Microfinanzas y desarrollo económico local
-                                                    </option>
-                                                </optgroup>
-                                                <optgroup label="Seguridad Alimentaria">
-                                                    <option value="Azul">Agricultura sostenible.</option>
-                                                </optgroup>
-                                            </select>
-                                            <h3>Lineas
-                                                de generación y aplicacion del conocimiento</h3>
-                                            <x-secondary-button class="ms-3"
-                                                wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
-                                                {{ __('Add') }}
-                                            </x-secondary-button>
+                                                <div class="flex-initial sm:w-3/5 w-full">
+                                                    <label for="tipo_registro"
+                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Subárea temática<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <select id="tipo_registro" x-on:click="open = ! open"
+                                                        x-model="selectedRegistro"
+                                                        wire:model.live="form.tipo_registro"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                                        <option value="0">Seleccione una opción</option>
+                                                        <optgroup label="Erradicación de la Pobrezas">
+                                                            <option value="Azul">Acceso a recursos básicos.</option>
+                                                            <option value="Rojo">Microfinanzas y desarrollo económico
+                                                                local
+                                                            </option>
+                                                        </optgroup>
+                                                        <optgroup label="Seguridad Alimentaria">
+                                                            <option value="Azul">Agricultura sostenible.</option>
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <h2>Lineas de generación y aplicacion del conocimiento</h2>
+                                                <x-secondary-button class="ms-3 mt-2"
+                                                    wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
+                                                    {{ __('Add') }}
+                                                </x-secondary-button>
+                                            </div>
 
                                             <label for="message"
-                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Principales
-                                                productos logrados</label>
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Principales productos logrados<span
+                                                    class="font-bold text-red-600">*</span>
+                                            </label>
                                             <textarea id="message" rows="4"
                                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Leave a comment..."></textarea>
 
                                             <label for="message"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Casos
-                                                de éxito de trasnferencia</label>
+                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Casos de éxito de trasnferencia<span
+                                                    class="font-bold text-red-600">*</span>
+                                            </label>
                                             <textarea id="message" rows="4"
                                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Leave a comment..."></textarea>
 
                                             <label for="message"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Proyección
-                                                y propuesta de vinculación o servicios que se brindan o proyectos para
-                                                posible vinculación</label>
+                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                Proyección y propuesta de vinculación o servicios que se brindan o
+                                                proyectos para
+                                                posible vinculación<span class="font-bold text-red-600">*</span>
+                                            </label>
                                             <textarea id="message" rows="4"
                                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Leave a comment..."></textarea>
 
-                                            <label for="message"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Fortalezas</label>
-                                            <textarea id="message" rows="4"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Leave a comment..."></textarea>
+                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-1/2 w-full">
+                                                    <label for="message"
+                                                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Fortalezas<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <textarea id="message" rows="4"
+                                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Fortalezas"></textarea>
+                                                </div>
 
-                                            <label for="message"
-                                                class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Necesidades</label>
-                                            <textarea id="message" rows="4"
-                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                placeholder="Leave a comment..."></textarea>
+                                                <div class="flex-initial sm:w-1/2 w-full">
+                                                    <label for="message"
+                                                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        Necesidades<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <textarea id="message" rows="4"
+                                                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Necesidades"></textarea>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <h2 id="accordion-open-heading-2">
@@ -245,21 +288,38 @@
                                             <textarea id="message" rows="4"
                                                 class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="Leave a comment..."></textarea>
-                                            <h3>Datos de contacto</h3>
-                                            <label for="small-input"
-                                                class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Telefono</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <label for="small-input"
-                                                class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Correo
-                                                electrónico</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                            <label for="small-input"
-                                                class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Redes
-                                                sociales</label>
-                                            <input type="text" id="small-input"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                            <h2 class="mt-5">Datos de contacto</h2>
+                                            <div class="sm:flex flex-row items-center gap-x-4 mt-2">
+                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                    <label for="small-input"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Teléfono<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="small-input"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Teléfono">
+                                                </div>
+
+                                                <div class="flex-initial sm:w-3/5 w-full">
+                                                    <label for="small-input"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Correo electrónico<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="small-input"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Correo electrónico">
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-5">
+                                                <label for="small-input"
+                                                    class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">Redes
+                                                    sociales</label>
+                                                <input type="text" id="small-input"
+                                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                            </div>
+
 
                                         </div>
                                     </div>
@@ -304,10 +364,11 @@
                                 </div>
                             </div>
                         </div>
-                        <x-secondary-button class="ms-3 mt-5"
-                            wire:click="$dispatch('openModal', {component: 'modals.integrantes-modal'})">
-                            {{ __('Enviar') }}
-                        </x-secondary-button>
+                        <div class="text-end">
+                            <x-primary-button class="ms-3 mt-5">
+                                {{ __('Enviar') }}
+                            </x-primary-button>
+                        </div>
                     </form>
                 </div>
             </div>
