@@ -4,7 +4,7 @@
     @if ($formAction)
         <form wire:submit.prevent="{{ $formAction }}">
     @endif
-    <div class="fondo_deg_formulario">
+    <div class="bg-verde">
         <!-- bg-red-300 p-4 sm:px-6 sm:py-4 border-b border-gray-150 -->
         @if (isset($title))
             <h3 class="text-lg leading-6 font-medium text-white pl-6 py-2">
