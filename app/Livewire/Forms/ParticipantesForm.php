@@ -7,9 +7,64 @@ use Livewire\Form;
 
 class ParticipantesForm extends Form
 {
-    #[Validate('required')]
-    public $tipo_registro = '0';
 
+    //GENERALES
+    #[Validate('required')]
+    public $tipoRegistro = '0';
+
+    #[Validate('required')]
+    public $nombreGrupo;
+
+    #[Validate('required')]
+    public $pais;
+
+    #[Validate('required')]
+    public $lugarProcedencia;
+
+    #[Validate('required')]
+    public $areasSeleccionadas = [];
+
+    #[Validate('required')]
+    public $subareasSeleccionadas;
+
+    #[Validate('required')]
+    public $lineasInvestigacion = [];
+
+    #[Validate('required')]
+    public $producosLogrados = '';
+
+    #[Validate('required')]
+    public $casosExito = '';
+
+    #[Validate('required')]
+    public $propuestas = '';
+
+    #[Validate('required')]
+    public $fortalezas = '';
+
+    #[Validate('required')]
+    public $necesidades = '';
+
+    //INTEGRANTES
+    #[Validate('required')]
+    public $integrantes = '';
+
+    //BANNER
+    #[Validate('required')]
+    public $nombreGrupoBannes;
+
+    #[Validate('required')]
+    public $integrantesBanner = '';
+
+    #[Validate('required')]
+    public $telefonoBanner = '';
+
+    #[Validate('required')]
+    public $correoBanner = '';
+    public $redesBanner = [];
+
+    //BOUCHER
+    public $boucher;
 
     public function store()
     {

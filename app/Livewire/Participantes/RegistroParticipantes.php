@@ -10,6 +10,8 @@ use Livewire\Attributes\Layout;
 class RegistroParticipantes extends Component
 {
 
+    public $options = ['Opción 1', 'Opción 2', 'Opción 3'];
+    public $selectedOptions = [];
     public ParticipantesForm $form;
 
     #[Layout('layouts.publico')]
@@ -18,9 +20,9 @@ class RegistroParticipantes extends Component
 
         $tiposFiltro = [];
 
-        if ($this->form->tipo_registro == '1') {
+        if ($this->form->tipoRegistro == '1') {
             $tiposFiltro = TipoLider::where('tipo_solicitante', 'Interno')->get();
-        } elseif ($this->form->tipo_registro == '2') {
+        } elseif ($this->form->tipoRegistro == '2') {
             $tiposFiltro = TipoLider::where('tipo_solicitante', 'Externo')->get();
         } else {
             $tiposFiltro = [];
@@ -33,5 +35,14 @@ class RegistroParticipantes extends Component
         $this->form->store();
 
         return $this->redirect('/registro-participantes');
+    }
+
+    public function selectOption($option)
+    {
+        if (in_array($option, $this->selectedOptions)) {
+            $this->selectedOptions = array_diff($this->selectedOptions, [$option]);
+        } else {
+            $this->selectedOptions[] = $option;
+        }
     }
 }
