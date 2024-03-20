@@ -22,7 +22,7 @@ class ParticipantesForm extends Form
     public $lugarProcedencia;
 
     #[Validate('required')]
-    public $areasSeleccionadas = [];
+    public $areasSeleccionadas;
 
     #[Validate('required')]
     public $subareasSeleccionadas;

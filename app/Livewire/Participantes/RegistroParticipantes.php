@@ -3,6 +3,8 @@
 namespace App\Livewire\Participantes;
 
 use App\Livewire\Forms\ParticipantesForm;
+use App\Models\Area;
+use App\Models\Subarea;
 use App\Models\TipoLider;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -10,13 +12,17 @@ use Livewire\Attributes\Layout;
 class RegistroParticipantes extends Component
 {
 
-    public $options = ['Opción 1', 'Opción 2', 'Opción 3'];
-    public $selectedOptions = [];
+    public $selectedSubareas = [];
     public ParticipantesForm $form;
 
     #[Layout('layouts.publico')]
     public function render()
     {
+        $subareasOptions = [];
+        if ($this->form->areasSeleccionadas) {
+            $subareasOptions = Subarea::where('area_id', '=', $this->form->areasSeleccionadas)->get();
+        }
+        $areasOptions = Area::all();
 
         $tiposFiltro = [];
 
@@ -28,7 +34,7 @@ class RegistroParticipantes extends Component
             $tiposFiltro = [];
         }
 
-        return view('livewire.participantes.registro-participantes', ['tipos_lider' => $tiposFiltro]);
+        return view('livewire.participantes.registro-participantes', ['tipos_lider' => $tiposFiltro, 'subareasOptions' => $subareasOptions, 'areasOptions' => $areasOptions]);
     }
     public function save()
     {
@@ -37,12 +43,13 @@ class RegistroParticipantes extends Component
         return $this->redirect('/registro-participantes');
     }
 
-    public function selectOption($option)
+    public function selectOption($subarea)
     {
-        if (in_array($option, $this->selectedOptions)) {
-            $this->selectedOptions = array_diff($this->selectedOptions, [$option]);
+
+        if (in_array($subarea, $this->selectedSubareas)) {
+            $this->selectedSubareas = array_diff($this->selectedSubareas, [$subarea]);
         } else {
-            $this->selectedOptions[] = $option;
+            $this->selectedSubareas[] = json_decode($subarea, true);
         }
     }
 }
