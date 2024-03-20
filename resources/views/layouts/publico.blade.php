@@ -17,6 +17,12 @@
 </head>
 
 <body class="font-sans antialiased">
+    <div class="w-full">
+        <img src="{{ asset('img/fondos/banner.jpg') }}" alt="Image" class="object-cover w-full">
+    </div>
+    <div class="fondo_deg_formulario">
+        <img src="{{ asset('img/fondos/fondo_cabecera.png') }}" alt="Image" class="static h-9">
+    </div>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
         <!-- Page Heading -->

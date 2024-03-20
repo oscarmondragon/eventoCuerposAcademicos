@@ -17,4 +17,14 @@ class Subarea extends Model
         'nombre',
         'status'
     ];
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class, 'area_id');
+    }
+
+    public function grupo()
+    {
+        return $this->belongsTo(Grupo::class, 'grupo_id');
+    }
 }
