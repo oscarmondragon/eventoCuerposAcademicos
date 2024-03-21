@@ -22,10 +22,10 @@
     </x-slot>
 
     <x-slot name="buttons" class="mt-2">
-        <button wire:click="save" class="btn-success sm:w-auto w-full">
+        <button wire:click="save" class="btn-success button sm:w-auto w-full">
             Guardar
         </button>
-        <button wire:click="$dispatch('closeModal')" class="btn-warning sm:w-auto w-full">
+        <button wire:click="$dispatch('closeModal')" class="btn-warning button sm:w-auto w-full">
             Cancelar
         </button>
     </x-slot>
