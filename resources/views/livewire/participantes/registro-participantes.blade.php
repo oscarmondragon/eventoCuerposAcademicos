@@ -41,7 +41,6 @@
                                     Selecciona procedencia<span class="font-bold text-red-600">*</span>
                                 </label>
                                 <select id="tipo_registro" x-on:click="open = ! open" x-model="selectedRegistro"
-                                    wire:model.live="form.tipo_registro"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                     <option value="0">Seleccione una opción</option>
                                     <option value="1">Interno a la UAEMex</option>
@@ -121,12 +120,12 @@
                                             </div>
 
                                             <div class="sm:flex flex-row items-center gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                <div class="flex-initial sm:w-1/4 w-full">
                                                     <label for="tipo_registro"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <select id="form.areasSeleccionadas"
+                                                    {{--  <select id="form.areasSeleccionadas"
                                                         wire:model.live="form.areasSeleccionadas"
                                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                         <option value="0">Selecciona una opción</option>
@@ -135,41 +134,67 @@
                                                                 {{ $area->nombre }}
                                                             </option>
                                                         @endforeach
-                                                    </select>
+                                                    </select> --}}
+                                                    <ul>
+                                                        @foreach ($areasOptions as $area)
+                                                            <li wire:click="actualizarAreasSeleccionadas({{ $area }})"
+                                                                class=" hover:bg-green-200 {{ $area->id == $areaSeleccionada ? 'bg-green-500' : 'bg-gray-100' }}">
+                                                                {{ $area->nombre }}
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
 
 
-                                                <div class="flex-initial sm:w-3/5 w-full">
+                                                <div class="flex-initial sm:w-3/4 w-full">
                                                     <label for="form.subareaTematica"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <div>
                                                         <div>
-                                                            <ul x-show="open">
-                                                                @foreach ($subareasOptions as $subarea)
-                                                                    <li wire:click="selectOption('{{ $subarea }}')"
-                                                                        :class="{ 'selected': {{ in_array($subarea, $selectedSubareas) ? 'true' : 'false' }} }">
-                                                                        {{ $subarea->nombre }}</li>
-                                                                @endforeach
-                                                            </ul>
+                                                            @foreach (collect($subareasOptions)->groupBy('grupo.nombre') as $grupo => $subareasDelGrupo)
+                                                                <h1 class="text-green-500">{{ $grupo }}</h1>
+                                                                <ul class="grid grid-cols-2">
+                                                                    @foreach ($subareasDelGrupo as $subarea)
+                                                                        <li wire:click="selectSubareaOption({{ $subarea }})"
+                                                                            class="hover:bg-green-200"
+                                                                            :class="{ 'bg-green-400': {{ array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false ? 'true' : 'false ?>' }} }">
+
+                                                                            {{ $subarea->nombre }}
+                                                                            @if (array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false)
+                                                                                <span class="check-symbol">✓</span>
+                                                                            @else
+                                                                                <span>&#61442;</span>
+                                                                            @endif
+
+
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endforeach
                                                         </div>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div>
+                                            {{-- <div>
                                                 <p>Subareas seleccionadas:</p>
                                                 <ul>
-                                                    @foreach ($selectedSubareas as $selectedSubarea)
-                                                        <li>{{ $selectedSubarea['nombre'] }}</li>
+                                                    @foreach ($selectedSubareas as $subarea)
+                                                        <li wire:click="selectSubareaOption({{ collect($subarea) }}")>
+                                                            {{ $subarea['area'] }}
+                                                            {{ $subarea['grupo'] }}
+                                                            {{ $subarea['nombre'] }}
+                                                        </li>
                                                     @endforeach
                                                 </ul>
-                                            </div>
+                                            </div> --}}
                                             <div class="mt-5">
                                                 <div class="flex items-center">
-                                                    <h2>Lineas de generación y aplicacion del conocimiento<span
-                                                            class="font-bold text-red-600 mr-2">*</span></h2>
+                                                    <h2>Lineas de generación y aplicacion del
+                                                        conocimiento<span class="font-bold text-red-600 mr-2">*</span>
+                                                    </h2>
                                                     <button type="button"
                                                         class="bg-verde text-white text-xl rounded-full px-4 py-2"
                                                         wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
@@ -189,24 +214,37 @@
                                                         </thead>
                                                         <tbody>
                                                             <tr class="border border-b-gray-50 border-transparent">
-                                                                <td>Epistemologías, metodologías y nuevos saberes</td>
-                                                                <td>Esta línea o campo de investigación se centra en el
-                                                                    debate referido a la producción del conocimiento y
+                                                                <td>Epistemologías, metodologías y nuevos
+                                                                    saberes</td>
+                                                                <td>Esta línea o campo de investigación se
+                                                                    centra en el
+                                                                    debate referido a la producción del
+                                                                    conocimiento y
                                                                     tiene
-                                                                    varios ejes de reflexión: uno de carácter histórico
-                                                                    sobre el desarrollo del pensamiento crítico
-                                                                    feminista, otro de carácter epistemológico que se
+                                                                    varios ejes de reflexión: uno de
+                                                                    carácter histórico
+                                                                    sobre el desarrollo del pensamiento
+                                                                    crítico
+                                                                    feminista, otro de carácter
+                                                                    epistemológico que se
                                                                     refiere a
-                                                                    teorías, conceptos y paradigmas dentro de los
-                                                                    estudios de género y a la contribución de éstos al
+                                                                    teorías, conceptos y paradigmas dentro
+                                                                    de los
+                                                                    estudios de género y a la contribución
+                                                                    de éstos al
                                                                     desarrollo de las
-                                                                    ciencia sociales y humanas, el tercer eje cuestiona
-                                                                    a las teorías y debates hegemónicos e incluye nuevos
+                                                                    ciencia sociales y humanas, el tercer
+                                                                    eje cuestiona
+                                                                    a las teorías y debates hegemónicos e
+                                                                    incluye nuevos
                                                                     discursos y
-                                                                    saberes sobre subalternidad en relación a la
+                                                                    saberes sobre subalternidad en relación
+                                                                    a la
                                                                     producción de
-                                                                    conocimientos que se articulan dentro de movimientos
-                                                                    sociales y que habían sido excluidos hasta ahora.
+                                                                    conocimientos que se articulan dentro de
+                                                                    movimientos
+                                                                    sociales y que habían sido excluidos
+                                                                    hasta ahora.
                                                                 </td>
                                                                 <td>
                                                                     <button class="btn-tablas">
@@ -218,17 +256,25 @@
                                                             </tr>
                                                             <tr class="border border-b-gray-50 border-transparent">
                                                                 <td>Cuerpo, saberes y tecnologías</td>
-                                                                <td>En este campo el eje que articula es el debate sobre
-                                                                    el cuerpo visto desde distintas perspectivas. Una
+                                                                <td>En este campo el eje que articula es el
+                                                                    debate sobre
+                                                                    el cuerpo visto desde distintas
+                                                                    perspectivas. Una
                                                                     primera se refiere a
-                                                                    la producción de los cuerpos como parte de los
-                                                                    ordenamientos sociales, sus jerarquías y sus
+                                                                    la producción de los cuerpos como parte
+                                                                    de los
+                                                                    ordenamientos sociales, sus jerarquías y
+                                                                    sus
                                                                     imaginarios; la segunda problematiza
-                                                                    la influencia de la tecno-ciencia en la forma de
-                                                                    reconfigurar a los cuerpos, la tercera cuestiona a
+                                                                    la influencia de la tecno-ciencia en la
+                                                                    forma de
+                                                                    reconfigurar a los cuerpos, la tercera
+                                                                    cuestiona a
                                                                     los imaginarios de la
-                                                                    representación dominantes y critica a las categorías
-                                                                    de cuerpo, naturaleza, sujeto y sociedad vigentes
+                                                                    representación dominantes y critica a
+                                                                    las categorías
+                                                                    de cuerpo, naturaleza, sujeto y sociedad
+                                                                    vigentes
                                                                 </td>
                                                                 <td>
                                                                     <button class="btn-tablas">
