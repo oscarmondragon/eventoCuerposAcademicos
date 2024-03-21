@@ -28,7 +28,7 @@ class ParticipantesForm extends Form
     public $lineasInvestigacion = [];
 
     #[Validate('required')]
-    public $producosLogrados = '';
+    public $productosLogrados = '';
 
     #[Validate('required')]
     public $casosExito = '';
