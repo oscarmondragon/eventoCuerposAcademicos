@@ -22,9 +22,6 @@ class ParticipantesForm extends Form
     public $lugarProcedencia;
 
     #[Validate('required')]
-    public $areasSeleccionadas;
-
-    #[Validate('required')]
     public $subareasSeleccionadas;
 
     #[Validate('required')]
@@ -55,6 +52,9 @@ class ParticipantesForm extends Form
 
     #[Validate('required')]
     public $integrantesBanner = '';
+
+    #[Validate('required')]
+    public $descripcionBanner = '';
 
     #[Validate('required')]
     public $telefonoBanner = '';
