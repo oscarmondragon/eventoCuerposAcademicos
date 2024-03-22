@@ -3,87 +3,127 @@
         Nuevo integrante
     </x-slot>
     <x-slot name="content">
-        <div class="w-full">
-
-            <div class="flex-col mt-3">
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Nombre<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text" id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Apellido paterno<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text" id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Apellido materno<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text" id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Grado académico<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text" id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Grado académico abreviado<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text" id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Sexo<span class="font-bold text-red-600">*</span>
-                </label>
-                <div class="flex mx-auto justify-around gap-x-5">
-                    <div>
-                        <input type="radio"
-                            class="p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <span class="ml-2">Hombre</span>
-                    </div>
-                    <div>
-                        <input type="radio"
-                            class="p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <span class="ml-2">Mujer</span>
-                    </div>
+        <div>
+            <div>
+                <div>
+                    <label for="nombre" class="label-modal">
+                        Nombre<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" id="nombre" wire:model.live="nombre" class="input-modal" placeholder="Juan">
+                    @error('nombre')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
                 </div>
 
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Género<span class="font-bold text-red-600">*</span>
-                </label>
-                <select id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="0">Selecciona una opción</option>
-                </select>
+                <div class="mt-4">
+                    <label for="apellidoPaterno" class="label-modal">
+                        Apellido paterno<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" id="apellidoPaterno" wire:model.live="apellidoPaterno"
+                    class="input-modal" placeholder="Beltran">
+                    @error('apellidoPaterno')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Correo electrónico<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="email"
-                    class="p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <div class="mt-4">
+                    <label for="apellidoMaterno" class="label-modal">
+                        Apellido materno<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" id="apellidoMaterno" wire:model.live="apellidoMaterno"
+                    class="input-modal" placeholder="Hernández">
+                    @error('apellidoMaterno')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Teléfono<span class="font-bold text-red-600">*</span>
-                </label>
-                <input type="text"
-                    class="p-2 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <div class="mt-4">
+                    <label for="gradoAcademico" class="label-modal">
+                        Grado académico<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" id="gradoAcademico" wire:model.live="gradoAcademico"
+                    class="input-modal" placeholder="Licenciatura en Inteligencia Artificial">
+                    @error('gradoAcademico')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
 
-                <label for="small-input" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Tipo de integrante<span class="font-bold text-red-600">*</span>
-                </label>
-                <select id="small-input"
-                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value="0">Selecciona una opción</option>
-                    <option value="1">Lider</option>
-                    <option value="2">Integrante</option>
-                </select>
+                <div class="mt-4">
+                    <label for="gradoAcademicoAbrev" class="label-modal">
+                        Grado académico abreviado<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" id="gradoAcademicoAbrev" wire:model.live="gradoAcademicoAbrev"
+                    class="input-modal" placeholder="LIA">
+                    @error('gradoAcademicoAbrev')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
 
+                <div class="mt-4">
+                    <label for="sexo" class="label-modal">
+                        Sexo<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <div class="flex mx-auto justify-around gap-x-5">
+                        <div>
+                            <input type="radio" id="sexo" name="sexo" wire:model.live="sexo">
+                            <span class="ml-2 text-textos">Mujer</span>
+                        </div>
+                        <div>
+                            <input type="radio" id="sexo" name="sexo" wire:model.live="sexo">
+                            <span class="ml-2 text-textos">Hombre</span>
+                        </div>
+                    </div>
+                    @error('sexo')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
 
+                <div class="mt-6">
+                    <label for="genero" class="label-modal">
+                        Género<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <select id="genero" class="w-full" wire:model.live="genero">
+                        <option value="0">Selecciona una opción</option>
+                    </select>
+                    @error('genero')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mt-4">
+                    <label for="correo" class="label-modal">
+                        Correo electrónico<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="email" class="input-modal" id="correo" wire:model.live="correo" placeholder="juanbh4@uamex.mx">
+                    @error('correo')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mt-4">
+                    <label for="telefono" class="label-modal">
+                        Teléfono<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <input type="text" class="input-modal" id="telefono" wire:model.live="telefono" placeholder="722 456 54 43">
+                    @error('telefono')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mt-4">
+                    <label for="tipoIntegrante" class="label-modal">
+                        Tipo de integrante<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <select id="tipoIntegrante" class="w-full" wire:model.live="tipoIntegrante">
+                        <option value="0">Selecciona una opción</option>
+                        <option value="1">Lider</option>
+                        <option value="2">Integrante</option>
+                    </select>
+                    @error('tipoIntegrante')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
-
-
         </div>
     </x-slot>
 

@@ -7,7 +7,7 @@
     <div class="bg-verde">
         <!-- bg-red-300 p-4 sm:px-6 sm:py-4 border-b border-gray-150 -->
         @if (isset($title))
-            <h3 class="text-lg leading-6 font-medium text-white pl-6 py-2">
+            <h3 class="text-lg leading-6 font-bold text-white pl-6 py-2">
                 {{ $title }}
             </h3>
         @endif

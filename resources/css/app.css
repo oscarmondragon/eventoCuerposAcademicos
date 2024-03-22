@@ -7,7 +7,7 @@
 }
 
 .btn-warning {
-    @apply bg-color_secundary text-white hover:bg-[#be9748] focus:ring-2 focus:outline-none focus:ring-[#947538] mt-2;
+    @apply bg-gray-500 text-white hover:bg-gray-700 focus:ring-2 focus:outline-none focus:ring-gray-800 mt-2;
 }
 
 .fondo_deg_formulario {
@@ -34,21 +34,36 @@ textarea {
     /* resize-none */
 }
 
- /* componentes generales FOCUS */
- select:focus,
- input[type="radio"]:focus,
- input[type="checkbox"]:focus,
- input[type="text"]:focus,
- input[type="number"]:focus,
- input[type="date"]:focus,
- input[type="password"]:focus {
-     @apply focus:border-verde focus:outline-none focus:ring-1 ring-verde;
- }
+/* componentes generales FOCUS */
+select:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    @apply focus:border-verde focus:outline-none focus:ring-1 ring-verde;
+}
 
- select {
+input[type="radio"],
+input[type="checkbox"] {
+    @apply text-verde outline-none rounded-full;
+}
+
+select {
     @apply bg-blanco text-textos rounded-md border-verde;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"] {
     @apply bg-blanco text-textos rounded-md border-verde h-10;
+}
+
+.label-modal {
+    @apply block mb-2 mt-2 text-sm font-bold text-textos dark:text-white;
+}
+
+.input-modal {
+    @apply w-full placeholder:text-sm;
 }
