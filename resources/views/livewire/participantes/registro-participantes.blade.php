@@ -46,6 +46,9 @@
                                     <option value="1">Interno a la UAEMex</option>
                                     <option value="2">Externo a la UAEMex</option>
                                 </select>
+                                @error('form.tipo_registro')
+                                    <span class="text-rojo block">{{ $message }}</span>
+                                @enderror
                             </div>
 
                             <div {{-- x-show="selectedRegistro != 0" --}} class="mt-4">
@@ -83,20 +86,26 @@
                                                 </label>
                                                 <input type="text" id="form.nombreGrupo"
                                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                    placeholder="nombre" wire:model.live="form.nombreGrupo"
-                                                    value="Facultad de Ciencias">
+                                                    placeholder="Facultad de Ciencias"
+                                                    wire:model.live="form.nombreGrupo" value="Facultad de Ciencias">
+                                                @error('form.nombreGrupo')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
                                             <div class="sm:flex flex-row items-center gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-3/4 w-full">
                                                     <label for="form.lugarProcedencia"
                                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                                                         Nombre completo de la universidad, dependencia o departamento de
-                                                        adcripción<span class="font-bold text-red-600">*</span>
+                                                        adscripción<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="text" id="form.lugarProcedencia"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         wire:model.live="form.lugarProcedencia"
-                                                        value="Universidad Autónoma del Estado de México">
+                                                        placeholder="Universidad Autónoma del Estado de México">
+                                                    @error('form.lugarProcedencia')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-1/4 w-full sm:mt-0 mt-5">
@@ -106,7 +115,8 @@
                                                     </label>
                                                     {{-- <input type="text" id="small-input"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
-                                                    <select id="form.pais" wire:model.live="form.pais" class="w-full">
+                                                    <select id="form.pais" wire:model.live="form.pais"
+                                                        class="w-full">
                                                         <option value="AR">Argentina</option>
                                                         <option value="BE">Bélgica</option>
                                                         <option value="CA">Canadá</option>
@@ -118,6 +128,44 @@
                                                         <option value="MX" selected>México</option>
                                                         <option value="NL">Países Bajos</option>
                                                     </select>
+                                                    @error('form.pais')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+
+                                            <div class="sm:flex flex-row  gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                    <label for="telefonoGeneral"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Teléfono<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="telefonoGeneral"
+                                                        wire:model.live="form.telefonoGeneral"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Teléfono" value="722 459 88 10">
+                                                    @error('form.telefonoBanner')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="flex-initial sm:w-3/5 w-full">
+                                                    <label for="correoGeneral"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Correo electrónico<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="correoGeneral"
+                                                        wire:model.live="form.correoGeneral"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Correo electrónico" value="hectamv@uaemex.mx">
+                                                        
+                                                    @error('form.correoGeneral')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                    <p class="text-xs text-textos ml-1">
+                                                        <span class="font-medium">Nota: </span>
+                                                        Este correo electrónico sera el identificador del registro y el principal medio de contacto.
+                                                    </p>
                                                 </div>
                                             </div>
 
@@ -140,11 +188,14 @@
                                                     <ul>
                                                         @foreach ($areasOptions as $area)
                                                             <li wire:click="actualizarAreasSeleccionadas({{ $area }})"
-                                                                class=" hover:bg-green-200 {{ $area->id == $areaSeleccionada ? 'bg-green-500' : 'bg-gray-100' }}">
+                                                                class="cursor-pointer text-textos hover:bg-verde/70 hover:text-white hover:font-bold {{ $area->id == $areaSeleccionada ? 'bg-verde/40' : 'bg-blanco' }}">
                                                                 {{ $area->nombre }}
                                                             </li>
                                                         @endforeach
                                                     </ul>
+                                                    @error('form.areasSeleccionadas')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
 
@@ -154,20 +205,21 @@
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <div>
-                                                        <div>
+                                                        <div class="flex flex-col">
                                                             @foreach (collect($subareasOptions)->groupBy('grupo.nombre') as $grupo => $subareasDelGrupo)
-                                                                <h1 class="text-green-500">{{ $grupo }}</h1>
-                                                                <ul class="grid grid-cols-2">
+                                                                <h1 class="text-verde font-bold text-base">
+                                                                    {{ $grupo }}</h1>
+                                                                <ul>
                                                                     @foreach ($subareasDelGrupo as $subarea)
                                                                         <li wire:click="selectSubareaOption({{ $subarea }})"
-                                                                            class="hover:bg-green-200"
-                                                                            :class="{ 'bg-green-400': {{ array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false ? 'true' : 'false ?>' }} }">
-
+                                                                            class="hover:bg-dorado/60 hover:text-white hover:font-bold cursor-pointer flex items-center"
+                                                                            :class="{ 'bg-dorado/30': {{ array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false ? 'true' : 'false ?>' }} }">
                                                                             {{ $subarea->nombre }}
                                                                             @if (array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false)
-                                                                                <span class="check-symbol">✓</span>
+                                                                                <span class="ml-2 font-bold">✓</span>
                                                                             @else
-                                                                                <span>&#61442;</span>
+                                                                                <span
+                                                                                    class="w-3 h-3 bg-gray-100 border-2 border-black ml-2"></span>
                                                                             @endif
 
 
@@ -176,6 +228,9 @@
                                                                 </ul>
                                                             @endforeach
                                                         </div>
+                                                        @error('subareasSeleccionadas')
+                                                            <span class="text-rojo block">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
 
                                                 </div>
@@ -202,6 +257,9 @@
                                                         wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
                                                         +
                                                     </button>
+                                                    @error('form.lineasInvestigacion')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos != null "
@@ -253,6 +311,9 @@
                                                 </label>
                                                 <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
                                                     placeholder="Principales productos logrados...">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</textarea>
+                                                @error('form.productosLogrados')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <div class="mt-5">
@@ -263,6 +324,9 @@
                                                 </label>
                                                 <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
                                                     placeholder="Casos de éxito...">Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo.</textarea>
+                                                @error('form.casosExito')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <div class="mt-5">
@@ -274,6 +338,9 @@
                                                 </label>
                                                 <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
                                                     placeholder="Proyección y propuesta de vinculación...">Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de Finnibus Bonorum et Malorum"</textarea>
+                                                @error('form.propuestas')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <div class="sm:flex flex-row items-center gap-x-4 mt-5">
@@ -284,6 +351,9 @@
                                                     </label>
                                                     <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
                                                         placeholder="Fortalezas...">Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar</textarea>
+                                                    @error('form.fortalezas')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-1/2 w-full">
@@ -293,6 +363,9 @@
                                                     </label>
                                                     <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
                                                         placeholder="Necesidades...">Usa un diccionario de mas de 200 palabras provenientes del latín, combinadas con estructuras muy útiles de sentencias, para generar texto de Lorem Ipsum que parezca razonable. Este Lorem Ipsum generado siempre estará libre de repeticiones, humor agregado o palabras no características del lenguaje, etc.</textarea>
+                                                    @error('form.necesidades')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -332,7 +405,7 @@
                                                         {{-- <x-secondary-button class="ms-3"
                                                         wire:click="$dispatch('openModal', {component: 'modals.integrantes-modal'})">
                                                         {{ __('Add') }}
-                                                    </x-secondary-button> --}}
+                                                        </x-secondary-button> --}}
                                                         <button type="button" id="btnLider"
                                                             class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
                                                             wire:click="$dispatch('openModal', {component: 'modals.integrantes-modal'})">
@@ -368,6 +441,9 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    @error('form.integrantes')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div>
@@ -484,9 +560,12 @@
                                                 class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
                                                 disabled:bg-[#e0dddd] disabled:text-[#777171] disabled:font-bold disabled:border-[#888181] disabled:cursor-not-allowed"
                                                 value="Facultad de Ciencias" disabled>
+                                            @error('form.nombreGrupoBannes')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
 
                                             <div class="mt-5">
-                                                <label for="integrantesBanner"
+                                                <label for="form.integrantesBanner"
                                                     class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
                                                     Integrantes
                                                 </label>
@@ -504,6 +583,9 @@
                                                         </a>
                                                     </li>
                                                 </ul>
+                                                @error('form.integrantesBanner')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <div class="mt-5">
@@ -514,6 +596,9 @@
                                                 </label>
                                                 <textarea id="form.descripcionBanner" rows="4" wire:model.live="form.descripcionBanner" class="w-full"
                                                     placeholder="Leave a comment...">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</textarea>
+                                                @error('form.descripcionBanner')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </div>
 
                                             <h2 class="mt-5">Datos de contacto</h2>
@@ -527,6 +612,9 @@
                                                         wire:model.live="form.telefonoBanner"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="Teléfono" value="722 459 88 10">
+                                                    @error('form.telefonoBanner')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/5 w-full">
@@ -538,6 +626,9 @@
                                                         wire:model.live="form.correoBanner"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="Correo electrónico" value="hectamv@uaemex.mx">
+                                                    @error('form.correoBanner')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
@@ -549,32 +640,48 @@
                                                 {{-- <input type="text" id="form.redesBanner"
                                                     wire:model.live="form.redesBanner"
                                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
-
-
-                                                <div class="flex justify-evenly mt-5">
-                                                    <div x-data="{ open: false }">
-                                                        <button type="button" class="button bg-blue-600"
-                                                            @click="open = ! open">
-                                                            Facebook
+                                                <div
+                                                    class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
+                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                        <button type="button"
+                                                            class="button bg-[#1877f2] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            @click="open = ! open" title="Facebook">
+                                                            <img src="{{ 'img/iconos/icFacebook.png' }}"
+                                                                alt="Icono Facebook" class="inline-block w-8">
+                                                            <span class="sm:hidden">Facebook</span>
                                                         </button>
                                                         <div x-show="open" class="mt-2">
-                                                            <input type="text" placeholder="Facebook">
+                                                            <input type="text" id="facebook"
+                                                                wire:model.live="form.facebook"
+                                                                placeholder="facebook.com/uaemex">
                                                         </div>
                                                     </div>
 
-                                                    <div x-data="{ open: false }">
-                                                        <button type="button" class="button bg-black"
-                                                            @click="open = ! open">X</button>
+                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                        <button type="button"
+                                                            class="button bg-black sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            @click="open = ! open" title="X">
+                                                            <img src="{{ 'img/iconos/icX.png' }}" alt="Icono X"
+                                                                class="inline-block w-8">
+                                                        </button>
                                                         <div x-show="open" class="mt-2">
-                                                            <input type="text" placeholder="X">
+                                                            <input type="text" id="x"
+                                                                wire:model.live="form.x" placeholder="x.com/uaemex">
                                                         </div>
                                                     </div>
 
-                                                    <div x-data="{ open: false }">
-                                                        <button type="button" class="button bg-red-600"
-                                                            @click="open = ! open">YouTube</button>
+                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                        <button type="button"
+                                                            class="button bg-[#ff0000] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            @click="open = ! open" title="YouTube">
+                                                            <img src="{{ 'img/iconos/icYoutube.png' }}"
+                                                                alt="Icono YouTube" class="inline-block w-8">
+                                                            <span class="sm:hidden">YouTube</span>
+                                                        </button>
                                                         <div x-show="open" class="mt-2">
-                                                            <input type="text" placeholder="YouTube">
+                                                            <input type="text" id="youtube"
+                                                                wire:model.live="form.youtube"
+                                                                placeholder="youtube.com/uaemex">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -620,6 +727,9 @@
                                                     Importante: Es necesario subir tu comprobante de pago para ser
                                                     considerado como participante.
                                                 </div>
+                                                @error('form.boucher')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                             </form>
                                         </div>
                                     </div>
