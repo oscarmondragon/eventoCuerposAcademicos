@@ -28,7 +28,7 @@
 
                 <div class="mt-4">
                     <label for="apellidoMaterno" class="label-modal">
-                        Apellido materno<span class="font-bold text-red-600">*</span>
+                        Apellido materno
                     </label>
                     <input type="text" id="apellidoMaterno" wire:model.live="apellidoMaterno"
                     class="input-modal" placeholder="Hernández">
@@ -102,24 +102,10 @@
 
                 <div class="mt-4">
                     <label for="telefono" class="label-modal">
-                        Teléfono<span class="font-bold text-red-600">*</span>
+                        Teléfono
                     </label>
                     <input type="text" class="input-modal" id="telefono" wire:model.live="telefono" placeholder="722 456 54 43">
                     @error('telefono')
-                        <span class="text-rojo block">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mt-4">
-                    <label for="tipoIntegrante" class="label-modal">
-                        Tipo de integrante<span class="font-bold text-red-600">*</span>
-                    </label>
-                    <select id="tipoIntegrante" class="w-full" wire:model.live="tipoIntegrante">
-                        <option value="0">Selecciona una opción</option>
-                        <option value="1">Lider</option>
-                        <option value="2">Integrante</option>
-                    </select>
-                    @error('tipoIntegrante')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
                 </div>

@@ -134,6 +134,41 @@
                                                 </div>
                                             </div>
 
+                                            <div class="sm:flex flex-row  gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                    <label for="telefonoGeneral"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Teléfono<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="telefonoGeneral"
+                                                        wire:model.live="form.telefonoGeneral"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Teléfono" value="722 459 88 10">
+                                                    @error('form.telefonoBanner')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="flex-initial sm:w-3/5 w-full">
+                                                    <label for="correoGeneral"
+                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        Correo electrónico<span class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="correoGeneral"
+                                                        wire:model.live="form.correoGeneral"
+                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                        placeholder="Correo electrónico" value="hectamv@uaemex.mx">
+                                                        
+                                                    @error('form.correoGeneral')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                    <p class="text-xs text-textos ml-1">
+                                                        <span class="font-medium">Nota: </span>
+                                                        Este correo electrónico sera el identificador del registro y el principal medio de contacto.
+                                                    </p>
+                                                </div>
+                                            </div>
+
                                             <div class="sm:flex flex-row items-center gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-1/4 w-full">
                                                     <label for="areaSeleccionada"
