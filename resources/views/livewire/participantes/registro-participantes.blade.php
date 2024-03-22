@@ -262,88 +262,42 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="overflow-x-auto mt-5">
+                                                <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos != null "
+                                                    class ="overflow-x-auto mt-5">
                                                     <table
                                                         class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                         <thead>
                                                             <tr class="bg-blanco">
                                                                 <th class="w-[20%]">Nombre de la línea</th>
-                                                                <th class="w-[70%]">Descripción</th>
+                                                                <th class="w-[60%]">Descripción</th>
                                                                 <th class="w-[10%]">Acción</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr class="border border-b-gray-50 border-transparent">
-                                                                <td>Epistemologías, metodologías y nuevos
-                                                                    saberes</td>
-                                                                <td>Esta línea o campo de investigación se
-                                                                    centra en el
-                                                                    debate referido a la producción del
-                                                                    conocimiento y
-                                                                    tiene
-                                                                    varios ejes de reflexión: uno de
-                                                                    carácter histórico
-                                                                    sobre el desarrollo del pensamiento
-                                                                    crítico
-                                                                    feminista, otro de carácter
-                                                                    epistemológico que se
-                                                                    refiere a
-                                                                    teorías, conceptos y paradigmas dentro
-                                                                    de los
-                                                                    estudios de género y a la contribución
-                                                                    de éstos al
-                                                                    desarrollo de las
-                                                                    ciencia sociales y humanas, el tercer
-                                                                    eje cuestiona
-                                                                    a las teorías y debates hegemónicos e
-                                                                    incluye nuevos
-                                                                    discursos y
-                                                                    saberes sobre subalternidad en relación
-                                                                    a la
-                                                                    producción de
-                                                                    conocimientos que se articulan dentro de
-                                                                    movimientos
-                                                                    sociales y que habían sido excluidos
-                                                                    hasta ahora.
-                                                                </td>
-                                                                <td>
-                                                                    <button class="btn-tablas btn-transition">
-                                                                        <img src="{{ 'img/botones/btn_eliminar.png' }}"
-                                                                            alt="Botón eliminar" title="Eliminar"
-                                                                            class="ml-5">
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="border border-b-gray-50 border-transparent">
-                                                                <td>Cuerpo, saberes y tecnologías</td>
-                                                                <td>En este campo el eje que articula es el
-                                                                    debate sobre
-                                                                    el cuerpo visto desde distintas
-                                                                    perspectivas. Una
-                                                                    primera se refiere a
-                                                                    la producción de los cuerpos como parte
-                                                                    de los
-                                                                    ordenamientos sociales, sus jerarquías y
-                                                                    sus
-                                                                    imaginarios; la segunda problematiza
-                                                                    la influencia de la tecno-ciencia en la
-                                                                    forma de
-                                                                    reconfigurar a los cuerpos, la tercera
-                                                                    cuestiona a
-                                                                    los imaginarios de la
-                                                                    representación dominantes y critica a
-                                                                    las categorías
-                                                                    de cuerpo, naturaleza, sujeto y sociedad
-                                                                    vigentes
-                                                                </td>
-                                                                <td>
-                                                                    <button class="btn-tablas btn-transition">
-                                                                        <img src="{{ 'img/botones/btn_eliminar.png' }}"
-                                                                            alt="Botón eliminar" title="Eliminar"
-                                                                            class="ml-5">
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
+                                                            <template x-for="(elemento, index) in elementos"
+                                                                :key="index">
+                                                                <tr
+                                                                    class="border border-b-gray-200 border-transparent">
+                                                                    <th x-text="elemento.nombre">jjj
+                                                                    </th>
+                                                                    <th x-text="elemento.descripcion">
+                                                                    </th>
+                                                                    <td>
+                                                                        <button type="button" class="btn-tablas"
+                                                                            @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion }})">
+                                                                            <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                alt="Image/png" title="Editar">
+                                                                        </button>
+                                                                        <button type="button"
+                                                                            @click.stop="elementos.splice(index, 1); $wire.deleteLinea(elemento)"
+                                                                            class="btn-tablas btn-transition">
+                                                                            <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                alt="Botón eliminar" title="Eliminar"
+                                                                                class="ml-5">
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            </template>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -686,8 +640,6 @@
                                                 {{-- <input type="text" id="form.redesBanner"
                                                     wire:model.live="form.redesBanner"
                                                     class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
-
-
                                                 <div
                                                     class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
                                                     <div x-data="{ open: false }" class="basis-1/3">

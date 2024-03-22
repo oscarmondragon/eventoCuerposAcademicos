@@ -4,6 +4,7 @@ namespace App\Livewire\Participantes;
 
 use App\Livewire\Forms\ParticipantesForm;
 use App\Models\Area;
+use App\Models\Linea;
 use App\Models\Subarea;
 use App\Models\TipoLider;
 use Livewire\Component;
@@ -14,11 +15,15 @@ class RegistroParticipantes extends Component
 
     public $selectedSubareas = [];
     public $areaSeleccionada;
-
-
     public ParticipantesForm $form;
 
+    public $listeners = [
+        'addLinea'
+    ];
+
     #[Layout('layouts.publico')]
+
+
     public function render()
     {
         //Inicializacion de variables
@@ -51,8 +56,6 @@ class RegistroParticipantes extends Component
 
     public function selectSubareaOption($subarea)
     {
-
-
         if (isset ($subarea['area'])) {
             dd($subarea);
         }
@@ -86,5 +89,63 @@ class RegistroParticipantes extends Component
     {
         // dd($areaId);
         $this->areaSeleccionada = $areaId['id'];
+    }
+
+    public function addLinea($_id, $nombre, $descripcion)
+    {
+        $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
+
+        if ($_id == 0) { //entramos aqui si el item es nuevo
+            // Genera un nuevo ID para el elemento
+            $newItemId = $this->form->lineasInvestigacion->max('_id') + 1;
+
+            //Agregamos la linea al arreglo
+            $this->form->lineasInvestigacion->push([
+                '_id' => $newItemId,
+                'nombre' => $nombre,
+                'descripcion' => $descripcion,
+            ]);
+
+        } else {
+            //Entra aqui para editar el existente
+            //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
+            $linea = $this->form->lineasInvestigacion->firstWhere('_id', $_id);
+
+            if ($linea) {
+                //actualizamos el item si existe en la busqueda
+                $linea['nombre'] = $nombre;
+                $linea['descripcion'] = $descripcion;
+
+                //Devolvemos la nueva collecion
+                $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->map(function ($linea) use ($_id, $nombre, $descripcion) {
+                    if ($linea['_id'] == $_id) {
+                        $linea['nombre'] = $nombre;
+                        $linea['descripcion'] = $descripcion;
+                    }
+                    return $linea;
+                });
+                //actualizamos indices
+                $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->values();
+            }
+
+        }
+    }
+
+    public function deleteLinea($linea)
+    {
+
+        //La linea SE ESTA ELIMINANDO CON ALPINEJS desde el front
+
+        //Comprobamos si el bien ya esta en bd para eliminarlo y actualizar datos   
+        if (isset ($linea['id'])) {
+            $lineaBd = Linea::findOrFail($linea['id']);
+            if ($lineaBd) { // si lo encuentra lo eliminamos
+
+                //Eliminamos el bien
+                $lineaBd->delete();
+            }
+        }
+
+        $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
     }
 }

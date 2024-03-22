@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -25,7 +26,7 @@ class ParticipantesForm extends Form
     public $subareasSeleccionadas;
 
     #[Validate('required')]
-    public $lineasInvestigacion = [];
+    public $lineasInvestigacion;
 
     #[Validate('required')]
     public $productosLogrados = '';
@@ -65,6 +66,8 @@ class ParticipantesForm extends Form
 
     //BOUCHER
     public $boucher;
+
+
 
     public function store()
     {
