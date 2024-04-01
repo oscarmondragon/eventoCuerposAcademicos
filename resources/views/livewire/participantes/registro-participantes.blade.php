@@ -158,13 +158,14 @@
                                                         wire:model.live="form.correoGeneral"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                         placeholder="Correo electrónico" value="hectamv@uaemex.mx">
-                                                        
+
                                                     @error('form.correoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                     <p class="text-xs text-textos ml-1">
                                                         <span class="font-medium">Nota: </span>
-                                                        Este correo electrónico sera el identificador del registro y el principal medio de contacto.
+                                                        Este correo electrónico sera el identificador del registro y el
+                                                        principal medio de contacto.
                                                     </p>
                                                 </div>
                                             </div>
@@ -609,9 +610,9 @@
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="text" id="form.telefonoBanner"
-                                                        wire:model.live="form.telefonoBanner"
+                                                        wire:model="form.telefonoBanner"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Teléfono" value="722 459 88 10">
+                                                        placeholder="Teléfono">
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
