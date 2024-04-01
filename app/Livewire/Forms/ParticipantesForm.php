@@ -20,6 +20,12 @@ class ParticipantesForm extends Form
     public $pais;
 
     #[Validate('required')]
+    public $telefonoGeneral;
+
+    #[Validate('required')]
+    public $correoGeneral;
+
+    #[Validate('required')]
     public $lugarProcedencia;
 
     #[Validate('required')]
