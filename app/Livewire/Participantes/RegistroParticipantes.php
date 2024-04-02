@@ -23,6 +23,10 @@ class RegistroParticipantes extends Component
 
     #[Layout('layouts.publico')]
 
+    public function mount(){
+        $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
+    }
+
 
     public function render()
     {
@@ -129,6 +133,8 @@ class RegistroParticipantes extends Component
             }
 
         }
+
+        $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
     }
 
     public function deleteLinea($linea)
@@ -147,5 +153,17 @@ class RegistroParticipantes extends Component
         }
 
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
+    }
+
+    public function updateTelefonoBanner(){
+        $this->form->telefonoBanner = $this->form->telefonoGeneral;
+    }
+
+    public function updateCorreoBanner(){
+        $this->form->correoBanner = $this->form->correoGeneral;
+    }
+
+    public function updateCuerpoAcadBanner(){
+        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
     }
 }

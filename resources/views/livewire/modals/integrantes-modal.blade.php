@@ -65,12 +65,12 @@
                     </label>
                     <div class="flex mx-auto justify-around gap-x-5">
                         <div>
-                            <input type="radio" id="sexo" name="sexo" wire:model.live="sexo">
-                            <span class="ml-2 text-textos">Mujer</span>
+                            <input type="radio" id="mujer" name="sexo" wire:model.live="sexo" value="Mujer">
+                            <label for="mujer" class="ml-2 text-textos">Mujer</label>
                         </div>
                         <div>
-                            <input type="radio" id="sexo" name="sexo" wire:model.live="sexo">
-                            <span class="ml-2 text-textos">Hombre</span>
+                            <input type="radio" id="hombre" name="sexo" wire:model.live="sexo" value="Hombre">
+                            <label for="hombre" class="ml-2 text-textos">Hombre</label>
                         </div>
                     </div>
                     @error('sexo')

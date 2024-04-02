@@ -4,10 +4,10 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div class="py-6">
+    <div class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-10 text-gray-900 dark:text-gray-100">
+                <div class="p-10 dark:text-gray-100">
                     <div id="alert-1"
                         class="flex items-center p-4 mb-4 text-color_primary rounded-lg bg-verde/40 dark:bg-gray-800 dark:text-blue-400"
                         role="alert">
@@ -36,8 +36,7 @@
                         <div x-data="{ selectedRegistro: 0 }">
 
                             <div>
-                                <label for="tipo_registro"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                <label for="tipo_registro" class="block mb-2 dark:text-white">
                                     Selecciona procedencia<span class="font-bold text-red-600">*</span>
                                 </label>
                                 <select id="tipo_registro" x-on:click="open = ! open" x-model="selectedRegistro"
@@ -79,28 +78,25 @@
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
 
                                             <div>
-                                                <label for="form.nombreGrupo"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                <label for="form.nombreGrupo" class="block mb-2 dark:text-white">
                                                     Nombre del Cuerpo Académico, red o grupo de investigación<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
-                                                <input type="text" id="form.nombreGrupo"
-                                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                <input type="text" id="form.nombreGrupo" class="w-full"
                                                     placeholder="Facultad de Ciencias"
-                                                    wire:model.live="form.nombreGrupo" value="Facultad de Ciencias">
+                                                    wire:model.live="form.nombreGrupo" wire:change="updateCuerpoAcadBanner">
                                                 @error('form.nombreGrupo')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
                                             </div>
-                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-3/4 w-full">
                                                     <label for="form.lugarProcedencia"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        class="block mb-2 dark:text-white">
                                                         Nombre completo de la universidad, dependencia o departamento de
                                                         adscripción<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="form.lugarProcedencia"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                    <input type="text" id="form.lugarProcedencia" class="w-full"
                                                         wire:model.live="form.lugarProcedencia"
                                                         placeholder="Universidad Autónoma del Estado de México">
                                                     @error('form.lugarProcedencia')
@@ -109,14 +105,12 @@
                                                 </div>
 
                                                 <div class="flex-initial sm:w-1/4 w-full sm:mt-0 mt-5">
-                                                    <label for="form.pais"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    <label for="form.pais" class="block mb-2 dark:text-white">
                                                         Pais procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     {{-- <input type="text" id="small-input"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
-                                                    <select id="form.pais" wire:model.live="form.pais"
-                                                        class="w-full">
+                                                    <select id="form.pais" wire:model.live="form.pais" class="w-full">
                                                         <option value="AR">Argentina</option>
                                                         <option value="BE">Bélgica</option>
                                                         <option value="CA">Canadá</option>
@@ -134,46 +128,42 @@
                                                 </div>
                                             </div>
 
-                                            <div class="sm:flex flex-row  gap-x-4 mt-5">
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-2/5 w-full">
-                                                    <label for="telefonoGeneral"
-                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                    <label for="form.telefonoGeneral"
+                                                        class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="telefonoGeneral"
-                                                        wire:model.live="form.telefonoGeneral"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Teléfono" value="722 459 88 10">
-                                                    @error('form.telefonoBanner')
+                                                    <input type="text" id="form.telefonoGeneral"
+                                                        wire:model.live="form.telefonoGeneral" wire:change="updateTelefonoBanner" class="w-full"
+                                                        placeholder="Teléfono">
+                                                    @error('form.telefonoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/5 w-full">
-                                                    <label for="correoGeneral"
-                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                    <label for="form.correoGeneral"
+                                                        class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="correoGeneral"
-                                                        wire:model.live="form.correoGeneral"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Correo electrónico" value="hectamv@uaemex.mx">
-
-                                                    @error('form.correoGeneral')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
-                                                    <p class="text-xs text-textos ml-1">
-                                                        <span class="font-medium">Nota: </span>
+                                                    <input type="email" id="form.correoGeneral"
+                                                        wire:model.live="form.correoGeneral" wire:change="updateCorreoBanner" class="w-full"
+                                                        placeholder="Correo electrónico">
+                                                    <p class="text-sm text-textos ml-1">
+                                                        <span class="font-bold">Nota: </span>
                                                         Este correo electrónico sera el identificador del registro y el
                                                         principal medio de contacto.
                                                     </p>
+                                                    @error('form.correoGeneral')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
 
-                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-1/4 w-full">
-                                                    <label for="areaSeleccionada"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    <label for="areaSeleccionada" class="block mb-2 dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     {{--  <select id="form.areasSeleccionadas"
@@ -202,13 +192,13 @@
 
                                                 <div class="flex-initial sm:w-3/4 w-full">
                                                     <label for="form.subareaTematica"
-                                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        class="block mb-2 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <div>
                                                         <div class="flex flex-col">
                                                             @foreach (collect($subareasOptions)->groupBy('grupo.nombre') as $grupo => $subareasDelGrupo)
-                                                                <h1 class="text-verde font-bold text-base">
+                                                                <h1 class="text-verde font-bold">
                                                                     {{ $grupo }}</h1>
                                                                 <ul>
                                                                     @foreach ($subareasDelGrupo as $subarea)
@@ -251,8 +241,8 @@
                                             <div class="mt-5">
                                                 <div class="flex items-center">
                                                     <label for="btnLineas">Lineas de generación y aplicacion del
-                                                        conocimiento<span
-                                                            class="font-bold text-red-600 mr-2">*</span></label>
+                                                        conocimiento<span class="font-bold text-red-600 mr-2">*</span>
+                                                    </label>
                                                     <button type="button" id="btnLineas"
                                                         class="btn-transition bg-verde text-white text-xl rounded-full px-4 py-2"
                                                         wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
@@ -263,14 +253,14 @@
                                                     @enderror
                                                 </div>
 
-                                                <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos != null "
+                                                <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
                                                     class ="overflow-x-auto mt-5">
                                                     <table
                                                         class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                         <thead>
                                                             <tr class="bg-blanco">
                                                                 <th class="w-[20%]">Nombre de la línea</th>
-                                                                <th class="w-[60%]">Descripción</th>
+                                                                <th class="w-[70%]">Descripción</th>
                                                                 <th class="w-[10%]">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -279,23 +269,27 @@
                                                                 :key="index">
                                                                 <tr
                                                                     class="border border-b-gray-200 border-transparent">
-                                                                    <th x-text="elemento.nombre">jjj
-                                                                    </th>
-                                                                    <th x-text="elemento.descripcion">
-                                                                    </th>
-                                                                    <td>
-                                                                        <button type="button" class="btn-tablas"
-                                                                            @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion }})">
-                                                                            <img src="{{ '/img/botones/btn_editar.png' }}"
-                                                                                alt="Image/png" title="Editar">
-                                                                        </button>
-                                                                        <button type="button"
-                                                                            @click.stop="elementos.splice(index, 1); $wire.deleteLinea(elemento)"
-                                                                            class="btn-tablas btn-transition">
-                                                                            <img src="{{ 'img/botones/btn_eliminar.png' }}"
-                                                                                alt="Botón eliminar" title="Eliminar"
-                                                                                class="ml-5">
-                                                                        </button>
+                                                                    <td x-text="elemento.nombre"></td>
+                                                                    <td x-text="elemento.descripcion"></td>
+                                                                    <td
+                                                                        class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-3 mx-auto">
+                                                                        <div class="flex">
+                                                                            <button type="button"
+                                                                                class="btn-tablas btn-transition"
+                                                                                @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion }})">
+                                                                                <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                    alt="Image/png" title="Editar">
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="flex">
+                                                                            <button type="button"
+                                                                                @click.stop="elementos.splice(index, 1); $wire.deleteLinea(elemento)"
+                                                                                class="btn-tablas btn-transition">
+                                                                                <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                    alt="Botón eliminar"
+                                                                                    title="Eliminar">
+                                                                            </button>
+                                                                        </div>
                                                                     </td>
                                                                 </tr>
                                                             </template>
@@ -306,52 +300,50 @@
 
                                             <div class="mt-7">
                                                 <label for="form.productosLogrados"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    class="block mb-2 dark:text-white">
                                                     Principales productos logrados<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
-                                                    placeholder="Principales productos logrados...">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</textarea>
+                                                    placeholder="Principales productos logrados..."></textarea>
                                                 @error('form.productosLogrados')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="mt-5">
-                                                <label for="form.casosExito"
-                                                    class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                <label for="form.casosExito" class="block mb-2 mt-2 dark:text-white">
                                                     Casos de éxito de trasnferencia<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
-                                                    placeholder="Casos de éxito...">Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo.</textarea>
+                                                    placeholder="Casos de éxito..."></textarea>
                                                 @error('form.casosExito')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
                                             <div class="mt-5">
-                                                <label for="form.propuestas"
-                                                    class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                <label for="form.propuestas" class="block mb-2 mt-2 dark:text-white">
                                                     Proyección y propuesta de vinculación o servicios que se brindan o
                                                     proyectos para posible vinculación<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
-                                                    placeholder="Proyección y propuesta de vinculación...">Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, "consecteur", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de "de Finnibus Bonorum et Malorum"</textarea>
+                                                    placeholder="Proyección y propuesta de vinculación..."></textarea>
                                                 @error('form.propuestas')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
-                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-1/2 w-full">
                                                     <label for="form.fortalezas"
-                                                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        class="block mb-2 mt-2 dark:text-white">
                                                         Fortalezas<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
-                                                        placeholder="Fortalezas...">Hay muchas variaciones de los pasajes de Lorem Ipsum disponibles, pero la mayoría sufrió alteraciones en alguna manera, ya sea porque se le agregó humor, o palabras aleatorias que no parecen ni un poco creíbles. Si vas a utilizar</textarea>
+                                                        placeholder="Fortalezas..."></textarea>
                                                     @error('form.fortalezas')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -359,11 +351,11 @@
 
                                                 <div class="flex-initial sm:w-1/2 w-full">
                                                     <label for="form.necesidades"
-                                                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        class="block mb-2 mt-2 dark:text-white">
                                                         Necesidades<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
-                                                        placeholder="Necesidades...">Usa un diccionario de mas de 200 palabras provenientes del latín, combinadas con estructuras muy útiles de sentencias, para generar texto de Lorem Ipsum que parezca razonable. Este Lorem Ipsum generado siempre estará libre de repeticiones, humor agregado o palabras no características del lenguaje, etc.</textarea>
+                                                        placeholder="Necesidades..."></textarea>
                                                     @error('form.necesidades')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -394,13 +386,10 @@
                                     <div id="accordion-open-body-2" class="hidden"
                                         aria-labelledby="accordion-open-heading-2">
                                         <div class="p-5 border border-b-0 border-dorado dark:border-gray-700">
-
-
-                                            <div class="grid grid-cols-2 gap-x-6">
-                                                <div>
+                                            <div class="flex sm:flex-row flex-col gap-6">
+                                                <div class="flex-initial w-full">
                                                     <div class="flex items-end">
-                                                        <label for="btnLider"
-                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                        <label for="btnLider" class="block mb-2 dark:text-white">
                                                             Lider
                                                         </label>
                                                         {{-- <x-secondary-button class="ms-3"
@@ -447,10 +436,10 @@
                                                     @enderror
                                                 </div>
 
-                                                <div>
+                                                <div class="flex-initial w-full">
                                                     <div class="flex items-end">
                                                         <label for="btnIntegrantes"
-                                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                            class="block mb-2 dark:text-white">
                                                             Integrantes
                                                         </label>
                                                         {{-- <x-secondary-button class="ms-3"
@@ -551,37 +540,30 @@
                                     <div id="accordion-open-body-3" class="hidden"
                                         aria-labelledby="accordion-open-heading-3">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
-                                            <label for="form.nombreGrupoBannes"
-                                                class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                            <label for="form.nombreGrupoBanner" class="block mb-2 dark:text-white">
                                                 Nombre del Cuerpo Académico, red o grupo de investigación<span
                                                     class="font-bold text-red-600">*</span>
                                             </label>
-                                            <input type="text" id="form.nombreGrupoBannes"
-                                                wire:model.live="form.nombreGrupoBannes"
-                                                class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500
-                                                disabled:bg-[#e0dddd] disabled:text-[#777171] disabled:font-bold disabled:border-[#888181] disabled:cursor-not-allowed"
-                                                value="Facultad de Ciencias" disabled>
-                                            @error('form.nombreGrupoBannes')
+                                            <input type="text" id="form.nombreGrupoBanner"
+                                                wire:model="form.nombreGrupoBanner"
+                                                class="w-full disabled"
+                                                value="{{ $form->nombreGrupo }}"
+                                                placeholder="Nombre del Cuerpo Académico" disabled>
+                                            @error('form.nombreGrupoBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
                                             <div class="mt-5">
                                                 <label for="form.integrantesBanner"
-                                                    class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                    class="block mb-2 dark:text-white">
                                                     Integrantes
                                                 </label>
-                                                <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
+                                                <ul class="ps-5 list-disc dark:text-gray-400">
                                                     <li>
-                                                        <a href="https://flowbite.com/pro/"
-                                                            class="text-blue-600 dark:text-blue-500 hover:underline">
-                                                            Ana Karen Valdez Contreras
-                                                        </a>
+                                                        Ana Karen Valdez Contreras
                                                     </li>
                                                     <li>
-                                                        <a href="https://tailwindui.com/" rel="nofollow"
-                                                            class="text-blue-600 dark:text-blue-500 hover:underline">
-                                                            Erick Jonathan Ruiz Gonzales
-                                                        </a>
+                                                        Erick Jonathan Ruiz Gonzales
                                                     </li>
                                                 </ul>
                                                 @error('form.integrantesBanner')
@@ -591,12 +573,12 @@
 
                                             <div class="mt-5">
                                                 <label for="form.descripcionBanner"
-                                                    class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">
+                                                    class="block mb-2 mt-2 dark:text-white">
                                                     Descripción de su principal línea de generación y aplicación del
                                                     conocimiento<span class="font-bold text-red-600">*</span>
                                                 </label>
-                                                <textarea id="form.descripcionBanner" rows="4" wire:model.live="form.descripcionBanner" class="w-full"
-                                                    placeholder="Leave a comment...">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original.</textarea>
+                                                <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full"
+                                                    placeholder="Descripción..."></textarea>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -606,27 +588,25 @@
                                             <div class="sm:flex flex-row items-center gap-x-4 mt-2">
                                                 <div class="flex-initial sm:w-2/5 w-full">
                                                     <label for="form.telefonoBanner"
-                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                        class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="text" id="form.telefonoBanner"
-                                                        wire:model="form.telefonoBanner"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Teléfono">
+                                                        wire:model="form.telefonoBanner" class="w-full disabled"
+                                                        placeholder="Teléfono" disabled>
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/5 w-full">
-                                                    <label for="form.correoBanner"
-                                                        class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                    <label for="form.correoBanner" class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="form.correoBanner"
-                                                        wire:model.live="form.correoBanner"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                                        placeholder="Correo electrónico" value="hectamv@uaemex.mx">
+                                                    <input type="email" id="form.correoBanner"
+                                                        wire:model="form.correoBanner" class="w-full disabled"
+                                                        value="{{ $form->correoGeneral }}"
+                                                        placeholder="Correo electrónico" disabled>
                                                     @error('form.correoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -634,13 +614,9 @@
                                             </div>
 
                                             <div class="mt-5">
-                                                <label for="form.redesBanner"
-                                                    class="block mb-2  text-sm font-medium text-gray-900 dark:text-white">
+                                                <label class="block mb-2 dark:text-white">
                                                     Redes sociales
                                                 </label>
-                                                {{-- <input type="text" id="form.redesBanner"
-                                                    wire:model.live="form.redesBanner"
-                                                    class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
                                                 <div
                                                     class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
                                                     <div x-data="{ open: false }" class="basis-1/3">
@@ -653,7 +629,7 @@
                                                         </button>
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="facebook"
-                                                                wire:model.live="form.facebook"
+                                                                wire:model="form.facebook"
                                                                 placeholder="facebook.com/uaemex">
                                                         </div>
                                                     </div>
@@ -666,8 +642,8 @@
                                                                 class="inline-block w-8">
                                                         </button>
                                                         <div x-show="open" class="mt-2">
-                                                            <input type="text" id="x"
-                                                                wire:model.live="form.x" placeholder="x.com/uaemex">
+                                                            <input type="text" id="x" wire:model="form.x"
+                                                                placeholder="x.com/uaemex">
                                                         </div>
                                                     </div>
 
@@ -681,13 +657,12 @@
                                                         </button>
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="youtube"
-                                                                wire:model.live="form.youtube"
+                                                                wire:model="form.youtube"
                                                                 placeholder="youtube.com/uaemex">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
 
                                         </div>
                                     </div>
@@ -714,24 +689,21 @@
                                     <div id="accordion-open-body-4" class="hidden"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado dark:border-gray-700">
-
-                                            <form class="max-w-lg mx-auto">
-                                                <label
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                                    for="form.boucher">Subir comprobante de pago</label>
-                                                <input
-                                                    class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                    aria-describedby="form.boucher_help" id="form.boucher"
-                                                    type="file" wire:model.live="form.boucher">
-                                                <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                                    id="form.boucher_help">
-                                                    Importante: Es necesario subir tu comprobante de pago para ser
-                                                    considerado como participante.
-                                                </div>
-                                                @error('form.boucher')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
-                                            </form>
+                                            <label class="block mb-2 dark:text-white" for="form.boucher">Subir
+                                                comprobante de pago</label>
+                                            <input
+                                                class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                                aria-describedby="form.boucher_help" id="form.boucher" type="file"
+                                                wire:model.live="form.boucher">
+                                            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                                id="form.boucher_help">
+                                                <span class="font-bold">Importante:</span> Es necesario subir tu
+                                                comprobante de pago para ser
+                                                considerado como participante.
+                                            </div>
+                                            @error('form.boucher')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>

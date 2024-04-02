@@ -20,10 +20,10 @@ class ParticipantesForm extends Form
     public $pais;
 
     #[Validate('required')]
-    public $telefonoGeneral;
+    public $telefonoGeneral = '';
 
     #[Validate('required')]
-    public $correoGeneral;
+    public $correoGeneral = '';
 
     #[Validate('required')]
     public $lugarProcedencia;
@@ -55,7 +55,7 @@ class ParticipantesForm extends Form
 
     //BANNER
     #[Validate('required')]
-    public $nombreGrupoBannes;
+    public $nombreGrupoBanner = '';
 
     #[Validate('required')]
     public $integrantesBanner = '';
@@ -68,7 +68,14 @@ class ParticipantesForm extends Form
 
     #[Validate('required')]
     public $correoBanner = '';
+
     public $redesBanner = [];
+
+    public $facebook = '';
+
+    public $x = '';
+
+    public $youtube = '';
 
     //BOUCHER
     public $boucher;
