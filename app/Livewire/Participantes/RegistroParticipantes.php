@@ -15,6 +15,7 @@ use Livewire\Attributes\Layout;
 class RegistroParticipantes extends Component
 {
     use WithFileUploads;
+  
     public $selectedSubareas = [];
     public $areaSeleccionada;
     public $tipoLiderSeleccionado;
@@ -28,10 +29,13 @@ class RegistroParticipantes extends Component
 
     #[Layout('layouts.publico')]
 
+
     public function mount()
     {
+        $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
         $this->form->lideres = collect($this->form->lideres);
         $this->form->integrantes = collect($this->form->integrantes);
+
 
     }
     public function render()
@@ -139,6 +143,8 @@ class RegistroParticipantes extends Component
             }
 
         }
+
+        $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
     }
 
     public function addIntegrante(
@@ -297,6 +303,18 @@ class RegistroParticipantes extends Component
 
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
     }
+
+
+    public function updateTelefonoBanner(){
+        $this->form->telefonoBanner = $this->form->telefonoGeneral;
+    }
+
+    public function updateCorreoBanner(){
+        $this->form->correoBanner = $this->form->correoGeneral;
+    }
+
+    public function updateCuerpoAcadBanner(){
+        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
 
     public function deleteIntegrante($integrante)
     {
