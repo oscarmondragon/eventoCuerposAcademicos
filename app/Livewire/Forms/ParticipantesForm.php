@@ -50,8 +50,12 @@ class ParticipantesForm extends Form
     public $necesidades = '';
 
     //INTEGRANTES
+    //lider
     #[Validate('required')]
-    public $integrantes = '';
+    public $lideres;
+
+    #[Validate('required')]
+    public $integrantes;
 
     //BANNER
     #[Validate('required')]
@@ -78,8 +82,7 @@ class ParticipantesForm extends Form
     public $youtube = '';
 
     //BOUCHER
-    public $boucher;
-
+    public $boucher = null;
 
 
     public function store()

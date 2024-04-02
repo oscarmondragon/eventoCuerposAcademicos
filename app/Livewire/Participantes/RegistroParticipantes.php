@@ -4,36 +4,46 @@ namespace App\Livewire\Participantes;
 
 use App\Livewire\Forms\ParticipantesForm;
 use App\Models\Area;
+use App\Models\Integrantes;
 use App\Models\Linea;
 use App\Models\Subarea;
 use App\Models\TipoLider;
+use Livewire\WithFileUploads;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
 
 class RegistroParticipantes extends Component
 {
-
+    use WithFileUploads;
+  
     public $selectedSubareas = [];
     public $areaSeleccionada;
+    public $tipoLiderSeleccionado;
+
     public ParticipantesForm $form;
 
     public $listeners = [
-        'addLinea'
+        'addLinea',
+        'addIntegrante'
     ];
 
     #[Layout('layouts.publico')]
 
-    public function mount(){
+
+    public function mount()
+    {
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
+        $this->form->lideres = collect($this->form->lideres);
+        $this->form->integrantes = collect($this->form->integrantes);
+
+
     }
-
-
     public function render()
     {
         //Inicializacion de variables
         $subareasOptions = [];
         $areasOptions = Area::all();
-        $tiposFiltro = [];
+        // $tiposFiltro = [];
 
         if ($this->areaSeleccionada) {
             $subareasOptions = Subarea::where('area_id', '=', $this->areaSeleccionada)->get(); //Obtiene las subareas correspondientes a la area seleccionada
@@ -41,15 +51,15 @@ class RegistroParticipantes extends Component
 
 
         //Filtramos los tipos de lider de acuerdo a si es externo o interno
-        if ($this->form->tipoRegistro == '1') {
-            $tiposFiltro = TipoLider::where('tipo_solicitante', 'Interno')->get();
-        } elseif ($this->form->tipoRegistro == '2') {
-            $tiposFiltro = TipoLider::where('tipo_solicitante', 'Externo')->get();
-        } else {
-            $tiposFiltro = [];
-        }
-
-        return view('livewire.participantes.registro-participantes', ['tipos_lider' => $tiposFiltro, 'subareasOptions' => $subareasOptions, 'areasOptions' => $areasOptions]);
+        /*    if ($this->form->tipoRegistro == '1') {
+               $tiposFiltro = TipoLider::where('tipo_solicitante', 'Interno')->get();
+           } elseif ($this->form->tipoRegistro == '2') {
+               $tiposFiltro = TipoLider::where('tipo_solicitante', 'Externo')->get();
+           } else {
+               $tiposFiltro = [];
+           }
+    */
+        return view('livewire.participantes.registro-participantes', ['subareasOptions' => $subareasOptions, 'areasOptions' => $areasOptions]);
     }
     public function save()
     {
@@ -60,7 +70,7 @@ class RegistroParticipantes extends Component
 
     public function selectSubareaOption($subarea)
     {
-        if (isset ($subarea['area'])) {
+        if (isset($subarea['area'])) {
             dd($subarea);
         }
         //  dd($subarea);
@@ -137,13 +147,152 @@ class RegistroParticipantes extends Component
         $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
     }
 
+    public function addIntegrante(
+        $_id,
+        $nombre,
+        $apellidoPaterno,
+        $apellidoMaterno,
+        $tipoLider,
+        $gradoAcademico,
+        $gradoAcademicoAbrev,
+        $sexo,
+        $genero,
+        $correo,
+        $telefono,
+        $isLider
+    ) {
+        $this->form->lideres = collect($this->form->lideres);
+        $this->form->integrantes = collect($this->form->integrantes);
+
+        if ($_id == 0) { //entramos aqui si el item es nuevo
+            if ($isLider == 1) { //lo guardamos en lider
+                // Genera un nuevo ID para el elemento
+                $newItemId = $this->form->lideres->max('_id') + 1;
+
+                //Agregamos la linea al arreglo
+                $this->form->lideres->push([
+                    '_id' => $newItemId,
+                    'nombre' => $nombre,
+                    'apellidoPaterno' => $apellidoPaterno,
+                    'apellidoMaterno' => $apellidoMaterno,
+                    'tipoLider' => $tipoLider,
+                    'gradoAcademico' => $gradoAcademico,
+                    'gradoAcademicoAbrev' => $gradoAcademicoAbrev,
+                    'sexo' => $sexo,
+                    'genero' => $genero,
+                    'correo' => $correo,
+                    'telefono' => $telefono,
+                ]);
+            } else {
+                // Genera un nuevo ID para el integrante
+                $newItemId = $this->form->integrantes->max('_id') + 1;
+
+                //Agregamos la linea al arreglo
+                $this->form->integrantes->push([
+                    '_id' => $newItemId,
+                    'nombre' => $nombre,
+                    'apellidoPaterno' => $apellidoPaterno,
+                    'apellidoMaterno' => $apellidoMaterno,
+                    'tipoLider' => $tipoLider,
+                    'gradoAcademico' => $gradoAcademico,
+                    'gradoAcademicoAbrev' => $gradoAcademicoAbrev,
+                    'sexo' => $sexo,
+                    'genero' => $genero,
+                    'correo' => $correo,
+                    'telefono' => $telefono,
+                ]);
+
+            }
+
+
+        } else {
+            //Entra aqui para editar el existente
+
+            if ($isLider == 1) {
+                //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
+                $lider = $this->form->lideres->firstWhere('_id', $_id);
+
+                if ($lider) {
+                    //actualizamos el item si existe en la busqueda
+                    $lider['nombre'] = $nombre;
+                    $lider['apellidoPaterno'] = $apellidoPaterno;
+                    $lider['apellidoMaterno'] = $apellidoMaterno;
+                    $lider['tipoLider'] = $tipoLider;
+                    $lider['gradoAcademico'] = $gradoAcademico;
+                    $lider['gradoAcademicoAbrev'] = $gradoAcademicoAbrev;
+                    $lider['sexo'] = $sexo;
+                    $lider['genero'] = $genero;
+                    $lider['correo'] = $correo;
+                    $lider['telefono'] = $telefono;
+
+                    //Devolvemos la nueva collecion
+                    $this->form->lideres = $this->form->lideres->map(function ($lider) use ($_id, $nombre, $apellidoPaterno, $apellidoMaterno, $tipoLider, $gradoAcademico, $gradoAcademicoAbrev, $sexo, $genero, $correo, $telefono) {
+                        if ($lider['_id'] == $_id) {
+                            $lider['nombre'] = $nombre;
+                            $lider['apellidoPaterno'] = $apellidoPaterno;
+                            $lider['apellidoMaterno'] = $apellidoMaterno;
+                            $lider['tipoLider'] = $tipoLider;
+                            $lider['gradoAcademico'] = $gradoAcademico;
+                            $lider['gradoAcademicoAbrev'] = $gradoAcademicoAbrev;
+                            $lider['sexo'] = $sexo;
+                            $lider['genero'] = $genero;
+                            $lider['correo'] = $correo;
+                            $lider['telefono'] = $telefono;
+                        }
+                        return $lider;
+                    });
+                    //actualizamos indices
+                    $this->form->lideres = $this->form->lideres->values();
+                }
+            } else {
+                //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
+                $integrante = $this->form->integrantes->firstWhere('_id', $_id);
+
+                if ($integrante) {
+                    //actualizamos el item si existe en la busqueda
+                    $integrante['nombre'] = $nombre;
+                    $integrante['apellidoPaterno'] = $apellidoPaterno;
+                    $integrante['apellidoMaterno'] = $apellidoMaterno;
+                    $integrante['tipoLider'] = $tipoLider;
+                    $integrante['gradoAcademico'] = $gradoAcademico;
+                    $integrante['gradoAcademicoAbrev'] = $gradoAcademicoAbrev;
+                    $integrante['sexo'] = $sexo;
+                    $integrante['genero'] = $genero;
+                    $integrante['correo'] = $correo;
+                    $integrante['telefono'] = $telefono;
+
+                    //Devolvemos la nueva collecion
+                    $this->form->integrantes = $this->form->integrantes->map(function ($integrante) use ($_id, $nombre, $apellidoPaterno, $apellidoMaterno, $tipoLider, $gradoAcademico, $gradoAcademicoAbrev, $sexo, $genero, $correo, $telefono) {
+                        if ($integrante['_id'] == $_id) {
+                            $integrante['nombre'] = $nombre;
+                            $integrante['apellidoPaterno'] = $apellidoPaterno;
+                            $integrante['apellidoMaterno'] = $apellidoMaterno;
+                            $integrante['tipoLider'] = $tipoLider;
+                            $integrante['gradoAcademico'] = $gradoAcademico;
+                            $integrante['gradoAcademicoAbrev'] = $gradoAcademicoAbrev;
+                            $integrante['sexo'] = $sexo;
+                            $integrante['genero'] = $genero;
+                            $integrante['correo'] = $correo;
+                            $integrante['telefono'] = $telefono;
+                        }
+                        return $integrante;
+                    });
+                    //actualizamos indices
+                    $this->form->integrantes = $this->form->integrantes->values();
+                }
+
+            }
+
+        }
+    }
+
     public function deleteLinea($linea)
     {
 
         //La linea SE ESTA ELIMINANDO CON ALPINEJS desde el front
 
         //Comprobamos si el bien ya esta en bd para eliminarlo y actualizar datos   
-        if (isset ($linea['id'])) {
+        if (isset($linea['id'])) {
             $lineaBd = Linea::findOrFail($linea['id']);
             if ($lineaBd) { // si lo encuentra lo eliminamos
 
@@ -155,6 +304,7 @@ class RegistroParticipantes extends Component
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
     }
 
+
     public function updateTelefonoBanner(){
         $this->form->telefonoBanner = $this->form->telefonoGeneral;
     }
@@ -165,5 +315,22 @@ class RegistroParticipantes extends Component
 
     public function updateCuerpoAcadBanner(){
         $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
+
+    public function deleteIntegrante($integrante)
+    {
+
+        //EL INTEGRANTE SE ESTA ELIMINANDO CON ALPINEJS desde el front
+
+        //Comprobamos si el bien ya esta en bd para eliminarlo y actualizar datos   
+        if (isset($integrante['id'])) {
+            $integranteBd = Integrantes::findOrFail($integrante['id']);
+            if ($integranteBd) { // si lo encuentra lo eliminamos
+
+                //Eliminamos el bien
+                $integranteBd->delete();
+            }
+        }
+
+        $this->form->integrantes = collect($this->form->integrantes); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
     }
 }
