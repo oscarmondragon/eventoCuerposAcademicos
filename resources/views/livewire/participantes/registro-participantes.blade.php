@@ -32,7 +32,7 @@
                             </svg>
                         </button>
                     </div>
-                    <form action="">
+                    <form wire:submit="save">
                         <div>
                             <div class="mt-4">
                                 <div id="accordion-open" data-accordion="open">
@@ -83,7 +83,8 @@
                                                 </label>
                                                 <input type="text" id="form.nombreGrupo" class="w-full"
                                                     placeholder="Facultad de Ciencias"
-                                                    wire:model.live="form.nombreGrupo" wire:change="updateCuerpoAcadBanner">
+                                                    wire:model.live="form.nombreGrupo"
+                                                    wire:change="updateCuerpoAcadBanner">
                                                 @error('form.nombreGrupo')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -134,7 +135,8 @@
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="text" id="form.telefonoGeneral"
-                                                        wire:model.live="form.telefonoGeneral" wire:change="updateTelefonoBanner" class="w-full"
+                                                        wire:model.live="form.telefonoGeneral"
+                                                        wire:change="updateTelefonoBanner" class="w-full"
                                                         placeholder="Teléfono">
                                                     @error('form.telefonoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -147,7 +149,8 @@
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="email" id="form.correoGeneral"
-                                                        wire:model.live="form.correoGeneral" wire:change="updateCorreoBanner" class="w-full"
+                                                        wire:model.live="form.correoGeneral"
+                                                        wire:change="updateCorreoBanner" class="w-full"
                                                         placeholder="Correo electrónico">
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -218,15 +221,15 @@
                                                                 </ul>
                                                             @endforeach
                                                         </div>
-                                                        @error('subareasSeleccionadas')
-                                                            <span class="text-rojo block">{{ $message }}</span>
-                                                        @enderror
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="mt-5">
                                                 <p>Subareas seleccionadas:</p>
+                                                @error('form.subareasSeleccionadas')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                                 <ul>
                                                     @foreach ($selectedSubareas as $subarea)
                                                         <li>
@@ -461,7 +464,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    @error('form.lider')
+                                                    @error('form.lideres')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -534,9 +537,10 @@
                                                         </table>
                                                     </div>
                                                 </div>
-
                                             </div>
-
+                                            @error('form.integrantes')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <h2 id="accordion-open-heading-3">
@@ -550,7 +554,8 @@
                                                     <path fill-rule="evenodd"
                                                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
                                                         clip-rule="evenodd"></path>
-                                                </svg> Banner</span>
+                                                </svg>Banner: Estos datos serán utilizados para imprimirlos en la lona
+                                                que contempla el kit y para formar un directorio</span>
                                             <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 10 6">
@@ -567,8 +572,7 @@
                                                     class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" id="form.nombreGrupoBanner"
-                                                wire:model="form.nombreGrupoBanner"
-                                                class="w-full disabled"
+                                                wire:model="form.nombreGrupoBanner" class="w-full disabled"
                                                 value="{{ $form->nombreGrupo }}"
                                                 placeholder="Nombre del Cuerpo Académico" disabled>
                                             @error('form.nombreGrupoBanner')
@@ -732,11 +736,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end mt-7">
-                            <x-primary-button class="ms-3">
-                                {{ __('Enviar') }}
-                            </x-primary-button>
-                        </div>
+                        <div class="mt-5">
+                            <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
+                                name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
+                            <label for="form.aceptoDatos">Acepto aviso de privacidad de la UAEMex y acepto que los
+                                datos
+                                puedan ser utilizados con
+                                fines de vinculación
+                                y estadísticos.<samp class="text-rojo">*</samp></label>
+                            @error('form.aceptoDatos')
+                                <span class=" text-rojo error sm:inline-block block">{{ $message }}</span>
+                            @enderror
+                            <div class="text-end mt-5">
+                                <x-primary-button class="ms-3">
+                                    {{ __('Enviar') }}
+                                </x-primary-button>
+                            </div>
                     </form>
                 </div>
             </div>

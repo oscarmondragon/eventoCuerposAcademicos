@@ -28,7 +28,7 @@ class ParticipantesForm extends Form
     #[Validate('required')]
     public $lugarProcedencia;
 
-    #[Validate('required')]
+    #[Validate('required|array|min:1')]
     public $subareasSeleccionadas;
 
     #[Validate('required')]
@@ -51,10 +51,10 @@ class ParticipantesForm extends Form
 
     //INTEGRANTES
     //lider
-    #[Validate('required')]
+    #[Validate('required|array|min:1|max:1')]
     public $lideres;
 
-    #[Validate('required')]
+    #[Validate('required|array|min:1')]
     public $integrantes;
 
     //BANNER
@@ -84,11 +84,14 @@ class ParticipantesForm extends Form
     //BOUCHER
     public $boucher = null;
 
+    #[Validate('accepted')]
+    public $aceptoDatos;
+
 
     public function store()
     {
         $this->validate();
-        dd("Paso");
+        dd("Guardado");
         // Post::create($this->all());
     }
 
