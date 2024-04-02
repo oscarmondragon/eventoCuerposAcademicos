@@ -19,7 +19,7 @@
                     Descripción<span class="font-bold text-red-600">*</span>
                 </label>
                 <textarea id="descripcion" rows="4" wire:model.live="descripcion" class="input-modal"
-                    placeholder="Descripción..."></textarea>
+                    placeholder="Máximo 500 caracteres"></textarea>
                 @error('descripcion')
                     <span class="text-rojo block">{{ $message }}</span>
                 @enderror

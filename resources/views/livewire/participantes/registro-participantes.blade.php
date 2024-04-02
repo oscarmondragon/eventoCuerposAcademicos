@@ -83,7 +83,8 @@
                                                 </label>
                                                 <input type="text" id="form.nombreGrupo" class="w-full"
                                                     placeholder="Facultad de Ciencias"
-                                                    wire:model.live="form.nombreGrupo" wire:change="updateCuerpoAcadBanner">
+                                                    wire:model.live="form.nombreGrupo"
+                                                    wire:change="updateCuerpoAcadBanner">
                                                 @error('form.nombreGrupo')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -105,7 +106,7 @@
 
                                                 <div class="flex-initial sm:w-1/4 w-full sm:mt-0 mt-5">
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
-                                                        Pais procedente<span class="font-bold text-red-600">*</span>
+                                                        País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     {{-- <input type="text" id="small-input"
                                                         class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
@@ -134,7 +135,8 @@
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="text" id="form.telefonoGeneral"
-                                                        wire:model.live="form.telefonoGeneral" wire:change="updateTelefonoBanner" class="w-full"
+                                                        wire:model.live="form.telefonoGeneral"
+                                                        wire:change="updateTelefonoBanner" class="w-full"
                                                         placeholder="Teléfono">
                                                     @error('form.telefonoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -147,7 +149,8 @@
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <input type="email" id="form.correoGeneral"
-                                                        wire:model.live="form.correoGeneral" wire:change="updateCorreoBanner" class="w-full"
+                                                        wire:model.live="form.correoGeneral"
+                                                        wire:change="updateCorreoBanner" class="w-full"
                                                         placeholder="Correo electrónico">
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -225,14 +228,17 @@
 
                                                 </div>
                                             </div>
-                                            <div class="mt-5">
+                                            <div class="mt-5 sm:ml-8">
                                                 <p>Subareas seleccionadas:</p>
                                                 <ul>
                                                     @foreach ($selectedSubareas as $subarea)
-                                                        <li>
-                                                            {{ $subarea['area'] }} ->
-                                                            {{ $subarea['grupo'] }} ->
-                                                            {{ $subarea['nombre'] }}
+                                                        <li
+                                                            class="sm:ml-12 underline underline-offset-4 decoration-1 decoration-verde pt-2">
+                                                            {{ $subarea['area'] }} <span
+                                                                class="text-verde">&#10142;</span>
+                                                            {{ $subarea['grupo'] }} <span
+                                                                class="text-verde">&#10142;</span>
+                                                            <span class="font-bold">{{ $subarea['nombre'] }}</span>
                                                         </li>
                                                     @endforeach
                                                 </ul>
@@ -390,12 +396,11 @@
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
                                                         <label for="btnLider" class="block mb-2 dark:text-white">
-                                                            Lider
+                                                            Líder<span class="font-bold text-red-600">*</span>
                                                         </label>
-
                                                         <button type="button" id="btnLider"
                                                             x-bind:disabled="lideres.length > 0"
-                                                            title="Solo se puede agregar un lider"
+                                                            title="Solo se puede agregar un líder."
                                                             :class="{ 'disabled:bg-[#e0dddd]': lideres.length > 0 }"
                                                             class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
                                                             @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: {
@@ -405,15 +410,14 @@
                                                         </button>
                                                     </div>
                                                     <div class="overflow-x-auto mt-5">
-                                                        <div x-show="lideres.length > 0 "
-                                                            class ="overflow-x-auto mt-5">
+                                                        <div x-show="lideres.length > 0">
                                                             <table
                                                                 class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                                 <thead>
                                                                     <tr class="bg-blanco">
-                                                                        <th class="w-[20%]">Nombre</th>
+                                                                        <th class="w-[85%]">Nombre del líder</th>
 
-                                                                        <th class="w-[10%]">Acción</th>
+                                                                        <th class="w-[15%]">Acción</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -421,13 +425,12 @@
                                                                         :key="index">
                                                                         <tr
                                                                             class="border border-b-gray-200 border-transparent ">
-                                                                            <th x-text="lider.nombre">
-                                                                            </th>
-
-                                                                            <td>
-                                                                                <button type="button"
-                                                                                    class="btn-tablas"
-                                                                                    @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
+                                                                            <th x-text="lider.nombre"></th>
+                                                                            <td class="sm:flex gap-2">
+                                                                                <div>
+                                                                                    <button type="button"
+                                                                                        class="btn-tablas btn-transition"
+                                                                                        @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
                                                                                         _id: lider._id, 
                                                                                         nombre: lider.nombre, 
                                                                                         apellidoPaterno: lider.apellidoPaterno,  
@@ -442,18 +445,20 @@
                                                                                         tipoRegistro: {{ $form->tipoRegistro }},
                                                                                         isLider: 1
                                                                                     }})">
-                                                                                    <img src="{{ '/img/botones/btn_editar.png' }}"
-                                                                                        alt="Image/png"
-                                                                                        title="Editar">
-                                                                                </button>
-                                                                                <button type="button"
-                                                                                    @click.stop="lideres.splice(index, 1); $wire.deleteLinea(lider)"
-                                                                                    class="btn-tablas btn-transition">
-                                                                                    <img src="{{ 'img/botones/btn_eliminar.png' }}"
-                                                                                        alt="Botón eliminar"
-                                                                                        title="Eliminar"
-                                                                                        class="ml-5">
-                                                                                </button>
+                                                                                        <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                            alt="Image/png"
+                                                                                            title="Editar">
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div>
+                                                                                    <button type="button"
+                                                                                        @click.stop="lideres.splice(index, 1); $wire.deleteLinea(lider)"
+                                                                                        class="btn-tablas btn-transition">
+                                                                                        <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                            alt="Botón eliminar"
+                                                                                            title="Eliminar">
+                                                                                    </button>
+                                                                                </div>
                                                                             </td>
                                                                         </tr>
                                                                     </template>
@@ -470,7 +475,7 @@
                                                     <div class="flex items-end">
                                                         <label for="btnIntegrantes"
                                                             class="block mb-2 dark:text-white">
-                                                            Integrantes
+                                                            Integrantes<span class="font-bold text-red-600">*</span>
                                                         </label>
                                                         <button type="button" id="btnIntegrantes"
                                                             class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
@@ -487,9 +492,9 @@
                                                             class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                             <thead>
                                                                 <tr class="bg-blanco">
-                                                                    <th class="w-[20%]">Nombre</th>
+                                                                    <th class="w-[85%]">Nombre de los integrantes</th>
 
-                                                                    <th class="w-[10%]">Acción</th>
+                                                                    <th class="w-[15%]">Acción</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -497,12 +502,12 @@
                                                                     :key="index">
                                                                     <tr
                                                                         class="border border-b-gray-200 border-transparent ">
-                                                                        <th x-text="integrante.nombre">
-                                                                        </th>
-
-                                                                        <td>
-                                                                            <button type="button" class="btn-tablas"
-                                                                                @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
+                                                                        <th x-text="integrante.nombre"></th>
+                                                                        <td class="sm:flex gap-2">
+                                                                            <div>
+                                                                                <button type="button"
+                                                                                    class="btn-tablas btn-transition"
+                                                                                    @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
                                                                                         _id: integrante._id, 
                                                                                         nombre: integrante.nombre, 
                                                                                         apellidoPaterno: integrante.apellidoPaterno,  
@@ -517,16 +522,20 @@
                                                                                         tipoRegistro: {{ $form->tipoRegistro }},
                                                                                         isLider: 0
                                                                                     }})">
-                                                                                <img src="{{ '/img/botones/btn_editar.png' }}"
-                                                                                    alt="Image/png" title="Editar">
-                                                                            </button>
-                                                                            <button type="button"
-                                                                                @click.stop="integrantes.splice(index, 1); $wire.deleteLinea(integrante)"
-                                                                                class="btn-tablas btn-transition">
-                                                                                <img src="{{ 'img/botones/btn_eliminar.png' }}"
-                                                                                    alt="Botón eliminar"
-                                                                                    title="Eliminar" class="ml-5">
-                                                                            </button>
+                                                                                    <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                        alt="Image/png"
+                                                                                        title="Editar">
+                                                                                </button>
+                                                                            </div>
+                                                                            <div>
+                                                                                <button type="button"
+                                                                                    @click.stop="integrantes.splice(index, 1); $wire.deleteLinea(integrante)"
+                                                                                    class="btn-tablas btn-transition">
+                                                                                    <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                        alt="Botón eliminar"
+                                                                                        title="Eliminar">
+                                                                                </button>
+                                                                            </div>
                                                                         </td>
                                                                     </tr>
                                                                 </template>
@@ -567,8 +576,7 @@
                                                     class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" id="form.nombreGrupoBanner"
-                                                wire:model="form.nombreGrupoBanner"
-                                                class="w-full disabled"
+                                                wire:model="form.nombreGrupoBanner" class="w-full disabled"
                                                 value="{{ $form->nombreGrupo }}"
                                                 placeholder="Nombre del Cuerpo Académico" disabled>
                                             @error('form.nombreGrupoBanner')
