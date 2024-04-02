@@ -15,7 +15,7 @@ use Livewire\Attributes\Layout;
 class RegistroParticipantes extends Component
 {
     use WithFileUploads;
-  
+
     public $selectedSubareas = [];
     public $areaSeleccionada;
     public $tipoLiderSeleccionado;
@@ -305,17 +305,20 @@ class RegistroParticipantes extends Component
     }
 
 
-    public function updateTelefonoBanner(){
+    public function updateTelefonoBanner()
+    {
         $this->form->telefonoBanner = $this->form->telefonoGeneral;
     }
 
-    public function updateCorreoBanner(){
+    public function updateCorreoBanner()
+    {
         $this->form->correoBanner = $this->form->correoGeneral;
     }
 
-    public function updateCuerpoAcadBanner(){
+    public function updateCuerpoAcadBanner()
+    {
         $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
-
+    }
     public function deleteIntegrante($integrante)
     {
 
