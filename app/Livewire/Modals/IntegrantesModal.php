@@ -16,10 +16,10 @@ class IntegrantesModal extends ModalComponent
     public $isLider = "";
 
 
-    #[Validate('required')]
+    #[Validate('required|max:30')]
     public $nombre = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:30')]
     public $apellidoPaterno = '';
 
     public $apellidoMaterno = '';
@@ -27,20 +27,20 @@ class IntegrantesModal extends ModalComponent
     #[Validate('required_if:isLider,1')]
     public $tipoLider = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:100')]
     public $gradoAcademico = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:20')]
     public $gradoAcademicoAbrev = '';
 
     #[Validate('required')]
     public $sexo = '';
 
-    #[Validate('')]
+    #[Validate('required')]
     public $genero = '';
 
 
-    #[Validate('required')]
+    #[Validate('required|email')]
     public $correo = '';
 
     #[Validate('required')]
@@ -49,6 +49,24 @@ class IntegrantesModal extends ModalComponent
 
     public $listeners = [
         'addIntegrante',
+    ];
+
+    protected $messages = [
+        'nombre.required' => 'El nombre no puede estar vacío.',
+        'nombre.max' => 'El nombre acepta máximo 30 caracteres.',
+        'apellidoPaterno.required' => 'El apellido paterno no puede estar vacío.',
+        'apellidoPaterno.max' => 'El apellido paterno acepta máximo 30 caracteres.',
+        'tipoLider.required_if' => 'El tipo de lider es obligatorio.',
+        'gradoAcademico.required' => 'El grado académico no puede estar vacío.',
+        'gradoAcademico.max' => 'El grado académico acepta máximo 100 caracteres.',
+        'gradoAcademicoAbrev.required' => 'El grado académico no puede estar vacío.',
+        'gradoAcademicoAbrev.max' => 'El grado académico acepta máximo 20 caracteres.',
+        'sexo.required' => 'Seleccione el sexo.',
+        'genero.required' => 'Seleccione el genero.',
+        'genero.gt' => 'Seleccione el genero.',
+        'correo.required' => 'El correo electrónico no puede estar vacío.',
+        'correo.email' => 'Debe ser un coreo electrónico valido.',
+        'telefono.required' => 'El telefono no puede estar vacío.'
     ];
 
     public function render()

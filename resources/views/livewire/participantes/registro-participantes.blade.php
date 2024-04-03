@@ -4,7 +4,7 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -253,11 +253,10 @@
                                                         wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
                                                         +
                                                     </button>
-                                                    @error('form.lineasInvestigacion')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
-
+                                                @error('form.lineasInvestigacion')
+                                                    <span class="text-rojo block mt-2">{{ $message }}</span>
+                                                @enderror
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
                                                     class ="overflow-x-auto mt-5">
                                                     <table
@@ -388,7 +387,7 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" id="accordion-open-body-2"
+                                    <div id="accordion-open-body-2"
                                         :class="{ 'hidden': integrantes.length < 1 && lideres.length < 1 }"
                                         aria-labelledby="accordion-open-heading-2">
                                         <div class="p-5 border border-b-0 border-dorado dark:border-gray-700">
@@ -425,7 +424,9 @@
                                                                         :key="index">
                                                                         <tr
                                                                             class="border border-b-gray-200 border-transparent ">
-                                                                            <th x-text="lider.nombre"></th>
+                                                                            <th
+                                                                                x-text="lider.nombre + ' ' + lider.apellidoPaterno + ' ' + lider.apellidoMaterno">
+                                                                            </th>
                                                                             <td class="sm:flex gap-2">
                                                                                 <div>
                                                                                     <button type="button"
@@ -502,7 +503,9 @@
                                                                     :key="index">
                                                                     <tr
                                                                         class="border border-b-gray-200 border-transparent ">
-                                                                        <th x-text="integrante.nombre"></th>
+                                                                        <th
+                                                                            x-text="integrante.nombre + ' ' + integrante.apellidoPaterno + ' ' + integrante.apellidoMaterno">
+                                                                        </th>
                                                                         <td class="sm:flex gap-2">
                                                                             <div>
                                                                                 <button type="button"
@@ -542,11 +545,13 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    @error('form.integrantes')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
+
                                             </div>
-                                            @error('form.integrantes')
-                                                <span class="text-rojo block">{{ $message }}</span>
-                                            @enderror
+
                                         </div>
                                     </div>
                                     <h2 id="accordion-open-heading-3">
@@ -590,17 +595,27 @@
                                                     class="block mb-2 dark:text-white">
                                                     Integrantes
                                                 </label>
-                                                <ul class="ps-5 list-disc dark:text-gray-400">
-                                                    <li>
-                                                        Ana Karen Valdez Contreras
-                                                    </li>
-                                                    <li>
-                                                        Erick Jonathan Ruiz Gonzales
-                                                    </li>
+                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                    <template x-for="(lider, index) in lideres" :key="index">
+                                                        <li class="border border-b-gray-200 border-transparent">
+                                                            <span x-text="lider.nombre"></span> <span
+                                                                x-text="lider.apellidoPaterno"></span>
+                                                            <span x-text="lider.apellidoMaterno"></span>
+                                                            <span> (Lider)</span>
+
+                                                        </li>
+                                                    </template>
                                                 </ul>
-                                                @error('form.integrantesBanner')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
+                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                    <template x-for="(integrante, index) in integrantes"
+                                                        :key="index">
+                                                        <li class="border border-b-gray-200 border-transparent">
+                                                            <span x-text="integrante.nombre"></span> <span
+                                                                x-text="integrante.apellidoPaterno"></span> <span
+                                                                x-text="integrante.apellidoMaterno"></span>
+                                                        </li>
+                                                    </template>
+                                                </ul>
                                             </div>
 
                                             <div class="mt-5">
@@ -751,7 +766,7 @@
                                 fines de vinculación
                                 y estadísticos.<samp class="text-rojo">*</samp></label>
                             @error('form.aceptoDatos')
-                                <span class=" text-rojo error sm:inline-block block">{{ $message }}</span>
+                                <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
                             @enderror
                             <div class="text-end mt-5">
                                 <x-primary-button class="ms-3">
@@ -763,3 +778,4 @@
             </div>
         </div>
     </div>
+</div>
