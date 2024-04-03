@@ -4,7 +4,7 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -32,7 +32,7 @@
                             </svg>
                         </button>
                     </div>
-                    <form action="">
+                    <form wire:submit="save">
                         <div>
                             <div class="mt-4">
                                 <div id="accordion-open" data-accordion="open">
@@ -221,15 +221,15 @@
                                                                 </ul>
                                                             @endforeach
                                                         </div>
-                                                        @error('subareasSeleccionadas')
-                                                            <span class="text-rojo block">{{ $message }}</span>
-                                                        @enderror
                                                     </div>
 
                                                 </div>
                                             </div>
                                             <div class="mt-5 sm:ml-8">
                                                 <p>Subareas seleccionadas:</p>
+                                                @error('form.subareasSeleccionadas')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
                                                 <ul>
                                                     @foreach ($selectedSubareas as $subarea)
                                                         <li
@@ -253,11 +253,10 @@
                                                         wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
                                                         +
                                                     </button>
-                                                    @error('form.lineasInvestigacion')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
-
+                                                @error('form.lineasInvestigacion')
+                                                    <span class="text-rojo block mt-2">{{ $message }}</span>
+                                                @enderror
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
                                                     class ="overflow-x-auto mt-5">
                                                     <table
@@ -388,7 +387,7 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" id="accordion-open-body-2"
+                                    <div id="accordion-open-body-2"
                                         :class="{ 'hidden': integrantes.length < 1 && lideres.length < 1 }"
                                         aria-labelledby="accordion-open-heading-2">
                                         <div class="p-5 border border-b-0 border-dorado dark:border-gray-700">
@@ -425,7 +424,9 @@
                                                                         :key="index">
                                                                         <tr
                                                                             class="border border-b-gray-200 border-transparent ">
-                                                                            <th x-text="lider.nombre"></th>
+                                                                            <th
+                                                                                x-text="lider.nombre + ' ' + lider.apellidoPaterno + ' ' + lider.apellidoMaterno">
+                                                                            </th>
                                                                             <td class="sm:flex gap-2">
                                                                                 <div>
                                                                                     <button type="button"
@@ -466,7 +467,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    @error('form.lider')
+                                                    @error('form.lideres')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
@@ -502,7 +503,9 @@
                                                                     :key="index">
                                                                     <tr
                                                                         class="border border-b-gray-200 border-transparent ">
-                                                                        <th x-text="integrante.nombre"></th>
+                                                                        <th
+                                                                            x-text="integrante.nombre + ' ' + integrante.apellidoPaterno + ' ' + integrante.apellidoMaterno">
+                                                                        </th>
                                                                         <td class="sm:flex gap-2">
                                                                             <div>
                                                                                 <button type="button"
@@ -542,6 +545,9 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    @error('form.integrantes')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
 
                                             </div>
@@ -559,7 +565,8 @@
                                                     <path fill-rule="evenodd"
                                                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
                                                         clip-rule="evenodd"></path>
-                                                </svg> Banner</span>
+                                                </svg>Banner: Estos datos serán utilizados para imprimirlos en la lona
+                                                que contempla el kit y para formar un directorio</span>
                                             <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 10 6">
@@ -588,17 +595,27 @@
                                                     class="block mb-2 dark:text-white">
                                                     Integrantes
                                                 </label>
-                                                <ul class="ps-5 list-disc dark:text-gray-400">
-                                                    <li>
-                                                        Ana Karen Valdez Contreras
-                                                    </li>
-                                                    <li>
-                                                        Erick Jonathan Ruiz Gonzales
-                                                    </li>
+                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                    <template x-for="(lider, index) in lideres" :key="index">
+                                                        <li class="border border-b-gray-200 border-transparent">
+                                                            <span x-text="lider.nombre"></span> <span
+                                                                x-text="lider.apellidoPaterno"></span>
+                                                            <span x-text="lider.apellidoMaterno"></span>
+                                                            <span> (Lider)</span>
+
+                                                        </li>
+                                                    </template>
                                                 </ul>
-                                                @error('form.integrantesBanner')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
+                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                    <template x-for="(integrante, index) in integrantes"
+                                                        :key="index">
+                                                        <li class="border border-b-gray-200 border-transparent">
+                                                            <span x-text="integrante.nombre"></span> <span
+                                                                x-text="integrante.apellidoPaterno"></span> <span
+                                                                x-text="integrante.apellidoMaterno"></span>
+                                                        </li>
+                                                    </template>
+                                                </ul>
                                             </div>
 
                                             <div class="mt-5">
@@ -740,13 +757,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end mt-7">
-                            <x-primary-button class="ms-3">
-                                {{ __('Enviar') }}
-                            </x-primary-button>
-                        </div>
+                        <div class="mt-5">
+                            <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
+                                name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
+                            <label for="form.aceptoDatos">Acepto aviso de privacidad de la UAEMex y acepto que los
+                                datos
+                                puedan ser utilizados con
+                                fines de vinculación
+                                y estadísticos.<samp class="text-rojo">*</samp></label>
+                            @error('form.aceptoDatos')
+                                <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
+                            @enderror
+                            <div class="text-end mt-5">
+                                <x-primary-button class="ms-3">
+                                    {{ __('Enviar') }}
+                                </x-primary-button>
+                            </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+</div>

@@ -13,11 +13,19 @@ class LineasModal extends ModalComponent
     #[Validate('required')]
     public $nombre = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:500')]
     public $descripcion = '';
 
     public $listeners = [
         'addLinea',
+    ];
+
+
+    protected $messages = [
+        'nombre.required' => 'El nombre no puede estar vacío.',
+        'descripcion.required' => 'La descripción  no puede estar vacía.',
+        'descripcion.max' => 'La descripción acepta máximo 500 caracteres.',
+
     ];
 
     public function render()

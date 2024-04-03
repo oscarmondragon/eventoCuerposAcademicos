@@ -70,10 +70,6 @@ class RegistroParticipantes extends Component
 
     public function selectSubareaOption($subarea)
     {
-        if (isset($subarea['area'])) {
-            dd($subarea);
-        }
-        //  dd($subarea);
         // Convertir el array a un modelo para obtener area y grupo
         $subareaModel = Subarea::make($subarea);
         $subarea['grupo'] = $subareaModel->grupo->nombre;
@@ -93,9 +89,11 @@ class RegistroParticipantes extends Component
 
         if ($existeId !== null) {
             unset($this->selectedSubareas[$existeId]);  // Eliminar el elemento si ya existe
+            unset($this->form->subareasSeleccionadas[$existeId]); //Eliminamos de la coleccion del form
+
         } else {
             $this->selectedSubareas[] = $subarea;  // Agregar la subárea si no existe
-
+            $this->form->subareasSeleccionadas[] = $subarea;
         }
     }
 
@@ -103,6 +101,7 @@ class RegistroParticipantes extends Component
     {
         // dd($areaId);
         $this->areaSeleccionada = $areaId['id'];
+        //Actualizamos la variable del form
     }
 
     public function addLinea($_id, $nombre, $descripcion)
