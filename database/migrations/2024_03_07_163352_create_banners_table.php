@@ -19,7 +19,12 @@ return new class extends Migration {
             $table->string('cuerpo_grupo_red', 100);
             $table->json('integrantes');
             $table->text('descripcion_linea');
-            $table->string('contacto');
+            $table->string('email');
+            $table->string('telefono');
+            $table->string('twitter', 50)->nullable();
+            $table->string('facebook', 50)->nullable();
+            $table->string('youtube', 50)->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

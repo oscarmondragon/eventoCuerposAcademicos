@@ -26,9 +26,7 @@ return new class extends Migration {
             $table->boolean('aprobacion')->default(null)->nullable();
             $table->string('email', 100)->unique();
             $table->string('telefono', 20);
-            $table->string('twitter', 50)->nullable();
-            $table->string('facebook', 50)->nullable();
-            $table->string('instagram', 50)->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });

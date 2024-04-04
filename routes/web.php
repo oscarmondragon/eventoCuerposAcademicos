@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Participantes\RegistroCreadoMensaje;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Participantes\RegistroParticipantes;
 
@@ -17,7 +18,7 @@ use App\Livewire\Participantes\RegistroParticipantes;
 Route::view('/', 'welcome');
 
 Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
-
+Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.creado');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

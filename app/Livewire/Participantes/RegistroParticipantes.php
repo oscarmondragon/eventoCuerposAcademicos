@@ -65,7 +65,7 @@ class RegistroParticipantes extends Component
     {
         $this->form->store();
 
-        return $this->redirect('/registro-participantes');
+        //  return $this->redirect('/registro-participantes');
     }
 
     public function selectSubareaOption($subarea)
