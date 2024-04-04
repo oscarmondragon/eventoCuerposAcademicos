@@ -25,7 +25,7 @@ class ParticipantesForm extends Form
     #[Validate('required|max:50')]
     public $pais = "México";
 
-    #[Validate('required|max:15|regex:/^[0-9()+]*$/u')]
+    #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoGeneral = '';
 
     #[Validate('required|email|unique:registros,email|max:100')]
@@ -72,7 +72,7 @@ class ParticipantesForm extends Form
     #[Validate('required|max:500')]
     public $descripcionBanner = '';
 
-    #[Validate('required|max:15|regex:/^[0-9()+]*$/u')]
+    #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoBanner = '';
 
     #[Validate('required|email|unique:banners,email|max:100')]
@@ -107,11 +107,12 @@ class ParticipantesForm extends Form
         // 'pais.gt' => 'El país no puede estar vacío.',
         'pais.max' => 'El país es demasiado largo.',
         'telefonoGeneral.required' => 'El teléfono de contacto no puede estar vacío.',
+        'telefonoGeneral.min' => 'El teléfono de contacto debe de contener al menos 10 dígitos.',
         'telefonoGeneral.max' => 'El teléfono de contacto es demasiado largo.',
-        'telefonoGeneral.regex' => 'El formato del teléfono no es valido.',
+        'telefonoGeneral.regex' => 'El formato del teléfono no es valido (Solo acepta los caracteres especiales: (), +).',
 
         'correoGeneral.required' => 'El correo electrónico no puede estar vacío.',
-        'correoGeneral.email' => 'Debe ser un coreo electrónico valido.',
+        'correoGeneral.email' => 'El coreo electrónico no tiene un formato valido.',
         'correoGeneral.unique' => 'El correo electrónico ya existe.',
         'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
 
@@ -145,12 +146,13 @@ class ParticipantesForm extends Form
         'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
         'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
 
-        'telefonoBanner.required' => 'El teléfono de contacto no puede estar vacío.',
-        'telefonoBanner.max' => 'El teléfono de contacto es demasiado largo.',
-        'telefonoBanner.regex' => 'El formato del teléfono no es valido.',
+        'telefonoBanner.required' => 'El teléfono de contacto para el baner no puede estar vacío.',
+        'telefonoBanner.min' => 'El teléfono de contacto para el baner debe de contener al menos 10 dígitos.',
+        'telefonoBanner.max' => 'El teléfono de contacto para el baner es demasiado largo.',
+        'telefonoBanner.regex' => 'El formato del teléfono para el baner no es valido (Solo acepta los caracteres especiales: (), +).',
 
         'correoBanner.required' => 'El correo electrónico no puede estar vacío.',
-        'correoBanner.email' => 'Debe ser un coreo electrónico valido.',
+        'correoBanner.email' => 'El coreo electrónico no tiene un formato valido.',
         'correoBanner.unique' => 'El correo electrónico ya existe.',
         'correoBanner.max' => 'El correo electrónico es demasiado largo.',
 

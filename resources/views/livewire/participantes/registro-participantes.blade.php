@@ -60,34 +60,35 @@
                                     <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1"
                                         class="">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
-                                            <div>
-                                                <label for="form.tipoRegistro"
-                                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                                                    Selecciona procedencia<span class="font-bold text-red-600">*</span>
-                                                </label>
-                                                <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
-                                                    class="w-full">
-                                                    <option value="0">Seleccione una opción</option>
-                                                    <option value="1">Interno a la UAEMex</option>
-                                                    <option value="2">Externo a la UAEMex</option>
-                                                </select>
-                                                @error('form.tipoRegistro')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-                                            <div>
-                                                <label for="form.nombreGrupo"
-                                                    class="block mb-2  mt-5 text-sm font-medium text-gray-900 dark:text-white">
-                                                    Nombre del Cuerpo Académico, red o grupo de investigación<span
-                                                        class="font-bold text-red-600">*</span>
-                                                </label>
-                                                <input type="text" id="form.nombreGrupo" class="w-full"
-                                                    placeholder="Facultad de Ciencias"
-                                                    wire:model.live="form.nombreGrupo"
-                                                    wire:change="updateCuerpoAcadBanner" maxlength="150">
-                                                @error('form.nombreGrupo')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
+                                            <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5">
+                                                <div class="basis-1/4">
+                                                    <label for="form.tipoRegistro" class="block mb-2 dark:text-white">
+                                                        Selecciona procedencia<span
+                                                            class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
+                                                        class="w-full">
+                                                        <option value="0">Seleccione una opción</option>
+                                                        <option value="1">Interno a la UAEMex</option>
+                                                        <option value="2">Externo a la UAEMex</option>
+                                                    </select>
+                                                    @error('form.tipoRegistro')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                                <div class="basis-3/4">
+                                                    <label for="form.nombreGrupo" class="block mb-2 dark:text-white">
+                                                        Nombre del Cuerpo Académico, red o grupo de investigación<span
+                                                            class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <input type="text" id="form.nombreGrupo" class="w-full"
+                                                        placeholder="Facultad de Ciencias"
+                                                        wire:model.live="form.nombreGrupo"
+                                                        wire:change="updateCuerpoAcadBanner" maxlength="150">
+                                                    @error('form.nombreGrupo')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
                                             </div>
                                             <div class="sm:flex flex-row gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-3/4 w-full">
@@ -483,10 +484,10 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
+                                                        @error('form.lideres')
+                                                            <span class="text-rojo block">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
-                                                    @error('form.lideres')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
 
                                                 <div class="flex-initial w-full">
@@ -563,12 +564,10 @@
                                                         </table>
                                                     </div>
                                                     @error('form.integrantes')
-                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                        <span class="text-rojo block mt-5">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-
                                             </div>
-
                                         </div>
                                     </div>
                                     <h2 id="accordion-open-heading-3">
@@ -647,7 +646,7 @@
                                             </div>
 
                                             <h2 class="mt-5">Datos de contacto</h2>
-                                            <div class="sm:flex flex-row items-center gap-x-4 mt-2">
+                                            <div class="sm:flex flex-row gap-x-4 mt-2">
                                                 <div class="flex-initial sm:w-2/5 w-full">
                                                     <label for="form.telefonoBanner"
                                                         class="block mb-2 dark:text-white">
@@ -812,19 +811,56 @@
                         <div class="mt-5">
                             <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
                                 name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
-                            <label for="form.aceptoDatos">Acepto aviso de privacidad de la UAEMex y acepto que los
-                                datos
-                                puedan ser utilizados con
-                                fines de vinculación
-                                y estadísticos.<samp class="text-rojo">*</samp></label>
+                            <label for="form.aceptoDatos">
+                                Acepto aviso de privacidad de la UAEMex y acepto que los datos puedan ser utilizados con
+                                fines de vinculación y estadísticos.<samp class="text-rojo">*</samp>
+                            </label>
                             @error('form.aceptoDatos')
                                 <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
                             @enderror
+
+                            @if ($errors->any())
+                                <div id="alert-4"
+                                    class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
+                                    role="alert">
+                                    <span class="sr-only">Info</span>
+                                    <div class="ms-3">
+                                        <p><span class="font-bold">Advertencia: </span>Faltan campos por completar</p>
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>
+                                                    <svg class="flex-shrink-0 w-3 h-3 inline-block" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                        viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                                    </svg> {{ $error }}
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <button type="button"
+                                        class="ms-auto -mx-1.5 -my-1.5 bg-yellow-100 text-yellow-600 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-yellow-300 dark:hover:bg-gray-700
+                                    btn-transition"
+                                        title="Cerrar advertencia." data-dismiss-target="#alert-4"
+                                        aria-label="Close">
+                                        <span class="sr-only">Close</span>
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endif
+
                             <div class="text-end mt-5">
                                 <x-primary-button class="ms-3">
                                     {{ __('Enviar') }}
                                 </x-primary-button>
                             </div>
+                        </div>
                     </form>
                 </div>
             </div>
