@@ -41,10 +41,10 @@ class IntegrantesModal extends ModalComponent
     public $genero = '';
 
 
-    #[Validate('required|email|unique:integrantes,email|max:100')]
+    #[Validate('required|email|max:100')]
     public $correo = '';
 
-    #[Validate('required|max:15|regex:/^[0-9()+]*$/u')]
+    #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefono = '';
 
 
@@ -79,13 +79,13 @@ class IntegrantesModal extends ModalComponent
         'genero.gt' => 'Seleccione el genero.',
 
         'correo.required' => 'El correo electrónico no puede estar vacío.',
-        'correo.email' => 'Debe ser un coreo electrónico valido.',
-        'correo.unique' => 'El correo electrónico ya existe.',
+        'correo.email' => 'El coreo electrónico no tiene un formato valido.',
         'correo.max' => 'El correo electrónico es demasiado largo.',
 
         'telefono.required' => 'El telefono no puede estar vacío.',
+        'telefono.min' => 'El teléfono debe de contener al menos 10 dígitos.',
         'telefono.max' => 'El teléfono es demasiado largo.',
-        'telefono.regex' => 'El formato del teléfono no es valido.',
+        'telefono.regex' => 'El formato del teléfono no es valido (Solo acepta los caracteres especiales: (), +).',
     ];
 
     public function render()
