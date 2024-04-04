@@ -9,7 +9,7 @@
                     Nombre de la línea<span class="font-bold text-red-600">*</span>
                 </label>
                 <input type="text" id="nombre" wire:model.live="nombre" class="input-modal"
-                    placeholder="Nombre de la línea">
+                    placeholder="Nombre de la línea" maxlength="50">
                 @error('nombre')
                     <span class="text-rojo block">{{ $message }}</span>
                 @enderror
@@ -19,7 +19,7 @@
                     Descripción<span class="font-bold text-red-600">*</span>
                 </label>
                 <textarea id="descripcion" rows="4" wire:model.live="descripcion" class="input-modal"
-                    placeholder="Máximo 500 caracteres"></textarea>
+                    placeholder="Máximo 500 caracteres" maxlength="500"></textarea>
                 @error('descripcion')
                     <span class="text-rojo block">{{ $message }}</span>
                 @enderror

@@ -13,19 +13,19 @@ class ParticipantesForm extends Form
     #[Validate('required|gt:0')]
     public $tipoRegistro = '0';
 
-    #[Validate('required')]
+    #[Validate('required|max:100')]
     public $nombreGrupo;
 
-    #[Validate('required')]
-    public $pais;
+    #[Validate('required|max:50')]
+    public $pais = "México";
 
-    #[Validate('required')]
+    #[Validate('required|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoGeneral = '';
 
-    #[Validate('required|email')]
+    #[Validate('required|email|unique:registros,email|max:100')]
     public $correoGeneral = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:80')]
     public $lugarProcedencia;
 
     #[Validate('required|array|min:1')]
@@ -58,7 +58,7 @@ class ParticipantesForm extends Form
     public $integrantes;
 
     //BANNER
-    #[Validate('required')]
+    #[Validate('required|max:100')]
     public $nombreGrupoBanner = '';
 
     #[Validate('required')]
@@ -67,18 +67,21 @@ class ParticipantesForm extends Form
     #[Validate('required|max:500')]
     public $descripcionBanner = '';
 
-    #[Validate('required')]
+    #[Validate('required|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoBanner = '';
 
-    #[Validate('required|email')]
+    #[Validate('required|email|unique:banners,email|max:100')]
     public $correoBanner = '';
 
     public $redesBanner = [];
 
+    #[Validate('nullable|max:5')]
     public $facebook = '';
 
+    #[Validate('nullable|max:5')]
     public $x = '';
 
+    #[Validate('nullable|max:5')]
     public $youtube = '';
 
     //BOUCHER
@@ -92,15 +95,22 @@ class ParticipantesForm extends Form
         'tipoRegistro.required' => 'La procedencia no puede estar vacía.',
         'tipoRegistro.gt' => 'La procedencia no puede estar vacía.',
         'nombreGrupo.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
+        'nombreGrupo.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
         'lugarProcedencia.required' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
         'pais.required' => 'El país no puede estar vacío.',
-        'pais.different' => 'El país no puede estar vacío.',
-        'telefonoGeneral.required' => 'El teléfono no puede estar vacío.',
+        // 'pais.gt' => 'El país no puede estar vacío.',
+        'pais.max' => 'El país es demasiado largo.',
+        'telefonoGeneral.required' => 'El teléfono de contacto no puede estar vacío.',
+        'telefonoGeneral.max' => 'El teléfono de contacto es demasiado largo.',
+        'telefonoGeneral.regex' => 'El formato del teléfono no es valido.',
         'correoGeneral.required' => 'El correo electrónico no puede estar vacío.',
         'correoGeneral.email' => 'Debe ser un coreo electrónico valido.',
-        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una area tematica y una subarea.',
-        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una area tematica y una subarea.',
-        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una area tematica y una subarea.',
+        'correoGeneral.unique' => 'El correo electrónico ya existe.',
+        'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
+
+        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
+        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
+        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
         'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
         'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
         'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
@@ -115,12 +125,31 @@ class ParticipantesForm extends Form
         'necesidades.required' => 'Este campo no puede estar vacio.',
         'necesidades.max' => 'Este campo solo admite máximo 500 caracteres.',
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',
-        'lideres.required' => 'Debes de agregar un lider.',
+
+        'lideres.required' => 'Debes de agregar un líder.',
+        'lideres.min' => 'Debe ser por lo menos un líder.',
+        'lideres.max' => 'Solo puede haber un líder.',
         'integrantes.required' => 'Debes de agregar por lo menos un integrante.',
+        'integrantes.min' => 'Debes de agregar por lo menos un integrante.',
+        
+        'nombreGrupoBanner.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
+        'nombreGrupoBanner.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
+        
+        'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
+        'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
+        
+        'telefonoBanner.required' => 'El teléfono de contacto no puede estar vacío.',
+        'telefonoBanner.max' => 'El teléfono de contacto es demasiado largo.',
+        'telefonoBanner.regex' => 'El formato del teléfono no es valido.',
 
+        'correoBanner.required' => 'El correo electrónico no puede estar vacío.',
+        'correoBanner.email' => 'Debe ser un coreo electrónico valido.',
+        'correoBanner.unique' => 'El correo electrónico ya existe.',
+        'correoBanner.max' => 'El correo electrónico es demasiado largo.',
 
-
-
+        'facebook.max' => 'Nombre de Facebook demasiado largo.',
+        'x.max' => 'Nombre de X demasiado largo.',
+        'youtube.max' => 'Nombre de YouTube demasiado largo.',
     ];
 
 

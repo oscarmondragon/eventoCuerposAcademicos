@@ -84,7 +84,7 @@
                                                 <input type="text" id="form.nombreGrupo" class="w-full"
                                                     placeholder="Facultad de Ciencias"
                                                     wire:model.live="form.nombreGrupo"
-                                                    wire:change="updateCuerpoAcadBanner">
+                                                    wire:change="updateCuerpoAcadBanner" maxlength="100">
                                                 @error('form.nombreGrupo')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -98,7 +98,7 @@
                                                     </label>
                                                     <input type="text" id="form.lugarProcedencia" class="w-full"
                                                         wire:model.live="form.lugarProcedencia"
-                                                        placeholder="Universidad Autónoma del Estado de México">
+                                                        placeholder="Universidad Autónoma del Estado de México" maxlength=""80>
                                                     @error('form.lugarProcedencia')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -108,19 +108,17 @@
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    {{-- <input type="text" id="small-input"
-                                                        class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"> --}}
                                                     <select id="form.pais" wire:model.live="form.pais" class="w-full">
-                                                        <option value="AR">Argentina</option>
-                                                        <option value="BE">Bélgica</option>
-                                                        <option value="CA">Canadá</option>
-                                                        <option value="CO">Colombia</option>
-                                                        <option value="ES">España</option>
-                                                        <option value="US">Estados Unidos</option>
-                                                        <option value="FR">Francia</option>
-                                                        <option value="JP">Japón</option>
-                                                        <option value="MX" selected>México</option>
-                                                        <option value="NL">Países Bajos</option>
+                                                        <option value="Argentina">Argentina</option>
+                                                        <option value="Bélgica">Bélgica</option>
+                                                        <option value="Canadá">Canadá</option>
+                                                        <option value="Colombia">Colombia</option>
+                                                        <option value="España">España</option>
+                                                        <option value="Estados Unidos">Estados Unidos</option>
+                                                        <option value="Francia">Francia</option>
+                                                        <option value="Japón">Japón</option>
+                                                        <option value="México" selected>México</option>
+                                                        <option value="Países Bajos">Países Bajos</option>
                                                     </select>
                                                     @error('form.pais')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -134,10 +132,22 @@
                                                         class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="form.telefonoGeneral"
-                                                        wire:model.live="form.telefonoGeneral"
-                                                        wire:change="updateTelefonoBanner" class="w-full"
-                                                        placeholder="Teléfono">
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                                                            <svg class="w-4 h-4 dark:text-gray-400" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                viewBox="0 0 19 18">
+                                                                <path
+                                                                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <input type="text" id="form.telefonoGeneral"
+                                                            wire:model.live="form.telefonoGeneral"
+                                                            wire:change="updateTelefonoBanner"
+                                                            class="w-full ps-10 p-2.5" {{-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" --}}
+                                                            placeholder="(+52)7226490394" maxlength="15" />
+                                                    </div>
                                                     @error('form.telefonoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -148,22 +158,37 @@
                                                         class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="email" id="form.correoGeneral"
-                                                        wire:model.live="form.correoGeneral"
-                                                        wire:change="updateCorreoBanner" class="w-full"
-                                                        placeholder="Correo electrónico">
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                                            <svg class="w-4 h-4  dark:text-gray-400"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 16">
+                                                                <path
+                                                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                                                <path
+                                                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <input type="email" id="form.correoGeneral"
+                                                            wire:model.live="form.correoGeneral"
+                                                            wire:change="updateCorreoBanner"
+                                                            class="w-full ps-10 p-2.5"
+                                                            placeholder="uaemex@gmail.com" maxlength="100"/>
+                                                    </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
                                                         Este correo electrónico sera el identificador del registro y el
                                                         principal medio de contacto.
                                                     </p>
+
                                                     @error('form.correoGeneral')
-                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                        <span class="text-rojo block -mt-1 ml-1">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
 
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
+                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
                                                 <div class="flex-initial sm:w-1/4 w-full">
                                                     <label for="areaSeleccionada" class="block mb-2 dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
@@ -191,7 +216,6 @@
                                                     @enderror
                                                 </div>
 
-
                                                 <div class="flex-initial sm:w-3/4 w-full">
                                                     <label for="form.subareaTematica"
                                                         class="block mb-2 dark:text-white">
@@ -201,7 +225,8 @@
                                                         <div class="flex flex-col">
                                                             @foreach (collect($subareasOptions)->groupBy('grupo.nombre') as $grupo => $subareasDelGrupo)
                                                                 <h1 class="text-verde font-bold">
-                                                                    {{ $grupo }}</h1>
+                                                                    {{ $grupo }}
+                                                                </h1>
                                                                 <ul>
                                                                     @foreach ($subareasDelGrupo as $subarea)
                                                                         <li wire:click="selectSubareaOption({{ $subarea }})"
@@ -214,8 +239,6 @@
                                                                                 <span
                                                                                     class="w-3 h-3 bg-gray-100 border-2 border-black ml-2"></span>
                                                                             @endif
-
-
                                                                         </li>
                                                                     @endforeach
                                                                 </ul>
@@ -225,12 +248,14 @@
 
                                                 </div>
                                             </div>
-                                            <div class="mt-5 sm:ml-8">
-                                                <p>Subareas seleccionadas:</p>
+                                            <div class="mt-5 sm:ml-8" x-show="selectedSubareas.length > 0">
+                                                <h2 class="text-lg font-medium text-verde">
+                                                    Subareas seleccionadas:
+                                                </h2>
                                                 @error('form.subareasSeleccionadas')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
-                                                <ul>
+                                                <ul class="list-disc">
                                                     @foreach ($selectedSubareas as $subarea)
                                                         <li
                                                             class="sm:ml-12 underline underline-offset-4 decoration-1 decoration-verde pt-2">
@@ -309,7 +334,7 @@
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
-                                                    placeholder="Principales productos logrados..."></textarea>
+                                                    placeholder="Principales productos logrados..." maxlength="500"></textarea>
                                                 @error('form.productosLogrados')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -321,7 +346,7 @@
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
-                                                    placeholder="Casos de éxito..."></textarea>
+                                                    placeholder="Casos de éxito..." maxlength="500"></textarea>
                                                 @error('form.casosExito')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -334,7 +359,7 @@
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
-                                                    placeholder="Proyección y propuesta de vinculación..."></textarea>
+                                                    placeholder="Proyección y propuesta de vinculación..." maxlength="500"></textarea>
                                                 @error('form.propuestas')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -347,7 +372,7 @@
                                                         Fortalezas<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
-                                                        placeholder="Fortalezas..."></textarea>
+                                                        placeholder="Fortalezas..." maxlength="500"></textarea>
                                                     @error('form.fortalezas')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -359,7 +384,7 @@
                                                         Necesidades<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
-                                                        placeholder="Necesidades..."></textarea>
+                                                        placeholder="Necesidades..." maxlength="500"></textarea>
                                                     @error('form.necesidades')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -590,26 +615,35 @@
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
-                                            <div class="mt-5">
+                                            <div class="mt-5" x-show="lideres.length > 0 || integrantes.length > 0">
                                                 <label for="form.integrantesBanner"
                                                     class="block mb-2 dark:text-white">
                                                     Integrantes
                                                 </label>
-                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                {{-- <ul class="list-disc ml-7 underline decoration-verde">
                                                     <template x-for="(lider, index) in lideres" :key="index">
-                                                        <li class="border border-b-gray-200 border-transparent">
+                                                        <li>
                                                             <span x-text="lider.nombre"></span> <span
                                                                 x-text="lider.apellidoPaterno"></span>
                                                             <span x-text="lider.apellidoMaterno"></span>
-                                                            <span> (Lider)</span>
+                                                            <span class="font-bold"> (Lider)</span>
 
                                                         </li>
                                                     </template>
-                                                </ul>
-                                                <ul class="text-left text-sm w-3/4 sm:w-full mx-auto">
+                                                </ul> --}}
+                                                <ul class="list-disc ml-7 grid grid-cols-2">
+                                                    <template x-for="(lider, index) in lideres" :key="index">
+                                                        <li class="underline decoration-verde">
+                                                            <span x-text="lider.nombre"></span> <span
+                                                                x-text="lider.apellidoPaterno"></span>
+                                                            <span x-text="lider.apellidoMaterno"></span>
+                                                            <span class="font-bold"> (Lider)</span>
+
+                                                        </li>
+                                                    </template>
                                                     <template x-for="(integrante, index) in integrantes"
                                                         :key="index">
-                                                        <li class="border border-b-gray-200 border-transparent">
+                                                        <li>
                                                             <span x-text="integrante.nombre"></span> <span
                                                                 x-text="integrante.apellidoPaterno"></span> <span
                                                                 x-text="integrante.apellidoMaterno"></span>
@@ -625,7 +659,7 @@
                                                     conocimiento<span class="font-bold text-red-600">*</span>
                                                 </label>
                                                 <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full"
-                                                    placeholder="Descripción..."></textarea>
+                                                    placeholder="Descripción..." maxlength="500"></textarea>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -638,9 +672,23 @@
                                                         class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="text" id="form.telefonoBanner"
-                                                        wire:model="form.telefonoBanner" class="w-full disabled"
-                                                        placeholder="Teléfono" disabled>
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
+                                                            <svg class="w-4 h-4 dark:text-gray-400" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                viewBox="0 0 19 18">
+                                                                <path
+                                                                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <input type="text" id="form.telefonoBanner"
+                                                            wire:model="form.telefonoBanner"
+                                                            class="w-full disabled ps-10 p-2.5"
+                                                            wire:change="updateTelefonoBanner"
+                                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                                            placeholder="7226-456-8946" disabled />
+                                                    </div>
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -650,10 +698,24 @@
                                                     <label for="form.correoBanner" class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <input type="email" id="form.correoBanner"
-                                                        wire:model="form.correoBanner" class="w-full disabled"
-                                                        value="{{ $form->correoGeneral }}"
-                                                        placeholder="Correo electrónico" disabled>
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                                            <svg class="w-4 h-4  dark:text-gray-400"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 16">
+                                                                <path
+                                                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                                                <path
+                                                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <input type="email" id="form.correoBanner"
+                                                            wire:model="form.correoBanner"
+                                                            class="w-full disabled ps-10 p-2.5"
+                                                            placeholder="Correo electrónico" disabled />
+                                                    </div>
+
                                                     @error('form.correoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -677,7 +739,11 @@
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="facebook"
                                                                 wire:model="form.facebook"
-                                                                placeholder="facebook.com/uaemex">
+                                                                placeholder="facebook.com/uaemex" maxlength="50">
+                                                            @error('form.facebook')
+                                                                <span
+                                                                    class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -690,7 +756,11 @@
                                                         </button>
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="x" wire:model="form.x"
-                                                                placeholder="x.com/uaemex">
+                                                                placeholder="x.com/uaemex" maxlength="50">
+                                                            @error('form.x')
+                                                                <span
+                                                                    class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
 
@@ -705,7 +775,11 @@
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="youtube"
                                                                 wire:model="form.youtube"
-                                                                placeholder="youtube.com/uaemex">
+                                                                placeholder="youtube.com/uaemex" maxlength="50">
+                                                            @error('form.youtube')
+                                                                <span
+                                                                    class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
                                                         </div>
                                                     </div>
                                                 </div>
