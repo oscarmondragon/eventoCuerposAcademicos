@@ -17,7 +17,7 @@ return new class extends Migration {
                 ->noActionOnUpdate()
                 ->onDelete('cascade');
             $table->string('nombre', 50);
-            $table->string('descripcion');
+            $table->text('descripcion');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -101,8 +101,8 @@
                     </label>
                     <select id="genero" class="w-full" wire:model.live="genero">
                         <option value="0">Selecciona una opción</option>
-                        <option value="1">Masculino</option>
-                        <option value="2">Femenino</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
 
                     </select>
                     @error('genero')

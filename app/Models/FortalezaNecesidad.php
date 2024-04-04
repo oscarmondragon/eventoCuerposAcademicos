@@ -10,4 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class FortalezaNecesidad extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+    protected $table = "fortalezas_necesidades";
+
 }
