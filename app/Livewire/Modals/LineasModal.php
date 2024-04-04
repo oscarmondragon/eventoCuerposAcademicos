@@ -10,7 +10,7 @@ class LineasModal extends ModalComponent
 {
     public $_id = 0;
 
-    #[Validate('required')]
+    #[Validate('required|max:50')]
     public $nombre = '';
 
     #[Validate('required|max:500')]
@@ -23,6 +23,7 @@ class LineasModal extends ModalComponent
 
     protected $messages = [
         'nombre.required' => 'El nombre no puede estar vacío.',
+        'nombre.max' => 'El nombre es demasiado largo.',
         'descripcion.required' => 'La descripción  no puede estar vacía.',
         'descripcion.max' => 'La descripción acepta máximo 500 caracteres.',
 
