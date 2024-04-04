@@ -13,12 +13,12 @@ return new class extends Migration {
         Schema::create('registros', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->enum('tipo_solicitante', ['Externo', 'Interno']);
-            $table->string('cuerpo_grupo_red', 100);
+            $table->string('cuerpo_grupo_red', 150);
             $table->text('productos_logrados');
             $table->text('casos_exito');
             $table->text('servicios_proyectos');
             $table->string('pais', 20);
-            $table->string('espacio_procedencia', 80);
+            $table->string('espacio_procedencia', 150);
             $table->foreignUuid('user_id')->nullable()
                 ->constrained()
                 ->noActionOnUpdate()

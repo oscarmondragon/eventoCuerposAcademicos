@@ -95,6 +95,9 @@ class RegistroParticipantes extends Component
             $this->selectedSubareas[] = $subarea;  // Agregar la subárea si no existe
             $this->form->subareasSeleccionadas[] = $subarea;
         }
+
+        $this->validateOnly('form.subareasSeleccionadas');
+
     }
 
     public function actualizarAreasSeleccionadas($areaId)

@@ -4,7 +4,16 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" class="py-6 text-textos">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), selectedSubareas: $wire.entangle('selectedSubareas') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -84,7 +93,7 @@
                                                 <input type="text" id="form.nombreGrupo" class="w-full"
                                                     placeholder="Facultad de Ciencias"
                                                     wire:model.live="form.nombreGrupo"
-                                                    wire:change="updateCuerpoAcadBanner" maxlength="100">
+                                                    wire:change="updateCuerpoAcadBanner" maxlength="150">
                                                 @error('form.nombreGrupo')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -98,7 +107,8 @@
                                                     </label>
                                                     <input type="text" id="form.lugarProcedencia" class="w-full"
                                                         wire:model.live="form.lugarProcedencia"
-                                                        placeholder="Universidad Autónoma del Estado de México" maxlength=""80>
+                                                        placeholder="Universidad Autónoma del Estado de México"
+                                                        maxlength="150">
                                                     @error('form.lugarProcedencia')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -108,7 +118,8 @@
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <select id="form.pais" wire:model.live="form.pais" class="w-full">
+                                                    <select id="form.pais" wire:model.live="form.pais"
+                                                        class="w-full">
                                                         <option value="Argentina">Argentina</option>
                                                         <option value="Bélgica">Bélgica</option>
                                                         <option value="Canadá">Canadá</option>
@@ -173,8 +184,8 @@
                                                         <input type="email" id="form.correoGeneral"
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
-                                                            class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@gmail.com" maxlength="100"/>
+                                                            class="w-full ps-10 p-2.5" placeholder="uaemex@gmail.com"
+                                                            maxlength="100" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -193,16 +204,6 @@
                                                     <label for="areaSeleccionada" class="block mb-2 dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    {{--  <select id="form.areasSeleccionadas"
-                                                        wire:model.live="form.areasSeleccionadas"
-                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                                        <option value="0">Selecciona una opción</option>
-                                                        @foreach ($areasOptions as $area)
-                                                            <option value="{{ $area->id }}">
-                                                                {{ $area->nombre }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select> --}}
                                                     <ul>
                                                         @foreach ($areasOptions as $area)
                                                             <li wire:click="actualizarAreasSeleccionadas({{ $area }})"
@@ -248,13 +249,13 @@
 
                                                 </div>
                                             </div>
+                                            @error('form.subareasSeleccionadas')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
                                             <div class="mt-5 sm:ml-8" x-show="selectedSubareas.length > 0">
                                                 <h2 class="text-lg font-medium text-verde">
                                                     Subareas seleccionadas:
                                                 </h2>
-                                                @error('form.subareasSeleccionadas')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
                                                 <ul class="list-disc">
                                                     @foreach ($selectedSubareas as $subarea)
                                                         <li
@@ -620,17 +621,6 @@
                                                     class="block mb-2 dark:text-white">
                                                     Integrantes
                                                 </label>
-                                                {{-- <ul class="list-disc ml-7 underline decoration-verde">
-                                                    <template x-for="(lider, index) in lideres" :key="index">
-                                                        <li>
-                                                            <span x-text="lider.nombre"></span> <span
-                                                                x-text="lider.apellidoPaterno"></span>
-                                                            <span x-text="lider.apellidoMaterno"></span>
-                                                            <span class="font-bold"> (Lider)</span>
-
-                                                        </li>
-                                                    </template>
-                                                </ul> --}}
                                                 <ul class="list-disc ml-7 grid grid-cols-2">
                                                     <template x-for="(lider, index) in lideres" :key="index">
                                                         <li class="underline decoration-verde">
@@ -741,8 +731,7 @@
                                                                 wire:model="form.facebook"
                                                                 placeholder="facebook.com/uaemex" maxlength="50">
                                                             @error('form.facebook')
-                                                                <span
-                                                                    class="text-rojo block">{{ $message }}</span>
+                                                                <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
@@ -758,8 +747,7 @@
                                                             <input type="text" id="x" wire:model="form.x"
                                                                 placeholder="x.com/uaemex" maxlength="50">
                                                             @error('form.x')
-                                                                <span
-                                                                    class="text-rojo block">{{ $message }}</span>
+                                                                <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
@@ -777,8 +765,7 @@
                                                                 wire:model="form.youtube"
                                                                 placeholder="youtube.com/uaemex" maxlength="50">
                                                             @error('form.youtube')
-                                                                <span
-                                                                    class="text-rojo block">{{ $message }}</span>
+                                                                <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
