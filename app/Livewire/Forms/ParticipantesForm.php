@@ -19,7 +19,7 @@ class ParticipantesForm extends Form
     #[Validate('required|gt:0')]
     public $tipoRegistro = '0';
 
-    #[Validate('required|max:100')]
+    #[Validate('required|max:150')]
     public $nombreGrupo;
 
     #[Validate('required|max:50')]
@@ -31,7 +31,7 @@ class ParticipantesForm extends Form
     #[Validate('required|email|unique:registros,email|max:100')]
     public $correoGeneral = '';
 
-    #[Validate('required|max:80')]
+    #[Validate('required|max:150')]
     public $lugarProcedencia;
 
     #[Validate('required|array|min:1')]
@@ -64,7 +64,7 @@ class ParticipantesForm extends Form
     public $integrantes;
 
     //BANNER
-    #[Validate('required|max:100')]
+    #[Validate('required|max:150')]
     public $nombreGrupoBanner = '';
 
     public $integrantesBanner = '';
@@ -80,13 +80,13 @@ class ParticipantesForm extends Form
 
     public $redesBanner = [];
 
-    #[Validate('nullable|max:5')]
+    #[Validate('nullable|max:50')]
     public $facebook = '';
 
-    #[Validate('nullable|max:5')]
+    #[Validate('nullable|max:50')]
     public $x = '';
 
-    #[Validate('nullable|max:5')]
+    #[Validate('nullable|max:50')]
     public $youtube = '';
 
     //BOUCHER
@@ -102,6 +102,7 @@ class ParticipantesForm extends Form
         'nombreGrupo.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupo.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
         'lugarProcedencia.required' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
+        'lugarProcedencia.max' => 'El nombre de la universidad es demasiado largo.',
         'pais.required' => 'El país no puede estar vacío.',
         // 'pais.gt' => 'El país no puede estar vacío.',
         'pais.max' => 'El país es demasiado largo.',
@@ -131,19 +132,19 @@ class ParticipantesForm extends Form
         'necesidades.required' => 'Este campo no puede estar vacio.',
         'necesidades.max' => 'Este campo solo admite máximo 500 caracteres.',
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',
-      
+
         'lideres.required' => 'Debes de agregar un líder.',
         'lideres.min' => 'Debe ser por lo menos un líder.',
         'lideres.max' => 'Solo puede haber un líder.',
         'integrantes.required' => 'Debes de agregar por lo menos un integrante.',
         'integrantes.min' => 'Debes de agregar por lo menos un integrante.',
-        
+
         'nombreGrupoBanner.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupoBanner.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
-        
+
         'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
         'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
-        
+
         'telefonoBanner.required' => 'El teléfono de contacto no puede estar vacío.',
         'telefonoBanner.max' => 'El teléfono de contacto es demasiado largo.',
         'telefonoBanner.regex' => 'El formato del teléfono no es valido.',
@@ -161,7 +162,7 @@ class ParticipantesForm extends Form
 
     public function store()
     {
-        // $this->validate();
+        $this->validate();
 
         DB::beginTransaction();
         try {
