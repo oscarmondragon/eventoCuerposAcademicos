@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\RegistroCreated;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,4 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Registro extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+
+    protected $dispatchesEvents = [
+        'created' => RegistroCreated::class,
+    ];
 }
