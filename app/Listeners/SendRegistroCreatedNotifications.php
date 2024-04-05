@@ -3,9 +3,11 @@
 namespace App\Listeners;
 
 use App\Events\RegistroCreated;
+use App\Models\Archivo;
 use App\Notifications\NewRegistro;
 use App\Models\User;
 
+use App\Notifications\NewRegistroConPago;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -27,13 +29,17 @@ class SendRegistroCreatedNotifications implements ShouldQueue
     public function handle(RegistroCreated $event): void
     {
 
-        //
-        $registro = $event->registro;
+        if ($event->registro->adjuntoPago == 1) { // adjunto pago se envia notificacion para pagados
 
-        // Obtener la dirección de correo electrónico del registro
-        $email = $registro->email;
+            $event->registro->notify(new NewRegistroConPago($event->registro));
 
-        auth()->user()->notify(new NewRegistro($event->registro));
+
+        } else {
+            // Enviar la notificación al correo del registro con boton para completar pago
+            $event->registro->notify(new NewRegistro($event->registro));
+        }
+
+
 
     }
 }

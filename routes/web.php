@@ -19,6 +19,7 @@ Route::view('/', 'welcome');
 
 Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
 Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.creado');
+Route::get('/registro/{id}/completar', RegistroCreadoMensaje::class)->name('registro.completar');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

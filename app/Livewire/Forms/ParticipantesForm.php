@@ -2,10 +2,12 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Archivo;
 use App\Models\Banner;
 use App\Models\FortalezaNecesidad;
 use App\Models\Integrantes;
 use App\Models\Linea;
+use Livewire\WithFileUploads;
 use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubareaToRegistro;
@@ -14,25 +16,26 @@ use Livewire\Form;
 
 class ParticipantesForm extends Form
 {
+    use WithFileUploads;
 
     //GENERALES
     #[Validate('required|gt:0')]
-    public $tipoRegistro = '0';
+    public $tipoRegistro = '1';
 
     #[Validate('required|max:150')]
-    public $nombreGrupo;
+    public $nombreGrupo = 'CUERPO DE PRUEBA';
 
     #[Validate('required|max:50')]
     public $pais = "México";
 
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
-    public $telefonoGeneral = '';
+    public $telefonoGeneral = '7121638639';
 
     #[Validate('required|email|unique:registros,email|max:100')]
-    public $correoGeneral = '';
+    public $correoGeneral = 'oscarmondragonu100@gmail.com';
 
     #[Validate('required|max:150')]
-    public $lugarProcedencia;
+    public $lugarProcedencia = "UAEM";
 
     #[Validate('required|array|min:1')]
     public $subareasSeleccionadas = [];
@@ -41,13 +44,13 @@ class ParticipantesForm extends Form
     public $lineasInvestigacion;
 
     #[Validate('required|max:500')]
-    public $productosLogrados = '';
+    public $productosLogrados = 'UNO LOGRADO';
 
     #[Validate('required|max:500')]
-    public $casosExito = '';
+    public $casosExito = 'MUCHOS CASOS';
 
     #[Validate('required|max:500')]
-    public $propuestas = '';
+    public $propuestas = 'MUCHAS PROPUESTAS';
 
     #[Validate('required|max:500')]
     public $fortalezas = '';
@@ -90,10 +93,14 @@ class ParticipantesForm extends Form
     public $youtube = '';
 
     //BOUCHER
+    #[Validate('nullable|mimes:jpg,pdf,png|max:2048')]
     public $boucher = null;
 
     #[Validate('accepted')]
-    public $aceptoDatos;
+    public $aceptoDatos = true;
+
+
+    public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
 
 
     protected $messages = [
@@ -159,6 +166,9 @@ class ParticipantesForm extends Form
         'facebook.max' => 'Nombre de Facebook demasiado largo.',
         'x.max' => 'Nombre de X demasiado largo.',
         'youtube.max' => 'Nombre de YouTube demasiado largo.',
+        'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
+        'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+
     ];
 
 
@@ -178,6 +188,10 @@ class ParticipantesForm extends Form
                 return "Procedencia invalida.";
             }
 
+            if (!empty($this->boucher)) {
+                $this->adjuntoPago = true;
+            }
+
             //Guardamos los datos del registro
             $registro->tipo_solicitante = $this->tipoRegistro;
             $registro->cuerpo_grupo_red = $this->nombreGrupo;
@@ -190,6 +204,8 @@ class ParticipantesForm extends Form
             $registro->email = $this->correoGeneral;
             $registro->telefono = $this->telefonoGeneral;
             $registro->aceptoDatos = $this->aceptoDatos;
+            $registro->adjuntoPago = $this->adjuntoPago;
+
             $registro->save();
 
             //Guardamos fortalezas y necesidades
@@ -297,8 +313,33 @@ class ParticipantesForm extends Form
                 $subareasToRegistroDB->save();
             }
 
+            //Guardamos el boucher
+
+            if (!empty($this->boucher)) {
+                //Guardar en sistema de archivos
+                $ruta_boucher = "public/" . $registro->id . "/Pago/";
+                $extension = $this->boucher->getClientOriginalExtension();
+
+                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago.' . $extension);
+
+                $rutaCompleta = $ruta_boucher . 'comprobante_pago.' . $extension;
+
+                //guardar en DB
+                $archivo = new Archivo;
+
+                $archivo->registro_id = $registro->id;
+                $archivo->ruta = $rutaCompleta;
+                $archivo->tipo = "Boucher";
+                $archivo->user_id = 0; //significa que no lo subio un usuario autenticado
+
+                $archivo->save();
+
+
+            }
+
             DB::commit();
             return redirect('/registro-creado')->with('success', 'Su registro  ha sido guardado correctamente con el correo ' . $this->correoGeneral);
+
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Error al guardar el registro. Por favor, intente más tarde. Si el problema persiste contacte al administrador del sistema.' . $e->getMessage());
