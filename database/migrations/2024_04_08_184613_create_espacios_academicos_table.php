@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fortalezas_necesidades', function (Blueprint $table) {
+        Schema::create('espacios_academicos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('registro_id')
-                ->constrained()
-                ->noActionOnUpdate()
-                ->onDelete('cascade');
-            $table->text('descripcion');
-            $table->enum('tipo', ['Fortaleza', 'Necesidad']);
+            $table->string('nombre', 100);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -29,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fortalezas_necesidades');
+        Schema::dropIfExists('espacios_academicos');
     }
 };

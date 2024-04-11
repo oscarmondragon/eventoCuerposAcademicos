@@ -4,8 +4,11 @@ namespace App\Livewire\Participantes;
 
 use App\Livewire\Forms\ParticipantesForm;
 use App\Models\Area;
+use App\Models\CuerpoAcademico;
+use App\Models\EspacioAcademico;
 use App\Models\Integrantes;
 use App\Models\Linea;
+use App\Models\PaisCatalogo;
 use App\Models\Subarea;
 use App\Models\TipoLider;
 use Livewire\WithFileUploads;
@@ -19,12 +22,16 @@ class RegistroParticipantes extends Component
     public $selectedSubareas = [];
     public $areaSeleccionada;
     public $tipoLiderSeleccionado;
+    public $paises;
+    public $espaciosAcademicos;
+    public $cuerposAcademicos;
 
     public ParticipantesForm $form;
 
     public $listeners = [
         'addLinea',
-        'addIntegrante'
+        'addIntegrante',
+        'save'
     ];
 
     #[Layout('layouts.publico')]
@@ -36,7 +43,9 @@ class RegistroParticipantes extends Component
         $this->form->lideres = collect($this->form->lideres);
         $this->form->integrantes = collect($this->form->integrantes);
 
-
+        $this->paises = PaisCatalogo::all();
+        $this->espaciosAcademicos = EspacioAcademico::all();
+        $this->cuerposAcademicos = CuerpoAcademico::all();
     }
     public function render()
     {
@@ -97,7 +106,6 @@ class RegistroParticipantes extends Component
         }
 
         $this->validateOnly('form.subareasSeleccionadas');
-
     }
 
     public function actualizarAreasSeleccionadas($areaId)
@@ -121,7 +129,6 @@ class RegistroParticipantes extends Component
                 'nombre' => $nombre,
                 'descripcion' => $descripcion,
             ]);
-
         } else {
             //Entra aqui para editar el existente
             //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
@@ -143,7 +150,6 @@ class RegistroParticipantes extends Component
                 //actualizamos indices
                 $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->values();
             }
-
         }
 
         $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
@@ -203,10 +209,7 @@ class RegistroParticipantes extends Component
                     'correo' => $correo,
                     'telefono' => $telefono,
                 ]);
-
             }
-
-
         } else {
             //Entra aqui para editar el existente
 
@@ -282,9 +285,7 @@ class RegistroParticipantes extends Component
                     //actualizamos indices
                     $this->form->integrantes = $this->form->integrantes->values();
                 }
-
             }
-
         }
     }
 

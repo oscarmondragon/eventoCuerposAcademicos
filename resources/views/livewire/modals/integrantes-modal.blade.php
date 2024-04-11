@@ -9,7 +9,7 @@
                     <label for="nombre" class="label-modal">
                         Nombre<span class="font-bold text-red-600">*</span>
                     </label>
-                    <input type="text" id="nombre" wire:model.live="nombre" class="input-modal" placeholder="Juan" maxlength="30">
+                    <input type="text" id="nombre" wire:model.live="nombre" class="input-modal" placeholder="Juan">
                     @error('nombre')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
@@ -20,7 +20,7 @@
                         Apellido paterno<span class="font-bold text-red-600">*</span>
                     </label>
                     <input type="text" id="apellidoPaterno" wire:model.live="apellidoPaterno" class="input-modal"
-                        placeholder="Beltran" maxlength="30">
+                        placeholder="Beltran">
                     @error('apellidoPaterno')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
@@ -31,7 +31,7 @@
                         Apellido materno
                     </label>
                     <input type="text" id="apellidoMaterno" wire:model.live="apellidoMaterno" class="input-modal"
-                        placeholder="Hernández" maxlength="30">
+                        placeholder="Hernández">
                     @error('apellidoMaterno')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
@@ -56,10 +56,10 @@
                 @endif
                 <div class="mt-4">
                     <label for="gradoAcademico" class="label-modal">
-                        Grado académico<span class="font-bold text-red-600">*</span>
+                        Nombre completo del último grado académico<span class="font-bold text-red-600">*</span>
                     </label>
                     <input type="text" id="gradoAcademico" wire:model.live="gradoAcademico" class="input-modal"
-                        placeholder="Licenciatura en Inteligencia Artificial" maxlength="100">
+                        placeholder="Licenciatura en Inteligencia Artificial">
                     @error('gradoAcademico')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
@@ -67,10 +67,10 @@
 
                 <div class="mt-4">
                     <label for="gradoAcademicoAbrev" class="label-modal">
-                        Grado académico abreviado<span class="font-bold text-red-600">*</span>
+                        Nombre abreviado del último grado académico<span class="font-bold text-red-600">*</span>
                     </label>
                     <input type="text" id="gradoAcademicoAbrev" wire:model.live="gradoAcademicoAbrev"
-                        class="input-modal" placeholder="LIA" maxlength="20">
+                        class="input-modal" placeholder="LIA">
                     @error('gradoAcademicoAbrev')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
@@ -103,6 +103,7 @@
                         <option value="0">Selecciona una opción</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
+                        <option value="Otro">Otro</option>
 
                     </select>
                     @error('genero')
@@ -118,14 +119,38 @@
                         <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                             <svg class="w-4 h-4 text-textos dark:text-gray-400" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                                <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                                <path
+                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                <path
+                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
                             </svg>
                         </div>
                         <input type="email" id="correo" wire:model.live="correo"
-                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uamex.mx"/>
+                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uamex.mx" />
                     </div>
                     @error('correo')
+                        <span class="text-rojo block">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="mt-4">
+                    <label for="confirmarCorreo" class="label-modal">
+                        Confirmar correo electrónico<span class="font-bold text-red-600">*</span>
+                    </label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                            <svg class="w-4 h-4 text-textos dark:text-gray-400" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+                                <path
+                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                <path
+                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                            </svg>
+                        </div>
+                        <input type="email" id="confirmarCorreo" wire:model.live="confirmarCorreo"
+                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uamex.mx" />
+                    </div>
+                    @error('confirmarCorreo')
                         <span class="text-rojo block">{{ $message }}</span>
                     @enderror
                 </div>
@@ -143,8 +168,7 @@
                             </svg>
                         </div>
                         <input type="text" id="telefono" wire:model.live="telefono"
-                            class="input-modal ps-10 p-2.5" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                            placeholder="(+52)7226490394" maxlength="15" />
+                            class="input-modal ps-10 p-2.5" placeholder="(+52)7226490394" />
                     </div>
                     @error('telefono')
                         <span class="text-rojo block">{{ $message }}</span>

@@ -44,6 +44,9 @@ class IntegrantesModal extends ModalComponent
     #[Validate('required|email|max:100')]
     public $correo = '';
 
+    #[Validate('required|same:correo')]
+    public $confirmarCorreo = '';
+
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefono = '';
 
@@ -81,6 +84,9 @@ class IntegrantesModal extends ModalComponent
         'correo.required' => 'El correo electrónico no puede estar vacío.',
         'correo.email' => 'El coreo electrónico no tiene un formato valido.',
         'correo.max' => 'El correo electrónico es demasiado largo.',
+
+        'confirmarCorreo.required' => 'El correo electrónico de confirmación no puede estar vacío.',
+        'confirmarCorreo.same' => 'El correo electrónico de confirmación no coincide.',
 
         'telefono.required' => 'El telefono no puede estar vacío.',
         'telefono.min' => 'El teléfono debe de contener al menos 10 dígitos.',
@@ -139,7 +145,5 @@ class IntegrantesModal extends ModalComponent
         $this->correo = "";
         $this->telefono = "";
         $this->isLider = "";
-
-
     }
 }
