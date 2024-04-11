@@ -18,7 +18,7 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div class="ms-3 text-sm font-medium">
-                            Si ya te has registrado antes dirigete <a href="#"
+                            Si ya te has registrado antes dirigete <a href="{{ route('registro.buscar') }}"
                                 class="font-semibold underline hover:no-underline">aquí</a>.
                         </div>
                         <button type="button"
