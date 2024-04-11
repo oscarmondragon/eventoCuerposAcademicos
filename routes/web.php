@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Participantes\AdjuntarBoucherCorreo;
+use App\Livewire\Participantes\BuscarRegistroParticipantes;
 use App\Livewire\Participantes\RegistroCreadoMensaje;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Participantes\RegistroParticipantes;
@@ -19,6 +21,9 @@ Route::view('/', 'welcome');
 
 Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
 Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.creado');
+Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('boucher.completar');
+Route::get('/registro-buscar', BuscarRegistroParticipantes::class)->name('registro.buscar');
+
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

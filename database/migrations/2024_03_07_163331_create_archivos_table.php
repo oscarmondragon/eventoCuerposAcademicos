@@ -17,7 +17,7 @@ return new class extends Migration {
                 ->noActionOnUpdate()
                 ->onDelete('cascade');
             $table->string('ruta');
-            $table->enum('tipo', ['Video', 'Documento']);
+            $table->enum('tipo', ['Video', 'Documento', 'Boucher']);
             $table->uuid('user_id');
             $table->softDeletes();
             $table->timestamps();

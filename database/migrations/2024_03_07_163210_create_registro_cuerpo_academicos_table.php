@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->boolean('aprobacion')->default(null)->nullable();
             $table->string('email', 100)->unique();
             $table->string('telefono', 20);
-
+            $table->boolean('adjuntoPago')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

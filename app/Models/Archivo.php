@@ -10,4 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Archivo extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+    protected $fillable = ['registro_id', 'ruta', 'tipo', 'user_id'];
 }
