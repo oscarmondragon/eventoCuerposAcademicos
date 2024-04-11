@@ -11,16 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fortalezas_necesidades', function (Blueprint $table) {
+        Schema::create('cuerpos_academicos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('registro_id')
-                ->constrained()
-                ->noActionOnUpdate()
-                ->onDelete('cascade');
-            $table->text('descripcion');
-            $table->enum('tipo', ['Fortaleza', 'Necesidad']);
+            $table->uuid('espacio_academico_id')->nullable();
+            $table->string('nombre', 150);
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('espacio_academico_id')->references('id')->on('espacios_academicos');
         });
     }
 
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fortalezas_necesidades');
+        Schema::dropIfExists('cuerpos_academicos');
     }
 };

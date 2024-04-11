@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -23,7 +24,7 @@ return new class extends Migration {
             $table->string('grado_academico_abreviado', 10);
             $table->enum('sexo', ['Hombre', 'Mujer', 'Indistinto']);
             $table->enum('genero', ['Masculino', 'Femenino', 'No binario']);
-            $table->string('email', 100)->unique();
+            $table->string('email', 100);
             $table->string('telefono', 20);
             $table->enum('tipo', ['Lider', 'Integrante']);
             $table->foreignUuid('tipo_lider')

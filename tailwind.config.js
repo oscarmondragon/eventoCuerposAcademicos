@@ -21,7 +21,7 @@ export default {
                 textos: "#4D4D4D",
                 color_primary: "#3B5A60",
                 color_secundary: "#D9AC52",
-                rojo: "#E86562",
+                rojo: "#e02424",
                 blanco: "#F1F2F2",
                 trasnparente: "rgb(255, 255, 255, .3)",
             },

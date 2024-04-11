@@ -4,7 +4,7 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), selectedSubareas: $wire.entangle('selectedSubareas') }" class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -32,7 +32,8 @@
                             </svg>
                         </button>
                     </div>
-                    <form wire:submit="save">
+                    <form x-on:submit.prevent="save">
+                        @csrf
                         <div>
                             <div class="mt-4">
                                 <div id="accordion-open" data-accordion="open">
@@ -57,8 +58,7 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1"
-                                        class="">
+                                    <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
                                             <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5">
                                                 <div class="basis-1/4">
@@ -76,61 +76,93 @@
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                <div class="basis-3/4">
-                                                    <label for="form.nombreGrupo" class="block mb-2 dark:text-white">
-                                                        Nombre del Cuerpo Académico, red o grupo de investigación<span
-                                                            class="font-bold text-red-600">*</span>
-                                                    </label>
-                                                    <input type="text" id="form.nombreGrupo" class="w-full"
-                                                        placeholder="Facultad de Ciencias"
-                                                        wire:model.live="form.nombreGrupo"
-                                                        wire:change="updateCuerpoAcadBanner" maxlength="150">
-                                                    @error('form.nombreGrupo')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
+                                                @if ($form->tipoRegistro == 1)
+                                                    <div class="basis-3/4">
+                                                        <label for="lugarProcedencia"
+                                                            class="block mb-2 dark:text-white">
+                                                            Espacio academico
+                                                        </label>
+                                                        <select name="lugarProcedencia" id="form.lugarProcedencia"
+                                                            wire:model.live="form.lugarProcedencia" class="w-full h-10">
+                                                            <option value="">Seleccione una opción</option>
+                                                            @foreach ($espaciosAcademicos as $espacioAcademico)
+                                                                <option value="{{ $espacioAcademico->nombre }}">
+                                                                    {{ $espacioAcademico->nombre }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                        @error('form.lugarProcedencia')
+                                                            <span class="text-rojo block">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                @elseif($form->tipoRegistro == 2)
+                                                    <div class="basis-3/4">
+                                                        <label for="form.lugarProcedencia"
+                                                            class="block mb-2 dark:text-white">
+                                                            Nombre completo de la universidad, dependencia o
+                                                            departamento de
+                                                            adscripción<span class="font-bold text-red-600">*</span>
+                                                        </label>
+                                                        <input type="text" id="form.lugarProcedencia" class="w-full"
+                                                            wire:model.live="form.lugarProcedencia"
+                                                            placeholder="Universidad Autónoma del Estado de México">
+                                                        @error('form.lugarProcedencia')
+                                                            <span class="text-rojo block">{{ $message }}</span>
+                                                        @enderror
+                                                    </div>
+                                                @endif
                                             </div>
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-3/4 w-full">
-                                                    <label for="form.lugarProcedencia"
-                                                        class="block mb-2 dark:text-white">
-                                                        Nombre completo de la universidad, dependencia o departamento de
-                                                        adscripción<span class="font-bold text-red-600">*</span>
-                                                    </label>
-                                                    <input type="text" id="form.lugarProcedencia" class="w-full"
-                                                        wire:model.live="form.lugarProcedencia"
-                                                        placeholder="Universidad Autónoma del Estado de México"
-                                                        maxlength="150">
-                                                    @error('form.lugarProcedencia')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
-                                                </div>
 
-                                                <div class="flex-initial sm:w-1/4 w-full sm:mt-0 mt-5">
+                                            <div class="mt-5">
+                                                <label for="form.nombreGrupo" class="block mb-2 dark:text-white">
+                                                    Nombre del Cuerpo Académico, red o grupo de investigación<span
+                                                        class="font-bold text-red-600">*</span>
+                                                </label>
+                                                @if ($form->tipoRegistro == 1)
+                                                    <div>
+                                                        <select name="form.nombreGrupo" id="form.nombreGrupo"
+                                                            class="w-full h-10" wire:model.live="form.nombreGrupo"
+                                                            wire:change="updateCuerpoAcadBanner">
+                                                            <option value="">Seleccione una opción</option>
+                                                            @foreach ($cuerposAcademicos as $cuerpoAcademico)
+                                                                <option value="{{ $cuerpoAcademico->nombre }}">
+                                                                    {{ $cuerpoAcademico->nombre }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                @elseif($form->tipoRegistro == 2 || $form->tipoRegistro == 0)
+                                                    <div>
+                                                        <input type="text" id="form.nombreGrupo" class="w-full"
+                                                            placeholder="Facultad de Ciencias"
+                                                            wire:model.live="form.nombreGrupo"
+                                                            wire:change="updateCuerpoAcadBanner" />
+                                                    </div>
+                                                @endif
+
+                                                @error('form.nombreGrupo')
+                                                    <span class="text-rojo block">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-3/5 w-full">
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <select id="form.pais" wire:model.live="form.pais"
                                                         class="w-full">
-                                                        <option value="Argentina">Argentina</option>
-                                                        <option value="Bélgica">Bélgica</option>
-                                                        <option value="Canadá">Canadá</option>
-                                                        <option value="Colombia">Colombia</option>
-                                                        <option value="España">España</option>
-                                                        <option value="Estados Unidos">Estados Unidos</option>
-                                                        <option value="Francia">Francia</option>
-                                                        <option value="Japón">Japón</option>
-                                                        <option value="México" selected>México</option>
-                                                        <option value="Países Bajos">Países Bajos</option>
+                                                        @foreach ($paises as $pais)
+                                                            <option value="{{ $pais->nombre }}">{{ $pais->nombre }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     @error('form.pais')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                            </div>
 
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-2/5 w-full">
+                                                <div class="flex-initial sm:w-2/5 w-full sm:mt-0 mt-5">
                                                     <label for="form.telefonoGeneral"
                                                         class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
@@ -149,14 +181,16 @@
                                                             wire:model.live="form.telefonoGeneral"
                                                             wire:change="updateTelefonoBanner"
                                                             class="w-full ps-10 p-2.5" {{-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" --}}
-                                                            placeholder="(+52)7226490394" maxlength="15" />
+                                                            placeholder="(+52)7226490394" />
                                                     </div>
                                                     @error('form.telefonoGeneral')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
+                                            </div>
 
-                                                <div class="flex-initial sm:w-3/5 w-full">
+                                            <div class="sm:flex flex-row gap-x-4 mt-5">
+                                                <div class="flex-initial sm:w-1/2 w-full">
                                                     <label for="form.correoGeneral"
                                                         class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
@@ -176,8 +210,8 @@
                                                         <input type="email" id="form.correoGeneral"
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
-                                                            class="w-full ps-10 p-2.5" placeholder="uaemex@gmail.com"
-                                                            maxlength="100" />
+                                                            class="w-full ps-10 p-2.5"
+                                                            placeholder="uaemex@gmail.com" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -186,20 +220,57 @@
                                                     </p>
 
                                                     @error('form.correoGeneral')
-                                                        <span class="text-rojo block -mt-1 ml-1">{{ $message }}</span>
+                                                        <span
+                                                            class="text-rojo block -mt-1 ml-1">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+
+                                                <div class="flex-initial sm:w-1/2 w-full">
+                                                    <label for="form.correoGeneralConfirmacion"
+                                                        class="block mb-2 dark:text-white">
+                                                        Confirmar correo electrónico<span
+                                                            class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <div class="relative">
+                                                        <div
+                                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                                            <svg class="w-4 h-4  dark:text-gray-400"
+                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                                fill="currentColor" viewBox="0 0 20 16">
+                                                                <path
+                                                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+                                                                <path
+                                                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+                                                            </svg>
+                                                        </div>
+                                                        <input type="email" id="form.correoGeneralConfirmacion"
+                                                            wire:model.live="form.correoGeneralConfirmacion"
+                                                            wire:change="updateCorreoBanner"
+                                                            class="w-full ps-10 p-2.5"
+                                                            placeholder="uaemex@gmail.com" />
+                                                    </div>
+                                                    @error('form.correoGeneralConfirmacion')
+                                                        <span class="text-rojo block ml-1">{{ $message }}</span>
                                                     @enderror
                                                 </div>
                                             </div>
-
-                                            <div class="sm:flex flex-row items-center gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-1/4 w-full">
-                                                    <label for="areaSeleccionada" class="block mb-2 dark:text-white">
+                                            <div class="mt-5">
+                                                <label class="block mb-2 dark:text-white">
+                                                    Selecciona un área tematica y automaticamente se listaran sus
+                                                    subareas disponibles para seleccionar<span
+                                                        class="font-bold text-red-600">*</span>
+                                                </label>
+                                            </div>
+                                            <div class="sm:flex flex-row  gap-x-4 bg-[#34778A]/30 rounded-lg">
+                                                <div class="flex-initial sm:w-1/4 w-full rounded-l-lg pl-4 py-5">
+                                                    <label for="areaSeleccionada"
+                                                        class="block mb-2 font-bold dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <ul>
+                                                    <ul class="pl-4">
                                                         @foreach ($areasOptions as $area)
                                                             <li wire:click="actualizarAreasSeleccionadas({{ $area }})"
-                                                                class="cursor-pointer text-textos hover:bg-verde/70 hover:text-white hover:font-bold {{ $area->id == $areaSeleccionada ? 'bg-verde/40' : 'bg-blanco' }}">
+                                                                class="cursor-pointer text-textos hover:bg-[#34778A]/80 focus:bg-red-500 hover:text-white hover:font-bold {{ $area->id == $areaSeleccionada ? 'bg-[#34778A]/80' : 'bg-transparent' }}">
                                                                 {{ $area->nombre }}
                                                             </li>
                                                         @endforeach
@@ -209,7 +280,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="flex-initial sm:w-3/4 w-full">
+                                                <div class="flex-initial sm:w-3/4 w-full bg-gray-100 pl-4 py-4">
                                                     <label for="form.subareaTematica"
                                                         class="block mb-2 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
@@ -223,7 +294,7 @@
                                                                 <ul>
                                                                     @foreach ($subareasDelGrupo as $subarea)
                                                                         <li wire:click="selectSubareaOption({{ $subarea }})"
-                                                                            class="hover:bg-dorado/60 hover:text-white hover:font-bold cursor-pointer flex items-center"
+                                                                            class="hover:bg-[#34778A]/30 hover:text-black cursor-pointer flex items-center"
                                                                             :class="{ 'bg-dorado/30': {{ array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false ? 'true' : 'false' }} }">
                                                                             {{ $subarea->nombre }}
                                                                             @if (array_search($subarea['id'], array_column($this->selectedSubareas, 'id')) !== false)
@@ -238,29 +309,36 @@
                                                             @endforeach
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                             @error('form.subareasSeleccionadas')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
-                                            <div class="mt-5 sm:ml-8" x-show="selectedSubareas.length > 0">
-                                                <h2 class="text-lg font-medium text-verde">
-                                                    Subareas seleccionadas:
-                                                </h2>
-                                                <ul class="list-disc">
-                                                    @foreach ($selectedSubareas as $subarea)
-                                                        <li
-                                                            class="sm:ml-12 underline underline-offset-4 decoration-1 decoration-verde pt-2">
-                                                            {{ $subarea['area'] }} <span
-                                                                class="text-verde">&#10142;</span>
-                                                            {{ $subarea['grupo'] }} <span
-                                                                class="text-verde">&#10142;</span>
-                                                            <span class="font-bold">{{ $subarea['nombre'] }}</span>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
+
+                                            @if (count($selectedSubareas) > 0)
+                                                <div class="mt-5 sm:ml-8">
+                                                    <h2 class="text-lg font-medium text-verde">
+                                                        Subareas seleccionadas:
+                                                    </h2>
+                                                    <ul class="list-disc">
+                                                        @foreach ($selectedSubareas as $subarea)
+                                                            <li
+                                                                class="sm:ml-12 underline underline-offset-4 decoration-1 decoration-verde pt-2">
+                                                                {{ $subarea['area'] }} <span
+                                                                    class="text-verde">&#10142;</span>
+                                                                {{ $subarea['grupo'] }} <span
+                                                                    class="text-verde">&#10142;</span>
+                                                                <span
+                                                                    class="font-bold">{{ $subarea['nombre'] }}</span>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                    <p class="text-dorado text-sm mt-2"><span class="font-bold">Nota:
+                                                        </span>Para quitar una subarea dar clic en la palomita que
+                                                        aparece enfrente de la subarea.</p>
+                                                </div>
+                                            @endif
+
                                             <div class="mt-5">
                                                 <div class="flex items-center">
                                                     <label for="btnLineas">Lineas de generación y aplicacion del
@@ -324,10 +402,10 @@
                                                 <label for="form.productosLogrados"
                                                     class="block mb-2 dark:text-white">
                                                     Principales productos logrados<span
-                                                        class="font-bold text-red-600">*</span>
+                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
                                                 </label>
                                                 <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
-                                                    placeholder="Principales productos logrados..." maxlength="500"></textarea>
+                                                    placeholder="Principales productos logrados..."></textarea>
                                                 @error('form.productosLogrados')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -336,10 +414,10 @@
                                             <div class="mt-5">
                                                 <label for="form.casosExito" class="block mb-2 mt-2 dark:text-white">
                                                     Casos de éxito de trasnferencia<span
-                                                        class="font-bold text-red-600">*</span>
+                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
                                                 </label>
                                                 <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
-                                                    placeholder="Casos de éxito..." maxlength="500"></textarea>
+                                                    placeholder="Casos de éxito..."></textarea>
                                                 @error('form.casosExito')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -349,10 +427,10 @@
                                                 <label for="form.propuestas" class="block mb-2 mt-2 dark:text-white">
                                                     Proyección y propuesta de vinculación o servicios que se brindan o
                                                     proyectos para posible vinculación<span
-                                                        class="font-bold text-red-600">*</span>
+                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
                                                 </label>
                                                 <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
-                                                    placeholder="Proyección y propuesta de vinculación..." maxlength="500"></textarea>
+                                                    placeholder="Proyección y propuesta de vinculación..."></textarea>
                                                 @error('form.propuestas')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -362,10 +440,11 @@
                                                 <div class="flex-initial sm:w-1/2 w-full">
                                                     <label for="form.fortalezas"
                                                         class="block mb-2 mt-2 dark:text-white">
-                                                        Fortalezas<span class="font-bold text-red-600">*</span>
+                                                        Fortalezas<span class="font-bold text-red-600">*</span> (máximo
+                                                        500 caracteres)
                                                     </label>
                                                     <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
-                                                        placeholder="Fortalezas..." maxlength="500"></textarea>
+                                                        placeholder="Fortalezas..."></textarea>
                                                     @error('form.fortalezas')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -375,9 +454,10 @@
                                                     <label for="form.necesidades"
                                                         class="block mb-2 mt-2 dark:text-white">
                                                         Necesidades<span class="font-bold text-red-600">*</span>
+                                                        (máximo 500 caracteres)
                                                     </label>
                                                     <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
-                                                        placeholder="Necesidades..." maxlength="500"></textarea>
+                                                        placeholder="Necesidades..."></textarea>
                                                     @error('form.necesidades')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -582,7 +662,8 @@
                                                         d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
                                                         clip-rule="evenodd"></path>
                                                 </svg>Banner: Estos datos serán utilizados para imprimirlos en la lona
-                                                que contempla el kit y para formar un directorio</span>
+                                                del networking y
+                                                para formar un directorio</span>
                                             <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0"
                                                 aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                                                 viewBox="0 0 10 6">
@@ -606,40 +687,52 @@
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
-                                            <div class="mt-5" x-show="lideres.length > 0 || integrantes.length > 0">
-                                                <label for="form.integrantesBanner"
-                                                    class="block mb-2 dark:text-white">
-                                                    Integrantes
-                                                </label>
-                                                <ul class="list-disc ml-7 grid grid-cols-2">
-                                                    <template x-for="(lider, index) in lideres" :key="index">
-                                                        <li class="underline decoration-verde">
-                                                            <span x-text="lider.nombre"></span> <span
-                                                                x-text="lider.apellidoPaterno"></span>
-                                                            <span x-text="lider.apellidoMaterno"></span>
-                                                            <span class="font-bold"> (Lider)</span>
+                                            <div x-show="lideres.length > 0 || integrantes.length > 0"
+                                                class="mt-5 ml-8">
+                                                <h2 class="text-lg font-medium text-verde">
+                                                    Directorio
+                                                </h2>
+                                                <div x-show="lideres.length > 0">
+                                                    <p class="block ml-3 font-bold dark:text-white">
+                                                        Líder
+                                                    </p>
+                                                    <ul class="list-disc ml-7">
+                                                        <template x-for="(lider, index) in lideres"
+                                                            :key="index">
+                                                            <li>
+                                                                <span x-text="lider.nombre"></span> <span
+                                                                    x-text="lider.apellidoPaterno"></span>
+                                                                <span x-text="lider.apellidoMaterno"></span>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
 
-                                                        </li>
-                                                    </template>
-                                                    <template x-for="(integrante, index) in integrantes"
-                                                        :key="index">
-                                                        <li>
-                                                            <span x-text="integrante.nombre"></span> <span
-                                                                x-text="integrante.apellidoPaterno"></span> <span
-                                                                x-text="integrante.apellidoMaterno"></span>
-                                                        </li>
-                                                    </template>
-                                                </ul>
+                                                <div x-show="integrantes.length > 0" class="mt-4">
+                                                    <ul class="list-disc ml-7">
+                                                        <p class="-ml-4 font-bold dark:text-white">
+                                                            Integrantes
+                                                        </p>
+                                                        <template x-for="(integrante, index) in integrantes"
+                                                            :key="index">
+                                                            <li>
+                                                                <span x-text="integrante.nombre"></span> <span
+                                                                    x-text="integrante.apellidoPaterno"></span> <span
+                                                                    x-text="integrante.apellidoMaterno"></span>
+                                                            </li>
+                                                        </template>
+                                                    </ul>
+                                                </div>
                                             </div>
 
                                             <div class="mt-5">
-                                                <label for="form.descripcionBanner"
-                                                    class="block mb-2 mt-2 dark:text-white">
+                                                <label for="form.descripcionBanner" class="mb-2 mt-2 dark:text-white">
                                                     Descripción de su principal línea de generación y aplicación del
-                                                    conocimiento<span class="font-bold text-red-600">*</span>
+                                                    conocimiento<span class="font-bold text-red-600">*</span> (máximo
+                                                    500 caracteres)
                                                 </label>
                                                 <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full"
-                                                    placeholder="Descripción..." maxlength="500"></textarea>
+                                                    placeholder="Descripción..."></textarea>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -667,7 +760,7 @@
                                                             class="w-full disabled ps-10 p-2.5"
                                                             wire:change="updateTelefonoBanner"
                                                             pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                                                            placeholder="7226-456-8946" disabled />
+                                                            placeholder="(+52)7226490394" disabled />
                                                     </div>
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -708,7 +801,7 @@
                                                 </label>
                                                 <div
                                                     class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
-                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                    <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
                                                             class="button bg-[#1877f2] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="Facebook">
@@ -719,14 +812,14 @@
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="facebook"
                                                                 wire:model="form.facebook"
-                                                                placeholder="facebook.com/uaemex" maxlength="50">
+                                                                placeholder="facebook.com/uaemex">
                                                             @error('form.facebook')
                                                                 <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
 
-                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                    <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
                                                             class="button bg-black sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="X">
@@ -735,14 +828,14 @@
                                                         </button>
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="x" wire:model="form.x"
-                                                                placeholder="x.com/uaemex" maxlength="50">
+                                                                placeholder="x.com/uaemex">
                                                             @error('form.x')
                                                                 <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
 
-                                                    <div x-data="{ open: false }" class="basis-1/3">
+                                                    <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
                                                             class="button bg-[#ff0000] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="YouTube">
@@ -753,8 +846,26 @@
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="youtube"
                                                                 wire:model="form.youtube"
-                                                                placeholder="youtube.com/uaemex" maxlength="50">
+                                                                placeholder="youtube.com/uaemex">
                                                             @error('form.youtube')
+                                                                <span class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div x-data="{ open: false }" class="basis-1/4">
+                                                        <button type="button"
+                                                            class="button bg-dorado sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            @click="open = ! open" title="Otra red social">
+                                                            {{-- <img src="{{ 'img/iconos/icRedesOtra.png' }}"
+                                                                alt="Icono Facebook" class="inline-block"> --}}
+                                                            <h1 class="font-bold sm:-ml-1">Otra</h1>
+                                                        </button>
+                                                        <div x-show="open" class="mt-2">
+                                                            <input type="text" id="otraRed"
+                                                                wire:model="form.otraRed"
+                                                                placeholder="otraRedSocial.com/uaemex">
+                                                            @error('form.otraRed')
                                                                 <span class="text-rojo block">{{ $message }}</span>
                                                             @enderror
                                                         </div>
@@ -819,6 +930,35 @@
                                 <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
                             @enderror
 
+                            <div id="alert-2" x-show="session('error')"
+                                class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                                role="alert">
+                                <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div class="ms-3 text-sm font-medium">
+
+                                    <div class="alert alert-success">
+                                        {{ session('error') }}
+                                    </div>
+
+                                </div>
+                                <button type="button"
+                                    class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700"
+                                    data-dismiss-target="#alert-2" aria-label="Close">
+                                    <span class="sr-only">Close</span>
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                </button>
+
+                            </div>
+
                             @if ($errors->any())
                                 <div id="alert-4"
                                     class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
@@ -856,7 +996,7 @@
                             @endif
 
                             <div class="text-end mt-5">
-                                <x-primary-button class="ms-3">
+                                <x-primary-button class="ms-3" @click="save()">
                                     {{ __('Enviar') }}
                                 </x-primary-button>
                             </div>
@@ -866,4 +1006,29 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function save() {
+            Swal.fire({
+                customClass: {
+                    title: 'swal2-title'
+                },
+                title: '¿Estas seguro de enviarlo?',
+                text: 'Te recomendamos revisar la información capturada, ya que una vez enviada no podrás modificarla.',
+                position: 'center',
+                icon: 'warning',
+                iconColor: '#9D9361',
+                showCancelButton: true,
+                confirmButtonColor: '#62836C',
+                cancelButtonColor: '#E86562',
+                confirmButtonText: 'Si, enviar',
+                cancelButtonText: 'Cerrar',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('save');
+                }
+            });
+        }
+    </script>
 </div>

@@ -31,7 +31,10 @@ class ParticipantesForm extends Form
     #[Validate('required|email|unique:registros,email|max:100')]
     public $correoGeneral = '';
 
-    #[Validate('required|max:150')]
+    #[Validate('required|same:correoGeneral')]
+    public $correoGeneralConfirmacion;
+
+    #[Validate('required_if:tipoRegistro,2|max:150')]
     public $lugarProcedencia;
 
     #[Validate('required|array|min:1')]
@@ -89,19 +92,22 @@ class ParticipantesForm extends Form
     #[Validate('nullable|max:50')]
     public $youtube = '';
 
+    #[Validate('nullable|max:50')]
+    public $otraRed = '';
+
     //BOUCHER
     public $boucher = null;
 
     #[Validate('accepted')]
     public $aceptoDatos;
 
-
     protected $messages = [
         'tipoRegistro.required' => 'La procedencia no puede estar vacía.',
         'tipoRegistro.gt' => 'La procedencia no puede estar vacía.',
+
         'nombreGrupo.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupo.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
-        'lugarProcedencia.required' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
+        'lugarProcedencia.required_if' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
         'lugarProcedencia.max' => 'El nombre de la universidad es demasiado largo.',
         'pais.required' => 'El país no puede estar vacío.',
         // 'pais.gt' => 'El país no puede estar vacío.',
@@ -116,22 +122,31 @@ class ParticipantesForm extends Form
         'correoGeneral.unique' => 'El correo electrónico ya existe.',
         'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
 
+        'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
+        'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',
+
         'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
         'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
         'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
         'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
         'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
         'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
-        'productosLogrados.required' => 'Este campo no puede estar vacio.',
-        'productosLogrados.max' => 'Este campo solo admite máximo 500 caracteres.',
-        'casosExito.required' => 'Este campo no puede estar vacio.',
-        'casosExito.max' => 'Este campo solo admite máximo 500 caracteres.',
-        'propuestas.required' => 'Este campo no puede estar vacio.',
-        'propuestas.max' => 'Este campo solo admite máximo 500 caracteres.',
-        'fortalezas.required' => 'Este campo no puede estar vacio.',
-        'fortalezas.max' => 'Este campo solo admite máximo 500 caracteres.',
-        'necesidades.required' => 'Este campo no puede estar vacio.',
-        'necesidades.max' => 'Este campo solo admite máximo 500 caracteres.',
+
+        'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
+        'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
+
+        'casosExito.required' => 'Los casos de éxito de trasnferencia no pueden estar vacíos.',
+        'casosExito.max' => 'Los casos de éxito de trasnferencia solo admite máximo 500 caracteres.',
+
+        'propuestas.required' => 'La proyección y propuesta de vinculación no puede estar vacía.',
+        'propuestas.max' => 'La proyección y propuesta de vinculación solo admite máximo 500 caracteres.',
+
+        'fortalezas.required' => 'Las fortalezas no pueden estar vacías.',
+        'fortalezas.max' => 'Las fortalezas solo admiten máximo 500 caracteres.',
+
+        'necesidades.required' => 'Las necesidades no pueden estar vacías.',
+        'necesidades.max' => 'Las necesidades solo admiten máximo 500 caracteres.',
+
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',
 
         'lideres.required' => 'Debes de agregar un líder.',
@@ -159,6 +174,7 @@ class ParticipantesForm extends Form
         'facebook.max' => 'Nombre de Facebook demasiado largo.',
         'x.max' => 'Nombre de X demasiado largo.',
         'youtube.max' => 'Nombre de YouTube demasiado largo.',
+        'otraRed.max' => 'El nombre de esta red social es demasiado largo.',
     ];
 
 
@@ -185,7 +201,6 @@ class ParticipantesForm extends Form
             $registro->casos_exito = $this->casosExito;
             $registro->servicios_proyectos = $this->propuestas;
             $registro->pais = $this->pais;
-            $registro->espacio_procedencia = $this->lugarProcedencia;
             $registro->espacio_procedencia = $this->lugarProcedencia;
             $registro->email = $this->correoGeneral;
             $registro->telefono = $this->telefonoGeneral;
@@ -282,6 +297,7 @@ class ParticipantesForm extends Form
             $bannerDB->facebook = $this->facebook;
             $bannerDB->youtube = $this->youtube;
             $bannerDB->twitter = $this->x;
+            $bannerDB->otra_red = $this->otraRed;
 
             $bannerDB->save();
 
