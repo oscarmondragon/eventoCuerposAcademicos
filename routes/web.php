@@ -17,15 +17,17 @@ use App\Livewire\Participantes\RegistroParticipantes;
 |
 */
 
-Route::view('/', 'welcome');
-
+//Route::view('/', 'welcome');
 Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
 Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.creado');
 Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('boucher.completar');
 Route::get('/registro-buscar', BuscarRegistroParticipantes::class)->name('registro.buscar');
 
+Route::get('/', RegistroParticipantes::class)->name('home');
 
-Route::view('dashboard', 'dashboard')
+
+//Rutas deshabilitadas por que aun no se programa la parte de usuarios y administradores del sistema
+/* Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
@@ -34,3 +36,4 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__ . '/auth.php';
+ */

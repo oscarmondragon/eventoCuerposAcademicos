@@ -68,7 +68,7 @@
                                                     </label>
                                                     <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
                                                         class="w-full">
-                                                        <option value="0">Seleccione una opción</option>
+                                                        <option value="0">Selecciona una opción</option>
                                                         <option value="1">Interno a la UAEMex</option>
                                                         <option value="2">Externo a la UAEMex</option>
                                                     </select>
@@ -84,7 +84,7 @@
                                                         </label>
                                                         <select name="lugarProcedencia" id="form.lugarProcedencia"
                                                             wire:model.live="form.lugarProcedencia" class="w-full h-10">
-                                                            <option value="">Seleccione una opción</option>
+                                                            <option value="">Selecciona una opción</option>
                                                             @foreach ($espaciosAcademicos as $espacioAcademico)
                                                                 <option value="{{ $espacioAcademico->nombre }}">
                                                                     {{ $espacioAcademico->nombre }}
@@ -134,7 +134,7 @@
                                                 @elseif($form->tipoRegistro == 2 || $form->tipoRegistro == 0)
                                                     <div>
                                                         <input type="text" id="form.nombreGrupo" class="w-full"
-                                                            placeholder="Facultad de Ciencias"
+                                                            placeholder="Desarrollo sociocultural de México"
                                                             wire:model.live="form.nombreGrupo"
                                                             wire:change="updateCuerpoAcadBanner" />
                                                     </div>
@@ -211,7 +211,7 @@
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@gmail.com" />
+                                                            placeholder="uaemex@uaemex.mx" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -247,7 +247,7 @@
                                                             wire:model.live="form.correoGeneralConfirmacion"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@gmail.com" />
+                                                            placeholder="uaemex@uaemex.mx" />
                                                     </div>
                                                     @error('form.correoGeneralConfirmacion')
                                                         <span class="text-rojo block ml-1">{{ $message }}</span>
@@ -676,6 +676,19 @@
                                         aria-labelledby="accordion-open-heading-3">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
                                             <label for="form.nombreGrupoBanner" class="block mb-2 dark:text-white">
+                                                Institución de procedencia<span class="font-bold text-red-600">*</span>
+                                            </label>
+                                            <input type="text" id="form.lugarProcedenciaBanner"
+                                                wire:model="form.lugarProcedenciaBanner" class="w-full disabled"
+                                                value="{{ $form->lugarProcedencia }}"
+                                                placeholder="Lugar de procedencia" disabled>
+                                            @error('form.lugarProcedenciaBanner')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
+
+
+                                            <label for="form.nombreGrupoBanner"
+                                                class="block mb-2 mt-5 dark:text-white">
                                                 Nombre del Cuerpo Académico, red o grupo de investigación<span
                                                     class="font-bold text-red-600">*</span>
                                             </label>
@@ -899,18 +912,17 @@
                                         :class="{ 'hidden': boucher == null }"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado dark:border-gray-700">
-                                            Datos para pago:
-                                            Banco:
-                                            BBVA Bancomer
-                                            Nombre:
-                                            Ingresos Extraordinarios Centro de Investigación en Ciencias Biológicas
-                                            Aplicadas
-                                            Cuenta:
-                                            0117895704
-                                            Concepto:
-                                            inscripción EICARTISSA 2024
-                                            CLABe INTERBANCARIA:
-                                            Código Swift:
+                                            <p><strong>Datos para realizar pago:</strong></p>
+                                            <ul>
+                                                <li><strong>Banco:</strong> BBVA Bancomer</li>
+                                                <li><strong>Nombre:</strong> Ingresos Extraordinarios Centro de
+                                                    Investigación en
+                                                    Ciencias Biológicas Aplicadas</li>
+                                                <li><strong>Cuenta:</strong> 0117895704</li>
+                                                <li><strong>Concepto:</strong> inscripción EICARTISSA 2024</li>
+                                                <li><strong>CLABE INTERBANCARIA:</strong></li>
+                                                <li><strong>Código Swift:</strong></li>
+                                            </ul>
                                             <label class="block mb-2 dark:text-white" for="form.boucher">Subir
                                                 comprobante de pago</label>
                                             <input
@@ -1032,5 +1044,12 @@
                 }
             });
         }
+
+        document.getElementById("form.correoGeneral").oncopy = function() {
+            return false;
+        };
+        document.getElementById("form.correoGeneralConfirmacion").oncopy = function() {
+            return false;
+        };
     </script>
 </div>

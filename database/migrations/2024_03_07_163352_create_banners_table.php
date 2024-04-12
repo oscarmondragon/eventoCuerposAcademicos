@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -17,7 +16,9 @@ return new class extends Migration
                 ->constrained()
                 ->noActionOnUpdate()
                 ->onDelete('cascade');
-            $table->string('cuerpo_grupo_red', 100);
+            $table->string('', 100);
+            $table->string('cuerpo_grupo_red', 150);
+            $table->string('espacio_procedencia', 150);
             $table->json('integrantes');
             $table->text('descripcion_linea');
             $table->string('email');

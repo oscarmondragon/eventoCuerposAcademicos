@@ -10,24 +10,26 @@
                 <div class="p-10 dark:text-gray-100">
                     <div id="accordion-open-body-4"" aria-labelledby="accordion-open-heading-4">
                         <form wire:submit="save">
+                            @csrf
                             <div class="p-5 border border-dorado dark:border-gray-700">
 
-                                <h2>Correo electronico registrado: {{ $this->registroFound->email }}</h2>
-                                <h2>Nombre del cuerpo académico, red o grupo de investigación :
+                                <h2><strong>Correo electronico registrado:</strong> {{ $this->registroFound->email }}
+                                </h2>
+                                <h2><strong>Nombre del cuerpo académico, red o grupo de investigación :</strong>
                                     {{ $this->registroFound->cuerpo_grupo_red }}</h2>
-                                Datos para pago:
-                                Banco:
-                                BBVA Bancomer
-                                Nombre:
-                                Ingresos Extraordinarios Centro de Investigación en Ciencias Biológicas
-                                Aplicadas
-                                Cuenta:
-                                0117895704
-                                Concepto:
-                                inscripción EICARTISSA 2024
-                                CLABe INTERBANCARIA:
-                                Código Swift:
-                                <label class="block mb-2 dark:text-white" for="boucher">Subir
+                                <div class="mt-5">
+                                    <p><strong>Datos para realizar pago:</strong></p>
+                                    <ul class="mt-3">
+                                        <li><strong>Banco:</strong> BBVA Bancomer</li>
+                                        <li><strong>Nombre:</strong> Ingresos Extraordinarios Centro de Investigación en
+                                            Ciencias Biológicas Aplicadas</li>
+                                        <li><strong>Cuenta:</strong> 0117895704</li>
+                                        <li><strong>Concepto:</strong> inscripción EICARTISSA 2024</li>
+                                        <li><strong>CLABE INTERBANCARIA:</strong></li>
+                                        <li><strong>Código Swift:</strong></li>
+                                    </ul>
+                                </div>
+                                <label class="block mb-2 mt-5 dark:text-white" for="boucher">Subir
                                     comprobante de pago</label>
                                 <input
                                     class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"

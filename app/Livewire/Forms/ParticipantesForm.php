@@ -20,19 +20,19 @@ class ParticipantesForm extends Form
 
     //GENERALES
     #[Validate('required|gt:0')]
-    public $tipoRegistro = '1';
+    public $tipoRegistro = 0;
 
     #[Validate('required|max:150')]
-    public $nombreGrupo = 'CUERPO DE PRUEBA';
+    public $nombreGrupo = '';
 
     #[Validate('required|max:50')]
     public $pais = "México";
 
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
-    public $telefonoGeneral = '7121638639';
+    public $telefonoGeneral = '';
 
     #[Validate('required|email|unique:registros,email|max:100')]
-    public $correoGeneral = 'oscarmondragonu100@gmail.com';
+    public $correoGeneral = '';
 
     #[Validate('required|same:correoGeneral')]
     public $correoGeneralConfirmacion;
@@ -47,13 +47,13 @@ class ParticipantesForm extends Form
     public $lineasInvestigacion;
 
     #[Validate('required|max:500')]
-    public $productosLogrados = 'UNO LOGRADO';
+    public $productosLogrados = '';
 
     #[Validate('required|max:500')]
-    public $casosExito = 'MUCHOS CASOS';
+    public $casosExito = '';
 
     #[Validate('required|max:500')]
-    public $propuestas = 'MUCHAS PROPUESTAS';
+    public $propuestas = '';
 
     #[Validate('required|max:500')]
     public $fortalezas = '';
@@ -72,6 +72,8 @@ class ParticipantesForm extends Form
     //BANNER
     #[Validate('required|max:150')]
     public $nombreGrupoBanner = '';
+    #[Validate('required|max:150')]
+    public $lugarProcedenciaBanner = '';
 
     public $integrantesBanner = '';
 
@@ -103,7 +105,7 @@ class ParticipantesForm extends Form
     public $boucher = null;
 
     #[Validate('accepted')]
-    public $aceptoDatos = true;
+    public $aceptoDatos = false;
 
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
@@ -165,6 +167,9 @@ class ParticipantesForm extends Form
         'nombreGrupoBanner.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupoBanner.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
 
+        'lugarProcedenciaBanner.required' => 'El campo de institución de procedencia no puede estar vacío.',
+        'lugarProcedenciaBanner.max' => 'El campo de institución de procedencia es demasiado largo.',
+
         'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
         'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
 
@@ -181,7 +186,7 @@ class ParticipantesForm extends Form
         'facebook.max' => 'Nombre de Facebook demasiado largo.',
         'x.max' => 'Nombre de X demasiado largo.',
         'youtube.max' => 'Nombre de YouTube demasiado largo.',
-      
+
         'otraRed.max' => 'El nombre de esta red social es demasiado largo.',
 
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
@@ -193,7 +198,7 @@ class ParticipantesForm extends Form
 
     public function store()
     {
-        // $this->validate();
+        $this->validate();
 
         DB::beginTransaction();
         try {
@@ -309,6 +314,7 @@ class ParticipantesForm extends Form
 
             $bannerDB->registro_id = $registro->id;
             $bannerDB->cuerpo_grupo_red = $this->nombreGrupoBanner;
+            $bannerDB->espacio_procedencia = $this->lugarProcedenciaBanner;
             $bannerDB->integrantes = json_encode($integrantesFiltrado); // convertimos los integrantes en JSON
             $bannerDB->descripcion_linea = $this->descripcionBanner;
             $bannerDB->email = $this->correoBanner;

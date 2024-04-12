@@ -18,7 +18,9 @@
 
 <body class="font-sans antialiased">
     <div class="w-full">
-        <img src="{{ asset('img/fondos/banner.jpg') }}" alt="Image" class="object-cover w-full">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('img/fondos/banner.jpg') }}" alt="Image" class="object-cover w-full">
+        </a>
     </div>
     <div class="fondo_deg_formulario">
         <img src="{{ asset('img/fondos/fondo_cabecera.png') }}" alt="Image" class="static h-9">
