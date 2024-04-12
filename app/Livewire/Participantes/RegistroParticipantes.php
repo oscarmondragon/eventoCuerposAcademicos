@@ -322,6 +322,12 @@ class RegistroParticipantes extends Component
     {
         $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
     }
+
+    public function updateLugarProcedenciaBanner()
+    {
+        $this->form->lugarProcedenciaBanner = $this->form->lugarProcedencia;
+    }
+
     public function deleteIntegrante($integrante)
     {
 

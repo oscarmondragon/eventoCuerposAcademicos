@@ -83,6 +83,7 @@
                                                             Espacio academico
                                                         </label>
                                                         <select name="lugarProcedencia" id="form.lugarProcedencia"
+                                                            wire:change="updateLugarProcedenciaBanner"
                                                             wire:model.live="form.lugarProcedencia" class="w-full h-10">
                                                             <option value="">Selecciona una opción</option>
                                                             @foreach ($espaciosAcademicos as $espacioAcademico)
@@ -105,6 +106,7 @@
                                                         </label>
                                                         <input type="text" id="form.lugarProcedencia" class="w-full"
                                                             wire:model.live="form.lugarProcedencia"
+                                                            wire:change="updateLugarProcedenciaBanner"
                                                             placeholder="Universidad Autónoma del Estado de México">
                                                         @error('form.lugarProcedencia')
                                                             <span class="text-rojo block">{{ $message }}</span>
@@ -675,12 +677,12 @@
                                     <div id="accordion-open-body-3" class="hidden"
                                         aria-labelledby="accordion-open-heading-3">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
-                                            <label for="form.nombreGrupoBanner" class="block mb-2 dark:text-white">
+                                            <label for="form.lugarProcedenciaBanner"
+                                                class="block mb-2 dark:text-white">
                                                 Institución de procedencia<span class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" id="form.lugarProcedenciaBanner"
                                                 wire:model="form.lugarProcedenciaBanner" class="w-full disabled"
-                                                value="{{ $form->lugarProcedencia }}"
                                                 placeholder="Lugar de procedencia" disabled>
                                             @error('form.lugarProcedenciaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
@@ -694,7 +696,6 @@
                                             </label>
                                             <input type="text" id="form.nombreGrupoBanner"
                                                 wire:model="form.nombreGrupoBanner" class="w-full disabled"
-                                                value="{{ $form->nombreGrupo }}"
                                                 placeholder="Nombre del Cuerpo Académico" disabled>
                                             @error('form.nombreGrupoBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
