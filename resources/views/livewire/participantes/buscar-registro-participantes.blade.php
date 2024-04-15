@@ -48,6 +48,7 @@
                     @endif
                     <div id="accordion-open-body-4" aria-labelledby="accordion-open-heading-4">
                         <form wire:submit="consultar">
+                            @csrf
                             <div class="p-5 border border-dorado dark:border-gray-700">
 
                                 <label class="block mb-2 dark:text-white" for="email">Correo electrónico
@@ -61,6 +62,11 @@
                                     <span class="text-rojo block">{{ $message }}</span>
                                 @enderror
                                 <div class="text-end mt-5">
+                                    <a href="{{ route('home') }}">
+                                        <x-secondary-button class="ms-3">
+                                            {{ __('Atras') }}
+                                        </x-secondary-button>
+                                    </a>
                                     <x-primary-button class="ms-3">
                                         {{ __('Enviar') }}
                                     </x-primary-button>

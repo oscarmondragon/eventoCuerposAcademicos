@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -26,7 +25,7 @@ return new class extends Migration
             $table->enum('genero', ['Masculino', 'Femenino', 'No binario']);
             $table->string('email', 100);
             $table->string('telefono', 20);
-            $table->enum('tipo', ['Lider', 'Integrante']);
+            $table->enum('tipo', ['Lider', 'Integrante', 'Colaborador']);
             $table->foreignUuid('tipo_lider')
                 ->nullable()
                 ->constrained(table: 'tipos_lider')

@@ -9,7 +9,7 @@
                 <div class="basis-3/4 text-center mx-auto py-auto">
                     <div class="px-20 text-lg">
                         <h1 class="font-bold text-2xl text-verde">
-                            Lorem Ipsum es simplemente el texto
+                            Registro completado
                         </h1>
                         <p class="text-justify">
                             Lorem Ipsum es simplemente el texto de relleno de las

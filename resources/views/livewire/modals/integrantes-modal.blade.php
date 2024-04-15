@@ -1,6 +1,6 @@
 <x-modal>
     <x-slot name="title" class="bg-verde">
-        Nuevo integrante
+        Nuevo {{ $tipoIntegrante }}
     </x-slot>
     <x-slot name="content">
         <div>
@@ -126,7 +126,7 @@
                             </svg>
                         </div>
                         <input type="email" id="correo" wire:model.live="correo"
-                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uamex.mx" />
+                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx" />
                     </div>
                     @error('correo')
                         <span class="text-rojo block">{{ $message }}</span>
@@ -148,7 +148,7 @@
                             </svg>
                         </div>
                         <input type="email" id="confirmarCorreo" wire:model.live="confirmarCorreo"
-                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uamex.mx" />
+                            class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx" />
                     </div>
                     @error('confirmarCorreo')
                         <span class="text-rojo block">{{ $message }}</span>

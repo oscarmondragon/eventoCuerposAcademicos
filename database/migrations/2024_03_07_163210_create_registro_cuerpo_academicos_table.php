@@ -24,6 +24,7 @@ return new class extends Migration {
                 ->noActionOnUpdate()
                 ->nullOnDelete();
             $table->boolean('aprobacion')->default(null)->nullable();
+            $table->string('observaciones');
             $table->string('email', 100)->unique();
             $table->string('telefono', 20);
             $table->boolean('adjuntoPago')->default(false);

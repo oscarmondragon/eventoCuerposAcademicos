@@ -68,7 +68,7 @@
                                                     </label>
                                                     <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
                                                         class="w-full">
-                                                        <option value="0">Seleccione una opción</option>
+                                                        <option value="0">Selecciona una opción</option>
                                                         <option value="1">Interno a la UAEMex</option>
                                                         <option value="2">Externo a la UAEMex</option>
                                                     </select>
@@ -83,8 +83,9 @@
                                                             Espacio academico
                                                         </label>
                                                         <select name="lugarProcedencia" id="form.lugarProcedencia"
+                                                            wire:change="updateLugarProcedenciaBanner"
                                                             wire:model.live="form.lugarProcedencia" class="w-full h-10">
-                                                            <option value="">Seleccione una opción</option>
+                                                            <option value="">Selecciona una opción</option>
                                                             @foreach ($espaciosAcademicos as $espacioAcademico)
                                                                 <option value="{{ $espacioAcademico->nombre }}">
                                                                     {{ $espacioAcademico->nombre }}
@@ -105,6 +106,7 @@
                                                         </label>
                                                         <input type="text" id="form.lugarProcedencia" class="w-full"
                                                             wire:model.live="form.lugarProcedencia"
+                                                            wire:change="updateLugarProcedenciaBanner"
                                                             placeholder="Universidad Autónoma del Estado de México">
                                                         @error('form.lugarProcedencia')
                                                             <span class="text-rojo block">{{ $message }}</span>
@@ -134,7 +136,7 @@
                                                 @elseif($form->tipoRegistro == 2 || $form->tipoRegistro == 0)
                                                     <div>
                                                         <input type="text" id="form.nombreGrupo" class="w-full"
-                                                            placeholder="Facultad de Ciencias"
+                                                            placeholder="Desarrollo sociocultural de México"
                                                             wire:model.live="form.nombreGrupo"
                                                             wire:change="updateCuerpoAcadBanner" />
                                                     </div>
@@ -211,7 +213,7 @@
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@gmail.com" />
+                                                            placeholder="uaemex@uaemex.mx" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -247,7 +249,7 @@
                                                             wire:model.live="form.correoGeneralConfirmacion"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@gmail.com" />
+                                                            placeholder="uaemex@uaemex.mx" />
                                                     </div>
                                                     @error('form.correoGeneralConfirmacion')
                                                         <span class="text-rojo block ml-1">{{ $message }}</span>
@@ -257,24 +259,40 @@
                                             <div class="mt-5">
                                                 <label class="block mb-2 dark:text-white">
                                                     Selecciona un área tematica y automaticamente se listaran sus
-                                                    subareas disponibles para seleccionar<span
+                                                    subáreas disponibles para seleccionar<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
                                             </div>
                                             <div class="sm:flex flex-row  gap-x-4 bg-[#34778A]/30 rounded-lg">
                                                 <div class="flex-initial sm:w-1/4 w-full rounded-l-lg pl-4 py-5">
-                                                    <label for="areaSeleccionada"
+                                                    <label for="form.form.areaSeleccionada"
                                                         class="block mb-2 font-bold dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <ul class="pl-4">
+                                                    {{-- <ul class="pl-4">
                                                         @foreach ($areasOptions as $area)
                                                             <li wire:click="actualizarAreasSeleccionadas({{ $area }})"
                                                                 class="cursor-pointer text-textos hover:bg-[#34778A]/80 focus:bg-red-500 hover:text-white hover:font-bold {{ $area->id == $areaSeleccionada ? 'bg-[#34778A]/80' : 'bg-transparent' }}">
                                                                 {{ $area->nombre }}
                                                             </li>
                                                         @endforeach
-                                                    </ul>
+                                                    </ul> --}}
+                                                    <select id="form.areaSeleccionada"
+                                                        wire:model.live="form.areaSeleccionada"
+                                                        wire:change="limpiarSubareas"
+                                                        class="bg-gray-50
+                                                        border border-gray-300 text-gray-900 text-sm rounded-lg
+                                                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
+                                                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
+                                                        dark:text-white dark:focus:ring-blue-500
+                                                        dark:focus:border-blue-500">
+                                                        <option value="0">Selecciona una opción</option>
+                                                        @foreach ($areasOptions as $area)
+                                                            <option value="{{ $area->id }}">
+                                                                {{ $area->nombre }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
                                                     @error('form.areasSeleccionadas')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
@@ -334,8 +352,8 @@
                                                         @endforeach
                                                     </ul>
                                                     <p class="text-dorado text-sm mt-2"><span class="font-bold">Nota:
-                                                        </span>Para quitar una subarea dar clic en la palomita que
-                                                        aparece enfrente de la subarea.</p>
+                                                        </span>Para quitar una subárea dar clic en la palomita que
+                                                        aparece enfrente de la subárea cuando la seleccionaste.</p>
                                                 </div>
                                             @endif
 
@@ -572,14 +590,16 @@
 
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
-                                                        <label for="btnIntegrantes"
-                                                            class="block mb-2 dark:text-white">
-                                                            Integrantes<span class="font-bold text-red-600">*</span>
-                                                        </label>
+                                                        <select id="tipoIntegrante" name="tipoIntegrante"
+                                                            wire:model.live="tipoIntegrante" class="w-auto">
+                                                            <option value="Integrante" selected>Integrante</option>
+                                                            <option value="Colaborador">Colaborador</option>
+
+                                                        </select>
                                                         <button type="button" id="btnIntegrantes"
                                                             class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
                                                             @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: {
-                                                                tipoRegistro: {{ $form->tipoRegistro }}, isLider: 0
+                                                                tipoRegistro: {{ $form->tipoRegistro }}, isLider: 0, tipoIntegrante: '{{ $tipoIntegrante }}'
                                                             }})">
                                                             +
                                                         </button>
@@ -591,8 +611,8 @@
                                                             class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                             <thead>
                                                                 <tr class="bg-blanco">
-                                                                    <th class="w-[85%]">Nombre de los integrantes</th>
-
+                                                                    <th class="w-[65%]">Nombre de los integrantes</th>
+                                                                    <th class="w-[15%]">Tipo</th>
                                                                     <th class="w-[15%]">Acción</th>
                                                                 </tr>
                                                             </thead>
@@ -604,7 +624,11 @@
                                                                         <th
                                                                             x-text="integrante.nombre + ' ' + integrante.apellidoPaterno + ' ' + integrante.apellidoMaterno">
                                                                         </th>
-                                                                        <td class="sm:flex gap-2">
+                                                                        <th x-text="integrante.tipoIntegrante">
+                                                                        </th>
+                                                                        <td
+                                                                            class="sm:flex
+                                                                            gap-2">
                                                                             <div>
                                                                                 <button type="button"
                                                                                     class="btn-tablas btn-transition"
@@ -672,18 +696,41 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div id="accordion-open-body-3" class="hidden"
-                                        aria-labelledby="accordion-open-heading-3">
+                                    <div id="accordion-open-body-3" class="hidden" x-data="{ email: $wire.entangle('form.correoBanner') }"
+                                        :class="{ 'hidden': email == '' }" aria-labelledby="accordion-open-heading-3">
                                         <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
-                                            <label for="form.nombreGrupoBanner" class="block mb-2 dark:text-white">
+                                            <label for="form.lugarProcedenciaBanner"
+                                                class="block mb-2 dark:text-white">
+                                                Institución de procedencia<span class="font-bold text-red-600">*</span>
+                                            </label>
+                                            <input type="text" id="form.lugarProcedenciaBanner"
+                                                wire:model="form.lugarProcedenciaBanner" class="w-full disabled"
+                                                placeholder="Lugar de procedencia" disabled>
+                                            @error('form.lugarProcedenciaBanner')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
+
+
+                                            <label for="form.nombreGrupoBanner"
+                                                class="block mb-2 mt-5 dark:text-white">
                                                 Nombre del Cuerpo Académico, red o grupo de investigación<span
                                                     class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" id="form.nombreGrupoBanner"
                                                 wire:model="form.nombreGrupoBanner" class="w-full disabled"
-                                                value="{{ $form->nombreGrupo }}"
                                                 placeholder="Nombre del Cuerpo Académico" disabled>
                                             @error('form.nombreGrupoBanner')
+                                                <span class="text-rojo block">{{ $message }}</span>
+                                            @enderror
+
+                                            <label for="form.areaSeleccionada"
+                                                class="block mb-2 mt-5 dark:text-white">
+                                                Área temática<span class="font-bold text-red-600">*</span>
+                                            </label>
+                                            <input type="text" id="form.areaSeleccionadaBanner"
+                                                wire:model="form.areaSeleccionadaBanner" class="w-full disabled"
+                                                placeholder="Área temática" disabled>
+                                            @error('form.areaSeleccionadaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
@@ -707,7 +754,24 @@
                                                         </template>
                                                     </ul>
                                                 </div>
-
+                                                <div x-show="integrantes.length > 0" class="mt-4">
+                                                    <ul class="list-disc ml-7">
+                                                        <p class="-ml-4 font-bold dark:text-white">
+                                                            Colaboradores
+                                                        </p>
+                                                        <template x-for="(integrante, index) in integrantes"
+                                                            :key="index">
+                                                            <template
+                                                                x-if="integrante.tipoIntegrante == 'Colaborador'">
+                                                                <li>
+                                                                    <span x-text="integrante.nombre"></span> <span
+                                                                        x-text="integrante.apellidoPaterno"></span>
+                                                                    <span x-text="integrante.apellidoMaterno"></span>
+                                                                </li>
+                                                            </template>
+                                                        </template>
+                                                    </ul>
+                                                </div>
                                                 <div x-show="integrantes.length > 0" class="mt-4">
                                                     <ul class="list-disc ml-7">
                                                         <p class="-ml-4 font-bold dark:text-white">
@@ -715,11 +779,13 @@
                                                         </p>
                                                         <template x-for="(integrante, index) in integrantes"
                                                             :key="index">
-                                                            <li>
-                                                                <span x-text="integrante.nombre"></span> <span
-                                                                    x-text="integrante.apellidoPaterno"></span> <span
-                                                                    x-text="integrante.apellidoMaterno"></span>
-                                                            </li>
+                                                            <template x-if="integrante.tipoIntegrante == 'Integrante'">
+                                                                <li>
+                                                                    <span x-text="integrante.nombre"></span> <span
+                                                                        x-text="integrante.apellidoPaterno"></span>
+                                                                    <span x-text="integrante.apellidoMaterno"></span>
+                                                                </li>
+                                                            </template>
                                                         </template>
                                                     </ul>
                                                 </div>
@@ -731,8 +797,8 @@
                                                     conocimiento<span class="font-bold text-red-600">*</span> (máximo
                                                     500 caracteres)
                                                 </label>
-                                                <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full"
-                                                    placeholder="Descripción..."></textarea>
+                                                <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full disabled"
+                                                    placeholder="Descripción..." disabled></textarea>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
@@ -797,7 +863,7 @@
 
                                             <div class="mt-5">
                                                 <label class="block mb-2 dark:text-white">
-                                                    Redes sociales
+                                                    Redes sociales (opcionales)
                                                 </label>
                                                 <div
                                                     class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
@@ -899,18 +965,17 @@
                                         :class="{ 'hidden': boucher == null }"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado dark:border-gray-700">
-                                            Datos para pago:
-                                            Banco:
-                                            BBVA Bancomer
-                                            Nombre:
-                                            Ingresos Extraordinarios Centro de Investigación en Ciencias Biológicas
-                                            Aplicadas
-                                            Cuenta:
-                                            0117895704
-                                            Concepto:
-                                            inscripción EICARTISSA 2024
-                                            CLABe INTERBANCARIA:
-                                            Código Swift:
+                                            <p><strong>Datos para realizar pago:</strong></p>
+                                            <ul>
+                                                <li><strong>Banco:</strong> BBVA Bancomer</li>
+                                                <li><strong>Nombre:</strong> Ingresos Extraordinarios Centro de
+                                                    Investigación en
+                                                    Ciencias Biológicas Aplicadas</li>
+                                                <li><strong>Cuenta:</strong> 0117895704</li>
+                                                <li><strong>Concepto:</strong> inscripción EICARTISSA 2024</li>
+                                                <li><strong>CLABE INTERBANCARIA:</strong></li>
+                                                <li><strong>Código Swift:</strong></li>
+                                            </ul>
                                             <label class="block mb-2 dark:text-white" for="form.boucher">Subir
                                                 comprobante de pago</label>
                                             <input
@@ -1032,5 +1097,12 @@
                 }
             });
         }
+
+        document.getElementById("form.correoGeneral").oncopy = function() {
+            return false;
+        };
+        document.getElementById("form.correoGeneralConfirmacion").oncopy = function() {
+            return false;
+        };
     </script>
 </div>

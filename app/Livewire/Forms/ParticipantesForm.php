@@ -20,25 +20,28 @@ class ParticipantesForm extends Form
 
     //GENERALES
     #[Validate('required|gt:0')]
-    public $tipoRegistro = '1';
+    public $tipoRegistro = 0;
 
     #[Validate('required|max:150')]
-    public $nombreGrupo = 'CUERPO DE PRUEBA';
+    public $nombreGrupo = '';
 
     #[Validate('required|max:50')]
     public $pais = "México";
 
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
-    public $telefonoGeneral = '7121638639';
+    public $telefonoGeneral = '';
 
     #[Validate('required|email|unique:registros,email|max:100')]
-    public $correoGeneral = 'oscarmondragonu100@gmail.com';
+    public $correoGeneral = '';
 
     #[Validate('required|same:correoGeneral')]
     public $correoGeneralConfirmacion;
 
     #[Validate('required_if:tipoRegistro,2|max:150')]
-    public $lugarProcedencia;
+    public $lugarProcedencia = '';
+
+    #[Validate('required')]
+    public $areaSeleccionada;
 
     #[Validate('required|array|min:1')]
     public $subareasSeleccionadas = [];
@@ -47,13 +50,13 @@ class ParticipantesForm extends Form
     public $lineasInvestigacion;
 
     #[Validate('required|max:500')]
-    public $productosLogrados = 'UNO LOGRADO';
+    public $productosLogrados = '';
 
     #[Validate('required|max:500')]
-    public $casosExito = 'MUCHOS CASOS';
+    public $casosExito = '';
 
     #[Validate('required|max:500')]
-    public $propuestas = 'MUCHAS PROPUESTAS';
+    public $propuestas = '';
 
     #[Validate('required|max:500')]
     public $fortalezas = '';
@@ -72,8 +75,10 @@ class ParticipantesForm extends Form
     //BANNER
     #[Validate('required|max:150')]
     public $nombreGrupoBanner = '';
+    #[Validate('required|max:150')]
+    public $lugarProcedenciaBanner = '';
 
-    public $integrantesBanner = '';
+
 
     #[Validate('required|max:500')]
     public $descripcionBanner = '';
@@ -84,7 +89,8 @@ class ParticipantesForm extends Form
     #[Validate('required|email|unique:banners,email|max:100')]
     public $correoBanner = '';
 
-    public $redesBanner = [];
+    #[Validate('required')]
+    public $areaSeleccionadaBanner;
 
     #[Validate('nullable|max:50')]
     public $facebook = '';
@@ -103,7 +109,7 @@ class ParticipantesForm extends Form
     public $boucher = null;
 
     #[Validate('accepted')]
-    public $aceptoDatos = true;
+    public $aceptoDatos = false;
 
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
@@ -132,12 +138,12 @@ class ParticipantesForm extends Form
         'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',
 
-        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
-        'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
-        'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
+        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
+        'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
+        'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
 
         'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
         'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
@@ -165,6 +171,9 @@ class ParticipantesForm extends Form
         'nombreGrupoBanner.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupoBanner.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
 
+        'lugarProcedenciaBanner.required' => 'El campo de institución de procedencia no puede estar vacío.',
+        'lugarProcedenciaBanner.max' => 'El campo de institución de procedencia es demasiado largo.',
+
         'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
         'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
 
@@ -181,7 +190,7 @@ class ParticipantesForm extends Form
         'facebook.max' => 'Nombre de Facebook demasiado largo.',
         'x.max' => 'Nombre de X demasiado largo.',
         'youtube.max' => 'Nombre de YouTube demasiado largo.',
-      
+
         'otraRed.max' => 'El nombre de esta red social es demasiado largo.',
 
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
@@ -193,7 +202,7 @@ class ParticipantesForm extends Form
 
     public function store()
     {
-        // $this->validate();
+        $this->validate();
 
         DB::beginTransaction();
         try {
@@ -274,7 +283,7 @@ class ParticipantesForm extends Form
                 $integranteDB->genero = $integrante['genero'];
                 $integranteDB->email = $integrante['correo'];
                 $integranteDB->telefono = $integrante['telefono'];
-                $integranteDB->tipo = 'Integrante';
+                $integranteDB->tipo = $integrante['tipoIntegrante'];
                 $integranteDB->tipo_lider = null;
 
                 $integranteDB->save();
@@ -309,6 +318,8 @@ class ParticipantesForm extends Form
 
             $bannerDB->registro_id = $registro->id;
             $bannerDB->cuerpo_grupo_red = $this->nombreGrupoBanner;
+            $bannerDB->espacio_procedencia = $this->lugarProcedenciaBanner;
+            $bannerDB->area_tematica = $this->areaSeleccionadaBanner;
             $bannerDB->integrantes = json_encode($integrantesFiltrado); // convertimos los integrantes en JSON
             $bannerDB->descripcion_linea = $this->descripcionBanner;
             $bannerDB->email = $this->correoBanner;
