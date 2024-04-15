@@ -116,9 +116,12 @@ class RegistroParticipantes extends Component
         $this->form->subareasSeleccionadas = [];
 
         //Aprovechamos para actualizar la area seleccionada en el banner
-        $nombreArea = Area::find($this->form->areaSeleccionada);//Buscamos para obtener el nombre
-        //Actualizamos area en el banner
-        $this->form->areaSeleccionadaBanner = $nombreArea->nombre;
+        if ($this->form->areaSeleccionada != 0) {
+            $nombreArea = Area::find($this->form->areaSeleccionada);//Buscamos para obtener el nombre
+            //Actualizamos area en el banner
+            $this->form->areaSeleccionadaBanner = $nombreArea->nombre;
+        }
+
 
     }
 
