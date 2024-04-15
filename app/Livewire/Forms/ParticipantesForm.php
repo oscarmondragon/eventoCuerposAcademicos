@@ -38,7 +38,10 @@ class ParticipantesForm extends Form
     public $correoGeneralConfirmacion;
 
     #[Validate('required_if:tipoRegistro,2|max:150')]
-    public $lugarProcedencia;
+    public $lugarProcedencia = '';
+
+    #[Validate('required')]
+    public $areaSeleccionada;
 
     #[Validate('required|array|min:1')]
     public $subareasSeleccionadas = [];
@@ -75,7 +78,7 @@ class ParticipantesForm extends Form
     #[Validate('required|max:150')]
     public $lugarProcedenciaBanner = '';
 
-    public $integrantesBanner = '';
+
 
     #[Validate('required|max:500')]
     public $descripcionBanner = '';
@@ -86,7 +89,8 @@ class ParticipantesForm extends Form
     #[Validate('required|email|unique:banners,email|max:100')]
     public $correoBanner = '';
 
-    public $redesBanner = [];
+    #[Validate('required')]
+    public $areaSeleccionadaBanner;
 
     #[Validate('nullable|max:50')]
     public $facebook = '';
@@ -134,12 +138,12 @@ class ParticipantesForm extends Form
         'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',
 
-        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una area temática y una subarea.',
-        'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
-        'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
-        'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generacion y aplicacion del conocimiento.',
+        'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'subareasSeleccionadas.min' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
+        'lineasInvestigacion.required' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
+        'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
+        'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
 
         'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
         'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
@@ -279,7 +283,7 @@ class ParticipantesForm extends Form
                 $integranteDB->genero = $integrante['genero'];
                 $integranteDB->email = $integrante['correo'];
                 $integranteDB->telefono = $integrante['telefono'];
-                $integranteDB->tipo = 'Integrante';
+                $integranteDB->tipo = $integrante['tipoIntegrante'];
                 $integranteDB->tipo_lider = null;
 
                 $integranteDB->save();
@@ -315,6 +319,7 @@ class ParticipantesForm extends Form
             $bannerDB->registro_id = $registro->id;
             $bannerDB->cuerpo_grupo_red = $this->nombreGrupoBanner;
             $bannerDB->espacio_procedencia = $this->lugarProcedenciaBanner;
+            $bannerDB->area_tematica = $this->areaSeleccionadaBanner;
             $bannerDB->integrantes = json_encode($integrantesFiltrado); // convertimos los integrantes en JSON
             $bannerDB->descripcion_linea = $this->descripcionBanner;
             $bannerDB->email = $this->correoBanner;

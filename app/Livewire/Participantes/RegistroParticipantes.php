@@ -20,11 +20,11 @@ class RegistroParticipantes extends Component
     use WithFileUploads;
 
     public $selectedSubareas = [];
-    public $areaSeleccionada;
     public $tipoLiderSeleccionado;
     public $paises;
     public $espaciosAcademicos;
     public $cuerposAcademicos;
+    public $tipoIntegrante = 'Integrante';
 
     public ParticipantesForm $form;
 
@@ -54,8 +54,8 @@ class RegistroParticipantes extends Component
         $areasOptions = Area::all();
         // $tiposFiltro = [];
 
-        if ($this->areaSeleccionada) {
-            $subareasOptions = Subarea::where('area_id', '=', $this->areaSeleccionada)->get(); //Obtiene las subareas correspondientes a la area seleccionada
+        if ($this->form->areaSeleccionada) {
+            $subareasOptions = Subarea::where('area_id', '=', $this->form->areaSeleccionada)->get(); //Obtiene las subareas correspondientes a la area seleccionada
         }
 
 
@@ -108,11 +108,18 @@ class RegistroParticipantes extends Component
         $this->validateOnly('form.subareasSeleccionadas');
     }
 
-    public function actualizarAreasSeleccionadas($areaId)
+    public function limpiarSubareas()
     {
-        // dd($areaId);
-        $this->areaSeleccionada = $areaId['id'];
-        //Actualizamos la variable del form
+
+        //Borramos datos de subareas
+        $this->selectedSubareas = [];
+        $this->form->subareasSeleccionadas = [];
+
+        //Aprovechamos para actualizar la area seleccionada en el banner
+        $nombreArea = Area::find($this->form->areaSeleccionada);//Buscamos para obtener el nombre
+        //Actualizamos area en el banner
+        $this->form->areaSeleccionadaBanner = $nombreArea->nombre;
+
     }
 
     public function addLinea($_id, $nombre, $descripcion)
@@ -167,7 +174,8 @@ class RegistroParticipantes extends Component
         $genero,
         $correo,
         $telefono,
-        $isLider
+        $isLider,
+        $tipoIntegrante
     ) {
         $this->form->lideres = collect($this->form->lideres);
         $this->form->integrantes = collect($this->form->integrantes);
@@ -190,6 +198,7 @@ class RegistroParticipantes extends Component
                     'genero' => $genero,
                     'correo' => $correo,
                     'telefono' => $telefono,
+                    'tipoIntegrante' => $tipoIntegrante
                 ]);
             } else {
                 // Genera un nuevo ID para el integrante
@@ -208,6 +217,7 @@ class RegistroParticipantes extends Component
                     'genero' => $genero,
                     'correo' => $correo,
                     'telefono' => $telefono,
+                    'tipoIntegrante' => $tipoIntegrante,
                 ]);
             }
         } else {
@@ -265,9 +275,11 @@ class RegistroParticipantes extends Component
                     $integrante['genero'] = $genero;
                     $integrante['correo'] = $correo;
                     $integrante['telefono'] = $telefono;
+                    $integrante['tipoIntegrante'] = $tipoIntegrante;
+
 
                     //Devolvemos la nueva collecion
-                    $this->form->integrantes = $this->form->integrantes->map(function ($integrante) use ($_id, $nombre, $apellidoPaterno, $apellidoMaterno, $tipoLider, $gradoAcademico, $gradoAcademicoAbrev, $sexo, $genero, $correo, $telefono) {
+                    $this->form->integrantes = $this->form->integrantes->map(function ($integrante) use ($_id, $nombre, $apellidoPaterno, $apellidoMaterno, $tipoLider, $gradoAcademico, $gradoAcademicoAbrev, $sexo, $genero, $correo, $telefono, $tipoIntegrante) {
                         if ($integrante['_id'] == $_id) {
                             $integrante['nombre'] = $nombre;
                             $integrante['apellidoPaterno'] = $apellidoPaterno;
@@ -279,6 +291,8 @@ class RegistroParticipantes extends Component
                             $integrante['genero'] = $genero;
                             $integrante['correo'] = $correo;
                             $integrante['telefono'] = $telefono;
+                            $integrante['tipoIntegrante'] = $tipoIntegrante;
+
                         }
                         return $integrante;
                     });

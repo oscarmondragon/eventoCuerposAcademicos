@@ -1,6 +1,6 @@
 <x-modal>
     <x-slot name="title" class="bg-verde">
-        Nuevo integrante
+        Nuevo {{ $tipoIntegrante }}
     </x-slot>
     <x-slot name="content">
         <div>

@@ -16,9 +16,9 @@ return new class extends Migration {
                 ->constrained()
                 ->noActionOnUpdate()
                 ->onDelete('cascade');
-            $table->string('', 100);
             $table->string('cuerpo_grupo_red', 150);
             $table->string('espacio_procedencia', 150);
+            $table->string('area_tematica', 150);
             $table->json('integrantes');
             $table->text('descripcion_linea');
             $table->string('email');

@@ -11,6 +11,7 @@ class IntegrantesModal extends ModalComponent
 {
 
     public $_id = 0;
+    public $tipoIntegrante = 'Lider';
 
     public $tipoRegistro = '';
     public $isLider = "";
@@ -128,7 +129,8 @@ class IntegrantesModal extends ModalComponent
                     $this->genero,
                     $this->correo,
                     $this->telefono,
-                    $this->isLider
+                    $this->isLider,
+                    $this->tipoIntegrante
                 ]
             ] // Ejecuta el metodo y le envia los valores del formulario            
         ]);
@@ -145,5 +147,7 @@ class IntegrantesModal extends ModalComponent
         $this->correo = "";
         $this->telefono = "";
         $this->isLider = "";
+        $this->tipoIntegrante = "";
+
     }
 }
