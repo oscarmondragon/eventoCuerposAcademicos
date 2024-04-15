@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\CuerpoAcademico;
+use App\Models\LineaCatalogo;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -29,7 +30,8 @@ class DatabaseSeeder extends Seeder
             TipoLiderSeeder::class,
             PaisCatalogoSeeder::class,
             EspacioAcademicoSeeder::class,
-            CuerpoAcademicoSeeder::class
+            CuerpoAcademicoSeeder::class,
+            LineaCatalogoSeeder::class
         ]);
     }
 }

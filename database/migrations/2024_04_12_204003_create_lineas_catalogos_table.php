@@ -11,12 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('espacios_academicos', function (Blueprint $table) {
+        Schema::create('lineas_catalogos', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('cve_c_costos'); // NO PERMITIR NULL         
-            $table->string('nombre', 100);
+            $table->uuid('cuerpo_academico_id');
+            $table->string('nombre');
             $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign('cuerpo_academico_id')->references('id')->on('cuerpos_academicos');
         });
     }
 
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('espacios_academicos');
+        Schema::dropIfExists('lineas_catalogos');
     }
 };
