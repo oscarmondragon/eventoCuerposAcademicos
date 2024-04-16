@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals;
 
 use App\Livewire\Participantes\RegistroParticipantes;
+use App\Models\LineaCatalogo;
 use Livewire\Attributes\Validate;
 use LivewireUI\Modal\ModalComponent;
 
@@ -15,6 +16,10 @@ class LineasModal extends ModalComponent
 
     #[Validate('required|max:500')]
     public $descripcion = '';
+
+    public $tipoRegistro = '';
+    public $idCuerpo = '';
+    public $lineasInvestigacion;
 
     public $listeners = [
         'addLinea',
@@ -31,6 +36,10 @@ class LineasModal extends ModalComponent
 
     public function render()
     {
+        if ($this->tipoRegistro == 1) {
+            $this->lineasInvestigacion = LineaCatalogo::where('cuerpo_academico_id', $this->idCuerpo)->get();
+        }
+
         return view('livewire.modals.lineas-modal');
     }
 

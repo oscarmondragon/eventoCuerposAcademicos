@@ -117,12 +117,10 @@ class RegistroParticipantes extends Component
 
         //Aprovechamos para actualizar la area seleccionada en el banner
         if ($this->form->areaSeleccionada != 0) {
-            $nombreArea = Area::find($this->form->areaSeleccionada);//Buscamos para obtener el nombre
+            $nombreArea = Area::find($this->form->areaSeleccionada); //Buscamos para obtener el nombre
             //Actualizamos area en el banner
             $this->form->areaSeleccionadaBanner = $nombreArea->nombre;
         }
-
-
     }
 
     public function addLinea($_id, $nombre, $descripcion)
@@ -295,7 +293,6 @@ class RegistroParticipantes extends Component
                             $integrante['correo'] = $correo;
                             $integrante['telefono'] = $telefono;
                             $integrante['tipoIntegrante'] = $tipoIntegrante;
-
                         }
                         return $integrante;
                     });
@@ -361,5 +358,22 @@ class RegistroParticipantes extends Component
         }
 
         $this->form->integrantes = collect($this->form->integrantes); //CONVERTIMOS NUEVAMENTE BIENES EN COLLECTION
+    }
+
+    public function espacioAcademicoId($id)
+    {
+        $this->cuerposAcademicos = CuerpoAcademico::where('espacio_academico_id', $id)->get();
+        //dd($id);
+    }
+
+    public function cuerpoAcademicoId($id)
+    {
+        $this->form->idCuerpoAcademico = $id;
+    }
+
+    public function limpiarCamposProcedencia()
+    {
+        $this->form->lugarProcedencia = null;
+        $this->form->nombreGrupo = null;
     }
 }
