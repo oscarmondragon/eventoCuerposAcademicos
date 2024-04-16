@@ -32,7 +32,7 @@ class IntegrantesModal extends ModalComponent
     #[Validate('required|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $gradoAcademico = '';
 
-    #[Validate('required|max:20|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ.\s]*$/u')]
+    #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ.\s]*$/u')]
     public $gradoAcademicoAbrev = '';
 
     #[Validate('required')]
@@ -75,7 +75,7 @@ class IntegrantesModal extends ModalComponent
         'gradoAcademico.regex' => 'El grado académico no puede contener caracteres especiales.',
 
         'gradoAcademicoAbrev.required' => 'El grado académico abreviado no puede estar vacío.',
-        'gradoAcademicoAbrev.max' => 'El grado académico abreviado acepta máximo 20 caracteres.',
+        'gradoAcademicoAbrev.max' => 'El grado académico abreviado acepta máximo 30 caracteres.',
         'gradoAcademicoAbrev.regex' => 'El grado académico abreviado no puede contener caracteres especiales.',
 
         'sexo.required' => 'Seleccione el sexo.',
