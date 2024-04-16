@@ -165,8 +165,8 @@ class ParticipantesForm extends Form
         'lideres.required' => 'Debes de agregar un líder.',
         'lideres.min' => 'Debe ser por lo menos un líder.',
         'lideres.max' => 'Solo puede haber un líder.',
-        'integrantes.required' => 'Debes de agregar por lo menos un integrante.',
-        'integrantes.min' => 'Debes de agregar por lo menos un integrante.',
+        'integrantes.required' => 'Debes de agregar por lo menos un integrante o colaborador.',
+        'integrantes.min' => 'Debes de agregar por lo menos un integrante o colaborador.',
 
         'nombreGrupoBanner.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupoBanner.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
@@ -310,7 +310,9 @@ class ParticipantesForm extends Form
                     'nombre' => $item['nombre'],
                     'apellidoPaterno' => $item['apellidoPaterno'],
                     'apellidoMaterno' => $item['apellidoMaterno'],
-                    'tipoLider' => $item['tipoLider']
+                    'tipoLider' => $item['tipoLider'],
+                    'tipo' => $item['tipoIntegrante'],
+
                 ];
             });
 
@@ -372,7 +374,7 @@ class ParticipantesForm extends Form
 
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('errorDb', 'Error al guardar el registro. Por favor, intente más tarde. Si el problema persiste contacte al administrador del sistema.' . $e->getMessage());
+            return redirect()->back()->with('errorDb', 'Error al guardar el registro. Por favor, revisa que todos los campos esten correctamente llenados e intente más tarde. Si el problema persiste contacte al administrador del sistema. ' . $e->getMessage());
         }
     }
 }

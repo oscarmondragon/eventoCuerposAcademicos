@@ -20,9 +20,9 @@ return new class extends Migration {
             $table->string('apellido_paterno', 30);
             $table->string('apellido_materno', 30)->nullable();
             $table->string('grado_academico', 100);
-            $table->string('grado_academico_abreviado', 10);
+            $table->string('grado_academico_abreviado', 30);
             $table->enum('sexo', ['Hombre', 'Mujer', 'Indistinto']);
-            $table->enum('genero', ['Masculino', 'Femenino', 'No binario']);
+            $table->enum('genero', ['Masculino', 'Femenino', 'Otro']);
             $table->string('email', 100);
             $table->string('telefono', 20);
             $table->enum('tipo', ['Lider', 'Integrante', 'Colaborador']);

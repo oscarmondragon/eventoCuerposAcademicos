@@ -9,13 +9,14 @@
                 <div class="basis-3/4 text-center mx-auto py-auto">
                     <div class="px-20 text-lg">
                         <h1 class="font-bold text-2xl text-verde">
-                            Registro completado
+                            ¡Registro exitoso!
                         </h1>
                         <p class="text-justify">
-                            Lorem Ipsum es simplemente el texto de relleno de las
-                            imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de
-                            las industrias desde el año 1500, cuando un impresor (N. del T. persona que se
-                            dedica a la imprenta)
+                            Te hemos enviado un correo electrónico con la confirmación del registro. Si aun no has
+                            completado el
+                            pago no te preocupes, puedes completarlo despues y adjuntar tu evidencia desde el link que
+                            te
+                            enviamos en el mismo.
                         </p>
                     </div>
                 </div>

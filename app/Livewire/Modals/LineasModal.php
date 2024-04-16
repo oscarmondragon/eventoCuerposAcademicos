@@ -10,7 +10,7 @@ class LineasModal extends ModalComponent
 {
     public $_id = 0;
 
-    #[Validate('required|max:50')]
+    #[Validate('required|max:255')]
     public $nombre = '';
 
     #[Validate('required|max:500')]

@@ -1020,7 +1020,7 @@
                                     <div class="ms-3 text-sm font-medium">
 
                                         <div class="alert alert-success">
-                                            {{ session('error') }}
+                                            {{ session('errorDb') }}
                                         </div>
 
                                     </div>
