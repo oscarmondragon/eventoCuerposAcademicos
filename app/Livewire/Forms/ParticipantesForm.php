@@ -37,7 +37,7 @@ class ParticipantesForm extends Form
     #[Validate('required|same:correoGeneral')]
     public $correoGeneralConfirmacion;
 
-    #[Validate('required_if:tipoRegistro,2|max:150')]
+    #[Validate('required|max:150')]
     public $lugarProcedencia = '';
 
     #[Validate('required')]
@@ -114,13 +114,15 @@ class ParticipantesForm extends Form
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
 
+    public $idCuerpoAcademico;
+
     protected $messages = [
         'tipoRegistro.required' => 'La procedencia no puede estar vacía.',
         'tipoRegistro.gt' => 'La procedencia no puede estar vacía.',
 
         'nombreGrupo.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
         'nombreGrupo.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
-        'lugarProcedencia.required_if' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
+        'lugarProcedencia.required' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
         'lugarProcedencia.max' => 'El nombre de la universidad es demasiado largo.',
         'pais.required' => 'El país no puede estar vacío.',
         // 'pais.gt' => 'El país no puede estar vacío.',
@@ -363,13 +365,10 @@ class ParticipantesForm extends Form
                 $archivo->user_id = 0; //significa que no lo subio un usuario autenticado
 
                 $archivo->save();
-
-
             }
 
             DB::commit();
             return redirect('/registro-creado')->with('success', 'Su registro  ha sido guardado correctamente con el correo ' . $this->correoGeneral);
-
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('errorDb', 'Error al guardar el registro. Por favor, intente más tarde. Si el problema persiste contacte al administrador del sistema.' . $e->getMessage());

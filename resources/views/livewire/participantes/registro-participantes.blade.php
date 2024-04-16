@@ -4,7 +4,7 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres') }" class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), tipoRegistro: $wire.entangle('form.tipoRegistro'), cuerpoAcademico: $wire.entangle('form.nombreGrupo') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -67,7 +67,7 @@
                                                             class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
-                                                        class="w-full">
+                                                        class="w-full" wire:change="limpiarCamposProcedencia">
                                                         <option value="0">Selecciona una opción</option>
                                                         <option value="1">Interno a la UAEMex</option>
                                                         <option value="2">Externo a la UAEMex</option>
@@ -84,10 +84,13 @@
                                                         </label>
                                                         <select name="lugarProcedencia" id="form.lugarProcedencia"
                                                             wire:change="updateLugarProcedenciaBanner"
-                                                            wire:model.live="form.lugarProcedencia" class="w-full h-10">
-                                                            <option value="">Selecciona una opción</option>
+                                                            wire:model.live="form.lugarProcedencia" class="w-full h-10"
+                                                            @change="$wire.espacioAcademicoId($event.target.selectedOptions[0].getAttribute('data-espacio-academico-id'))">
+                                                            <option value="" data-espacio-academico-id="0">
+                                                                Selecciona una opción</option>
                                                             @foreach ($espaciosAcademicos as $espacioAcademico)
-                                                                <option value="{{ $espacioAcademico->nombre }}">
+                                                                <option value="{{ $espacioAcademico->nombre }}"
+                                                                    data-espacio-academico-id="{{ $espacioAcademico->id }}">
                                                                     {{ $espacioAcademico->nombre }}
                                                                 </option>
                                                             @endforeach
@@ -123,11 +126,14 @@
                                                 @if ($form->tipoRegistro == 1)
                                                     <div>
                                                         <select name="form.nombreGrupo" id="form.nombreGrupo"
-                                                            class="w-full h-10" wire:model.live="form.nombreGrupo"
-                                                            wire:change="updateCuerpoAcadBanner">
-                                                            <option value="">Seleccione una opción</option>
+                                                            wire:model.live="form.nombreGrupo"
+                                                            wire:change="updateCuerpoAcadBanner" class="w-full h-10"
+                                                            @change="$wire.cuerpoAcademicoId($event.target.selectedOptions[0].getAttribute('data-cuerpo-academico-id'))">
+                                                            <option value="" data-cuerpo-academico-id="0">
+                                                                Seleccione una opción</option>
                                                             @foreach ($cuerposAcademicos as $cuerpoAcademico)
-                                                                <option value="{{ $cuerpoAcademico->nombre }}">
+                                                                <option value="{{ $cuerpoAcademico->nombre }}"
+                                                                    data-cuerpo-academico-id="{{ $cuerpoAcademico->id }}">
                                                                     {{ $cuerpoAcademico->nombre }}
                                                                 </option>
                                                             @endforeach
@@ -280,12 +286,7 @@
                                                     <select id="form.areaSeleccionada"
                                                         wire:model.live="form.areaSeleccionada"
                                                         wire:change="limpiarSubareas"
-                                                        class="bg-gray-50
-                                                        border border-gray-300 text-gray-900 text-sm rounded-lg
-                                                        focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5
-                                                        dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
-                                                        dark:text-white dark:focus:ring-blue-500
-                                                        dark:focus:border-blue-500">
+                                                        class="w-full border border-gray-300 hover:bg-[#34778A]/40">
                                                         <option value="0">Selecciona una opción</option>
                                                         @foreach ($areasOptions as $area)
                                                             <option value="{{ $area->id }}">
@@ -363,8 +364,17 @@
                                                         conocimiento<span class="font-bold text-red-600 mr-2">*</span>
                                                     </label>
                                                     <button type="button" id="btnLineas"
+                                                        x-bind:disabled="tipoRegistro < 1 || cuerpoAcademico == null ||
+                                                            cuerpoAcademico == ''"
+                                                        :class="{
+                                                            'disabled:bg-[#e0dddd]': tipoRegistro < 1 ||
+                                                                cuerpoAcademico == null ||
+                                                                cuerpoAcademico == ''
+                                                        }"
                                                         class="btn-transition bg-verde text-white text-xl rounded-full px-4 py-2"
-                                                        wire:click="$dispatch('openModal', {component: 'modals.lineas-modal'})">
+                                                        @if ($form->tipoRegistro < 1) title="Debes de seleccionar una procedencia."
+                                                        @elseif($form->nombreGrupo == null || $form->nombreGrupo == '') title="Debes de poner el nombre del cuerpo académico." @endif
+                                                        @click="$wire.dispatch('openModal', {component: 'modals.lineas-modal', arguments: { tipoRegistro: {{ $form->tipoRegistro }}, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
                                                         +
                                                     </button>
                                                 </div>
@@ -377,8 +387,8 @@
                                                         class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                         <thead>
                                                             <tr class="bg-blanco">
-                                                                <th class="w-[20%]">Nombre de la línea</th>
-                                                                <th class="w-[70%]">Descripción</th>
+                                                                <th class="w-[30%]">Nombre de la línea</th>
+                                                                <th class="w-[60%]">Descripción</th>
                                                                 <th class="w-[10%]">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -394,7 +404,7 @@
                                                                         <div class="flex">
                                                                             <button type="button"
                                                                                 class="btn-tablas btn-transition"
-                                                                                @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion }})">
+                                                                                @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion, tipoRegistro, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
                                                                                 <img src="{{ '/img/botones/btn_editar.png' }}"
                                                                                     alt="Image/png" title="Editar">
                                                                             </button>
@@ -514,9 +524,16 @@
                                                             Líder<span class="font-bold text-red-600">*</span>
                                                         </label>
                                                         <button type="button" id="btnLider"
-                                                            x-bind:disabled="lideres.length > 0"
+                                                            x-bind:disabled="lideres.length > 0 || tipoRegistro < 1"
+                                                            @if ($form->tipoRegistro < 1)
+                                                            title="Debes seleccionar la procedencia."
+                                                        @elseif(count($form->lideres) > 0)
                                                             title="Solo se puede agregar un líder."
-                                                            :class="{ 'disabled:bg-[#e0dddd]': lideres.length > 0 }"
+                                                            @endif
+                                                            :class="{
+                                                                'disabled:bg-[#e0dddd]': lideres.length > 0 ||
+                                                                    tipoRegistro < 1
+                                                            }"
                                                             class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
                                                             @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: {
                                                                 tipoRegistro: {{ $form->tipoRegistro }}, isLider: 1

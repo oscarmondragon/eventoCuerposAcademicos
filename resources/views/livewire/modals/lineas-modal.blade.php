@@ -8,8 +8,17 @@
                 <label for="nombre" class="label-modal">
                     Nombre de la línea<span class="font-bold text-red-600">*</span>
                 </label>
-                <input type="text" id="nombre" wire:model.live="nombre" class="input-modal"
-                    placeholder="Nombre de la línea">
+                @if ($tipoRegistro == 1)
+                    <select id="nombre" wire:model.live="nombre" class="w-full">
+                        <option value="">Selecciona una opción</option>
+                        @foreach ($lineasInvestigacion as $linea)
+                            <option value="{{ $linea->nombre }}"> {{ $linea->nombre }} </option>
+                        @endforeach
+                    </select>
+                @elseif($tipoRegistro == 2)
+                    <input type="text" id="nombre" wire:model.live="nombre" class="input-modal"
+                        placeholder="Nombre de la línea" />
+                @endif
                 @error('nombre')
                     <span class="text-rojo block">{{ $message }}</span>
                 @enderror
