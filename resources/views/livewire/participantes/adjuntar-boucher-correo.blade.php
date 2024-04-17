@@ -34,7 +34,7 @@
                                 <input
                                     class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                     aria-describedby="form.boucher_help" id="boucher" type="file"
-                                    wire:model.live="boucher">
+                                    accept=".jpg,.png, .pdf" wire:model.live="boucher">
 
                                 @error('boucher')
                                     <span class="text-rojo block">{{ $message }}</span>

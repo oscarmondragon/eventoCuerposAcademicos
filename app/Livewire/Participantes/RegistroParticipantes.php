@@ -73,6 +73,7 @@ class RegistroParticipantes extends Component
     public function save()
     {
         $this->form->store();
+        $this->limpiarCampos();
 
         //  return $this->redirect('/registro-participantes');
     }
@@ -378,11 +379,10 @@ class RegistroParticipantes extends Component
         $this->form->nombreGrupo = null;
     }
 
-    public function limpiarLineas()
-    {
-        dd("entre");
-        $this->form->lineasInvestigacion = '';
-    }
+    // public function limpiarLineas()
+    // {
+    //     $this->form->lineasInvestigacion = '';
+    // }
 
     public function limpiarCampos()
     {
