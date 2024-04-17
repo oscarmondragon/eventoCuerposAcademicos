@@ -78,11 +78,12 @@
                                                 </div>
                                                 @if ($form->tipoRegistro == 1)
                                                     <div class="basis-3/4">
-                                                        <label for="lugarProcedencia"
+                                                        <label for="form.lugarProcedencia"
                                                             class="block mb-2 dark:text-white">
-                                                            Espacio academico
+                                                            Espacio academico<span
+                                                                class="font-bold text-red-600">*</span>
                                                         </label>
-                                                        <select name="lugarProcedencia" id="form.lugarProcedencia"
+                                                        <select name="form.lugarProcedencia" id="form.lugarProcedencia"
                                                             wire:change="updateLugarProcedenciaBanner"
                                                             wire:model.live="form.lugarProcedencia" class="w-full h-10"
                                                             @change="$wire.espacioAcademicoId($event.target.selectedOptions[0].getAttribute('data-espacio-academico-id'))">
@@ -126,8 +127,7 @@
                                                 @if ($form->tipoRegistro == 1)
                                                     <div>
                                                         <select name="form.nombreGrupo" id="form.nombreGrupo"
-                                                            wire:model.live="form.nombreGrupo"
-                                                            wire:change="updateCuerpoAcadBanner" class="w-full h-10"
+                                                            wire:model.live="form.nombreGrupo" class="w-full h-10"
                                                             @change="$wire.cuerpoAcademicoId($event.target.selectedOptions[0].getAttribute('data-cuerpo-academico-id'))">
                                                             <option value="" data-cuerpo-academico-id="0">
                                                                 Seleccione una opción</option>
@@ -160,6 +160,7 @@
                                                     </label>
                                                     <select id="form.pais" wire:model.live="form.pais"
                                                         class="w-full">
+                                                        <option value="">Selecciona un país</option>
                                                         @foreach ($paises as $pais)
                                                             <option value="{{ $pais->nombre }}">{{ $pais->nombre }}
                                                             </option>
@@ -218,8 +219,8 @@
                                                         <input type="email" id="form.correoGeneral"
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
-                                                            class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@uaemex.mx" />
+                                                            class="w-full ps-10 p-2.5" placeholder="uaemex@uaemex.mx"
+                                                            autocomplete="false" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -254,8 +255,8 @@
                                                         <input type="email" id="form.correoGeneralConfirmacion"
                                                             wire:model.live="form.correoGeneralConfirmacion"
                                                             wire:change="updateCorreoBanner"
-                                                            class="w-full ps-10 p-2.5"
-                                                            placeholder="uaemex@uaemex.mx" />
+                                                            class="w-full ps-10 p-2.5" placeholder="uaemex@uaemex.mx"
+                                                            autocomplete="false" />
                                                     </div>
                                                     @error('form.correoGeneralConfirmacion')
                                                         <span class="text-rojo block ml-1">{{ $message }}</span>
@@ -263,15 +264,15 @@
                                                 </div>
                                             </div>
                                             <div class="mt-5">
-                                                <label class="block mb-2 dark:text-white">
+                                                <p class="block mb-2 dark:text-white">
                                                     Selecciona un área tematica y automaticamente se listaran sus
                                                     subáreas disponibles para seleccionar<span
                                                         class="font-bold text-red-600">*</span>
-                                                </label>
+                                                </p>
                                             </div>
                                             <div class="sm:flex flex-row  gap-x-4 bg-[#34778A]/30 rounded-lg">
                                                 <div class="flex-initial sm:w-1/4 w-full rounded-l-lg pl-4 py-5">
-                                                    <label for="form.form.areaSeleccionada"
+                                                    <label for="form.areaSeleccionada"
                                                         class="block mb-2 font-bold dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
                                                     </label>
@@ -300,10 +301,9 @@
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/4 w-full bg-gray-100 pl-4 py-4">
-                                                    <label for="form.subareaTematica"
-                                                        class="block mb-2 dark:text-white">
+                                                    <p class="block mb-2 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
-                                                    </label>
+                                                    </p>
                                                     <div>
                                                         <div class="flex flex-col">
                                                             @foreach (collect($subareasOptions)->groupBy('grupo.nombre') as $grupo => $subareasDelGrupo)
@@ -360,9 +360,9 @@
 
                                             <div class="mt-5">
                                                 <div class="flex items-center">
-                                                    <label for="btnLineas">Lineas de generación y aplicacion del
+                                                    <p>Lineas de generación y aplicacion del
                                                         conocimiento<span class="font-bold text-red-600 mr-2">*</span>
-                                                    </label>
+                                                    </p>
                                                     <button type="button" id="btnLineas"
                                                         x-bind:disabled="tipoRegistro < 1 || cuerpoAcademico == null ||
                                                             cuerpoAcademico == ''"
@@ -372,7 +372,7 @@
                                                                 cuerpoAcademico == ''
                                                         }"
                                                         class="btn-transition bg-verde text-white text-xl rounded-full px-4 py-2"
-                                                        @if ($form->tipoRegistro < 1) title="Debes de seleccionar una procedencia."
+                                                        @if ($form->tipoRegistro < 1) title="Debes seleccionar una procedencia."
                                                         @elseif($form->nombreGrupo == null || $form->nombreGrupo == '') title="Debes de poner el nombre del cuerpo académico." @endif
                                                         @click="$wire.dispatch('openModal', {component: 'modals.lineas-modal', arguments: { tipoRegistro: {{ $form->tipoRegistro }}, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
                                                         +
@@ -520,9 +520,9 @@
                                             <div class="flex sm:flex-row flex-col gap-6">
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
-                                                        <label for="btnLider" class="block mb-2 dark:text-white">
+                                                        <p class="block mb-2 dark:text-white">
                                                             Líder<span class="font-bold text-red-600">*</span>
-                                                        </label>
+                                                        </p>
                                                         <button type="button" id="btnLider"
                                                             x-bind:disabled="lideres.length > 0 || tipoRegistro < 1"
                                                             @if ($form->tipoRegistro < 1)
@@ -740,7 +740,7 @@
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
-                                            <label for="form.areaSeleccionada"
+                                            <label for="form.areaSeleccionadaBanner"
                                                 class="block mb-2 mt-5 dark:text-white">
                                                 Área temática<span class="font-bold text-red-600">*</span>
                                             </label>
@@ -842,7 +842,6 @@
                                                             wire:model="form.telefonoBanner"
                                                             class="w-full disabled ps-10 p-2.5"
                                                             wire:change="updateTelefonoBanner"
-                                                            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                                             placeholder="(+52)7226490394" disabled />
                                                     </div>
                                                     @error('form.telefonoBanner')
@@ -879,9 +878,9 @@
                                             </div>
 
                                             <div class="mt-5">
-                                                <label class="block mb-2 dark:text-white">
+                                                <p class="block mb-2 dark:text-white">
                                                     Redes sociales (opcionales)
-                                                </label>
+                                                </p>
                                                 <div
                                                     class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
                                                     <div x-data="{ open: false }" class="basis-1/4">
@@ -999,7 +998,7 @@
                                                 class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                 aria-describedby="form.boucher_help" id="form.boucher" type="file"
                                                 wire:model.live="form.boucher">
-                                            <div wire:loading wire:target="form.boucher">Uploading...</div>
+                                            <div wire:loading wire:target="form.boucher">Cargando archivo...</div>
                                             <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                                 id="form.boucher_help">
                                                 <span class="font-bold">Importante:</span> Es necesario subir tu
@@ -1063,23 +1062,12 @@
                                             @endforeach
                                         </ul>
                                     </div>
-                                    <button type="button"
-                                        class="ms-auto -mx-1.5 -my-1.5 bg-yellow-100 text-yellow-600 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-yellow-300 dark:hover:bg-gray-700
-                                    btn-transition"
-                                        title="Cerrar advertencia." data-dismiss-target="#alert-4"
-                                        aria-label="Close">
-                                        <span class="sr-only">Close</span>
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                    </button>
                                 </div>
                             @endif
-
                             <div class="text-end mt-5">
+                                <x-secondary-button wire:click="limpiarCampos">
+                                    Limpiar Campos
+                                </x-secondary-button>
                                 <x-primary-button class="ms-3" @click="save()">
                                     {{ __('Enviar') }}
                                 </x-primary-button>

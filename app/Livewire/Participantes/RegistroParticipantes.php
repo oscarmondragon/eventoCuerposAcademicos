@@ -334,7 +334,7 @@ class RegistroParticipantes extends Component
 
     public function updateCuerpoAcadBanner()
     {
-        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
+        //$this->form->nombreGrupoBanner = $this->form->nombreGrupo;
     }
 
     public function updateLugarProcedenciaBanner()
@@ -363,17 +363,57 @@ class RegistroParticipantes extends Component
     public function espacioAcademicoId($id)
     {
         $this->cuerposAcademicos = CuerpoAcademico::where('espacio_academico_id', $id)->get();
-        //dd($id);
     }
 
     public function cuerpoAcademicoId($id)
     {
         $this->form->idCuerpoAcademico = $id;
+        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
+        $this->form->lineasInvestigacion = [];
     }
 
     public function limpiarCamposProcedencia()
     {
         $this->form->lugarProcedencia = null;
         $this->form->nombreGrupo = null;
+    }
+
+    public function limpiarLineas()
+    {
+        dd("entre");
+        $this->form->lineasInvestigacion = '';
+    }
+
+    public function limpiarCampos()
+    {
+        $this->form->tipoRegistro = 0;
+        $this->form->lugarProcedencia = '';
+        $this->form->nombreGrupo = '';
+        $this->form->pais = '';
+        $this->form->telefonoGeneral = '';
+        $this->form->correoGeneral = '';
+        $this->form->correoGeneralConfirmacion = '';
+        $this->selectedSubareas = [];
+        $this->form->subareasSeleccionadas = [];
+        $this->form->lineasInvestigacion = [];
+        $this->form->productosLogrados = '';
+        $this->form->casosExito = '';
+        $this->form->propuestas = '';
+        $this->form->fortalezas = '';
+        $this->form->necesidades = '';
+        $this->form->lideres = [];
+        $this->form->integrantes = [];
+        $this->form->nombreGrupoBanner = '';
+        $this->form->lugarProcedenciaBanner = '';
+        $this->form->descripcionBanner = '';
+        $this->form->telefonoBanner = '';
+        $this->form->correoBanner = '';
+        $this->form->areaSeleccionadaBanner = '';
+        $this->form->facebook = '';
+        $this->form->x = '';
+        $this->form->youtube = '';
+        $this->form->otraRed = '';
+        $this->form->boucher = null;
+        $this->form->aceptoDatos = false;
     }
 }
