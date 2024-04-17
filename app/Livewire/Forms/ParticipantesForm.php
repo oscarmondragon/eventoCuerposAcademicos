@@ -86,7 +86,7 @@ class ParticipantesForm extends Form
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoBanner = '';
 
-    #[Validate('required|email|unique:banners,email|max:100')]
+    #[Validate('required|email|max:100')]
     public $correoBanner = '';
 
     #[Validate('required')]
@@ -176,6 +176,8 @@ class ParticipantesForm extends Form
         'lugarProcedenciaBanner.required' => 'El campo de institución de procedencia no puede estar vacío.',
         'lugarProcedenciaBanner.max' => 'El campo de institución de procedencia es demasiado largo.',
 
+        'areaSeleccionadaBanner.required' => 'El campo de área temática no puede estar vacio.',
+
         'descripcionBanner.required' => 'La descripción de su principal línea de generación no puede estar vacía.',
         'descripcionBanner.max' => 'La descripción de su principal línea de generación es demasiado larga.',
 
@@ -186,7 +188,6 @@ class ParticipantesForm extends Form
 
         'correoBanner.required' => 'El correo electrónico no puede estar vacío.',
         'correoBanner.email' => 'El coreo electrónico no tiene un formato valido.',
-        'correoBanner.unique' => 'El correo electrónico ya existe.',
         'correoBanner.max' => 'El correo electrónico es demasiado largo.',
 
         'facebook.max' => 'Nombre de Facebook demasiado largo.',
@@ -370,7 +371,16 @@ class ParticipantesForm extends Form
             }
 
             DB::commit();
-            return redirect('/registro-creado')->with('success', 'Su registro  ha sido guardado correctamente con el correo ' . $this->correoGeneral);
+            if (!empty($this->boucher)) {
+                return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo, vamos a validar la información y  el pago , te notificaremos por correo electrónico cuando finalicemos.');
+
+            } else {
+                return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo. Si aun no has
+                completado el
+                pago no te preocupes, puedes completarlo y adjuntar tu evidencia desde el link que
+                te hemos enviado por correo.');
+
+            }
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('errorDb', 'Error al guardar el registro. Por favor, revisa que todos los campos esten correctamente llenados e intente más tarde. Si el problema persiste contacte al administrador del sistema. ' . $e->getMessage());
