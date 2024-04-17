@@ -38,11 +38,12 @@ class NewRegistroConPago extends Notification
         return (new MailMessage)
             ->from(env('MAIL_USERNAME', 'omondragona@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
             ->subject("Confirmación de registro al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
-            ->line("Correo electrónico registrado: {$this->registro->email}")
-            ->line("Nombre del cuerpo académico, red o grupo:")
-            ->line("{$this->registro->cuerpo_grupo_red}")
-            ->line('¡Registro exitoso!')
-            ->line('Gracias por su registro, será revisado y de ser validado el pago se le enviará un correo electronico de confirmación!');
+            ->greeting('¡Hola!')
+            ->line('Gracias por su registro, será revisado y de ser validado el pago se le enviará un correo electronico de confirmación!')
+            ->line("DATOS DEL REGISTRO")
+            ->line("Correo electrónico: {$this->registro->email}")
+            ->line("Nombre del cuerpo académico, red o grupo: {$this->registro->cuerpo_grupo_red}")
+            ->line('¡Gracias por su interés!');
 
     }
 
