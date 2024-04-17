@@ -997,7 +997,7 @@
                                             <input
                                                 class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                                 aria-describedby="form.boucher_help" id="form.boucher" type="file"
-                                                wire:model.live="form.boucher">
+                                                accept=".jpg,.png, .pdf" wire:model.live="form.boucher">
                                             <div wire:loading wire:target="form.boucher">Cargando archivo...</div>
                                             <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                                 id="form.boucher_help">
