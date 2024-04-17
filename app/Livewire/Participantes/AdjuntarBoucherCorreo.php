@@ -4,6 +4,7 @@ namespace App\Livewire\Participantes;
 
 use App\Models\Registro;
 use App\Models\Archivo;
+use App\Notifications\NewRegistroConPago;
 use Livewire\Attributes\Layout;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
@@ -78,7 +79,10 @@ class AdjuntarBoucherCorreo extends Component
             $this->registroFound->save();
 
             DB::commit();
-            return redirect('/registro-creado')->with('success', 'Su registro  ha sido actualizado correctamente');
+
+            $this->registroFound->notify(new NewRegistroConPago($this->registroFound));
+
+            return redirect('/registro-creado')->with('success', 'Se ha adjuntado su evidencia de pago correctamente. Lo estamos validando, te notificaremos por correo electrónico cuando finalicemos.');
 
         } catch (\Exception $e) {
             DB::rollback();

@@ -12,11 +12,9 @@
                             ¡Registro exitoso!
                         </h1>
                         <p class="text-justify">
-                            Te hemos enviado un correo electrónico con la confirmación del registro. Si aun no has
-                            completado el
-                            pago no te preocupes, puedes completarlo despues y adjuntar tu evidencia desde el link que
-                            te
-                            enviamos en el mismo.
+                            @if (session()->has('success'))
+                                {{ session('success') }}
+                            @endif
                         </p>
                     </div>
                 </div>
