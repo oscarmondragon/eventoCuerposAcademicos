@@ -335,8 +335,16 @@ class RegistroParticipantes extends Component
 
     public function updateCuerpoAcadBanner()
     {
-        //$this->form->nombreGrupoBanner = $this->form->nombreGrupo;
+        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
     }
+
+    public function cuerpoAcademicoId($id)
+    {
+        $this->form->idCuerpoAcademico = $id;
+        $this->form->lineasInvestigacion = [];
+        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
+    }
+
 
     public function updateLugarProcedenciaBanner()
     {
@@ -366,17 +374,13 @@ class RegistroParticipantes extends Component
         $this->cuerposAcademicos = CuerpoAcademico::where('espacio_academico_id', $id)->get();
     }
 
-    public function cuerpoAcademicoId($id)
-    {
-        $this->form->idCuerpoAcademico = $id;
-        $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
-        $this->form->lineasInvestigacion = [];
-    }
 
     public function limpiarCamposProcedencia()
     {
         $this->form->lugarProcedencia = null;
         $this->form->nombreGrupo = null;
+        $this->form->lineasInvestigacion = [];
+        $this->form->lideres = [];
     }
 
     // public function limpiarLineas()

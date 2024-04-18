@@ -12,7 +12,9 @@
                     <select id="nombre" wire:model.live="nombre" class="w-full">
                         <option value="">Selecciona una opción</option>
                         @foreach ($lineasInvestigacion as $linea)
-                            <option value="{{ $linea->nombre }}"> {{ $linea->nombre }} </option>
+                            <option value="{{ $linea->nombre }}" title="{{ $linea->nombre }}">
+                                {{ $linea->nombre }}
+                            </option>
                         @endforeach
                     </select>
                 @elseif($tipoRegistro == 2)
