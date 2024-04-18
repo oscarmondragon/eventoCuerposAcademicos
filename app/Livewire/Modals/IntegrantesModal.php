@@ -150,4 +150,9 @@ class IntegrantesModal extends ModalComponent
         $this->tipoIntegrante = "";
 
     }
+
+    public static function modalMaxWidth(): string
+    {
+        return '4xl';
+    }
 }

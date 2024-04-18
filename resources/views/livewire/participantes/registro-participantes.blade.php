@@ -4,7 +4,7 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), tipoRegistro: $wire.entangle('form.tipoRegistro'), cuerpoAcademico: $wire.entangle('form.nombreGrupo') }" class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), tipoRegistro: $wire.entangle('form.tipoRegistro'), cuerpoAcademico: $wire.entangle('form.nombreGrupo'), integrantesSeccion: false }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
@@ -514,7 +514,10 @@
                                         </button>
                                     </h2>
                                     <div id="accordion-open-body-2"
-                                        :class="{ 'hidden': integrantes.length < 1 && lideres.length < 1 }"
+                                        :class="{
+                                            'hidden': integrantes.length < 1 && lideres.length < 1 &&
+                                                integrantesSeccion == false
+                                        }"
                                         aria-labelledby="accordion-open-heading-2">
                                         <div class="p-5 border border-b-0 border-dorado dark:border-gray-700">
                                             <div class="flex sm:flex-row flex-col gap-6">
@@ -608,7 +611,8 @@
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
                                                         <select id="tipoIntegrante" name="tipoIntegrante"
-                                                            wire:model.live="tipoIntegrante" class="w-auto">
+                                                            wire:model.live="tipoIntegrante"
+                                                            x-on:change="integrantesSeccion = true" class="w-auto">
                                                             <option value="Integrante" selected>Integrante</option>
                                                             <option value="Colaborador">Colaborador</option>
 
