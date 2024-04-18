@@ -2,72 +2,89 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn-success {
-    @apply bg-verde text-white hover:bg-[#4e6856] hover:rounded-lg focus:ring-2 focus:outline-none focus:ring-[#3c5042] mt-2;
+@layer base {
+    textarea {
+        @apply bg-blanco text-textos rounded-md border-verde
+        focus:border-verde focus:outline-none focus:ring-1 focus:ring-verde placeholder:text-sm;
+        /* resize-none */
+    }
+
+    /* componentes generales FOCUS */
+    select:focus,
+    input[type="radio"]:focus,
+    input[type="checkbox"]:focus,
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    input[type="date"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        @apply focus:border-verde focus:outline-none focus:ring-1 ring-verde;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        @apply text-verde outline-none rounded-full;
+    }
+
+    select {
+        @apply bg-blanco text-textos rounded-md border-verde;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+        @apply bg-blanco text-textos rounded-md border-verde h-10 placeholder:text-sm;
+    }
 }
 
-.btn-warning {
-    @apply bg-gray-400 text-white hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800 mt-2;
+@layer components {
+    .btn-success {
+        @apply bg-verde text-white hover:bg-[#4e6856] hover:rounded-lg focus:ring-2 focus:outline-none focus:ring-[#3c5042] mt-2;
+    }
+
+    .btn-warning {
+        @apply bg-gray-400 text-white hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800 mt-2;
+    }
+
+    .fondo_deg_formulario {
+        @apply bg-gradient-to-r from-verde to-dorado h-9;
+    }
+
+    .button {
+        @apply transition ease-out delay-150 text-white font-bold py-2 px-4 mx-1 rounded-md  
+        hover:-translate-y-1 hover:scale-110 duration-300;
+        /* animate-pulse */
+    }
+
+    .btn-transition {
+        @apply transition ease-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300;
+    }
+
+    .btn-tablas {
+        @apply py-0 px-0 rounded-full;
+    }
 }
 
-.fondo_deg_formulario {
-    @apply bg-gradient-to-r from-verde to-dorado h-9;
+@layer utilities {
+    .label-modal {
+        @apply block mb-2 mt-2 text-sm font-bold text-textos dark:text-white;
+    }
+
+    .input-modal {
+        @apply w-full placeholder:text-sm;
+    }
+
+    .disabled {
+        @apply disabled:bg-[#e0dddd] disabled:text-[#777171] disabled:border-[#888181] disabled:cursor-not-allowed;
+    }
 }
 
-.button {
-    @apply transition ease-out delay-150 text-white font-bold py-2 px-4 mx-1 rounded-md  
-    hover:-translate-y-1 hover:scale-110 duration-300;
-    /* animate-pulse */
+/* sweetalert2 */
+.swal2-html-container,
+.swal2-title {
+    color: #4d4d4d !important;
 }
 
-.btn-transition {
-    @apply transition ease-out delay-150 hover:-translate-y-1 hover:scale-110 duration-300;
-}
-
-.btn-tablas {
-    @apply py-0 px-0 rounded-full;
-}
-
-textarea {
-    @apply bg-blanco text-textos rounded-md border-verde
-    focus:border-verde focus:outline-none focus:ring-1 focus:ring-verde placeholder:text-sm;
-    /* resize-none */
-}
-
-/* componentes generales FOCUS */
-select:focus,
-input[type="radio"]:focus,
-input[type="checkbox"]:focus,
-input[type="text"]:focus,
-input[type="number"]:focus,
-input[type="date"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
-    @apply focus:border-verde focus:outline-none focus:ring-1 ring-verde;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-    @apply text-verde outline-none rounded-full;
-}
-
-select {
-    @apply bg-blanco text-textos rounded-md border-verde;
-}
-
-input[type="text"],
-input[type="email"] {
-    @apply bg-blanco text-textos rounded-md border-verde h-10 placeholder:text-sm;
-}
-
-.label-modal {
-    @apply block mb-2 mt-2 text-sm font-bold text-textos dark:text-white;
-}
-
-.input-modal {
-    @apply w-full placeholder:text-sm;
-}
-
-.disabled{
-    @apply disabled:bg-[#e0dddd] disabled:text-[#777171] disabled:border-[#888181] disabled:cursor-not-allowed;
+.swal2-styled {
+    transition: none !important;
+    box-shadow: none !important;
 }

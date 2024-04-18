@@ -372,8 +372,8 @@
                                                                 cuerpoAcademico == ''
                                                         }"
                                                         class="btn-transition bg-verde text-white text-xl rounded-full px-4 py-2"
-                                                        @if ($form->tipoRegistro < 1) title="Debes seleccionar una procedencia."
-                                                        @elseif($form->nombreGrupo == null || $form->nombreGrupo == '') title="Debes de poner el nombre del cuerpo académico." @endif
+                                                        @if ($form->tipoRegistro < 1) title="Debes seleccionar la procedencia en la sección de datos generales."
+                                                        @elseif($form->nombreGrupo == null || $form->nombreGrupo == '') title="Debes de completar el campo: Nombre del Cuerpo Académico, red o grupo de investigación." @endif
                                                         @click="$wire.dispatch('openModal', {component: 'modals.lineas-modal', arguments: { tipoRegistro: {{ $form->tipoRegistro }}, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
                                                         +
                                                     </button>
@@ -382,7 +382,7 @@
                                                     <span class="text-rojo block mt-2">{{ $message }}</span>
                                                 @enderror
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
-                                                    class ="overflow-x-auto mt-5">
+                                                    class="overflow-x-auto mt-5">
                                                     <table
                                                         class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                         <thead>
@@ -529,7 +529,7 @@
                                                         <button type="button" id="btnLider"
                                                             x-bind:disabled="lideres.length > 0 || tipoRegistro < 1"
                                                             @if ($form->tipoRegistro < 1)
-                                                            title="Debes seleccionar la procedencia."
+                                                            title="Debes seleccionar la procedencia en la sección de datos generales."
                                                         @elseif(count($form->lideres) > 0)
                                                             title="Solo se puede agregar un líder."
                                                             @endif
@@ -609,10 +609,10 @@
                                                 </div>
 
                                                 <div class="flex-initial w-full">
-                                                    <div class="flex items-end">
+                                                    <div class="flex items-center">
                                                         <select id="tipoIntegrante" name="tipoIntegrante"
                                                             wire:model.live="tipoIntegrante"
-                                                            x-on:change="integrantesSeccion = true" class="w-auto">
+                                                            x-on:change="integrantesSeccion = true" class="w-auto h-9 text-sm">
                                                             <option value="Integrante" selected>Integrante</option>
                                                             <option value="Colaborador">Colaborador</option>
 
@@ -1068,7 +1068,7 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="text-end mt-5">
+                            <div class="sm:block flex sm:flex-row flex-col sm:text-end mt-5">
                                 <x-secondary-button wire:click="limpiarCampos">
                                     Limpiar Campos
                                 </x-secondary-button>
