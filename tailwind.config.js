@@ -9,6 +9,12 @@ export default {
         "./resources/views/**/*.blade.php",
         "./node_modules/flowbite/**/*.js",
     ],
+    safelist: [
+        {
+            pattern: /max-w-(sm|md|lg|xl|2xl|3xl|4xl|5xl|6xl|7xl)/,
+            variants: ["sm", "md", "lg", "xl", "2xl"],
+        },
+    ],
 
     theme: {
         extend: {

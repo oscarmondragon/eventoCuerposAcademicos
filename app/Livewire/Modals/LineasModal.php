@@ -62,4 +62,9 @@ class LineasModal extends ModalComponent
         $this->nombre = "";
         $this->descripcion = "";
     }
+
+    public static function modalMaxWidth(): string
+    {
+        return '2xl';
+    }
 }
