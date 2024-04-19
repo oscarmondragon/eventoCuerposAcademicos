@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div class="text-right px-4 pb-5 sm:px-4">
+    <div class="text-right px-4 pb-5 sm:mt-0 mt-4">
         {{ $buttons }}
     </div>
     @if ($formAction)
