@@ -48,7 +48,7 @@ class IntegrantesModal extends ModalComponent
     #[Validate('required|same:correo')]
     public $confirmarCorreo = '';
 
-    #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
+    #[Validate('nullable|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefono = '';
 
 
@@ -80,7 +80,6 @@ class IntegrantesModal extends ModalComponent
 
         'sexo.required' => 'Seleccione el sexo.',
         'genero.required' => 'Seleccione el genero.',
-        'genero.gt' => 'Seleccione el genero.',
 
         'correo.required' => 'El correo electrónico no puede estar vacío.',
         'correo.email' => 'El coreo electrónico no tiene un formato valido.',
@@ -89,7 +88,6 @@ class IntegrantesModal extends ModalComponent
         'confirmarCorreo.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'confirmarCorreo.same' => 'El correo electrónico de confirmación no coincide.',
 
-        'telefono.required' => 'El telefono no puede estar vacío.',
         'telefono.min' => 'El teléfono debe de contener al menos 10 dígitos.',
         'telefono.max' => 'El teléfono es demasiado largo.',
         'telefono.regex' => 'El formato del teléfono no es valido (Solo acepta los caracteres especiales: (), +).',
@@ -148,7 +146,6 @@ class IntegrantesModal extends ModalComponent
         $this->telefono = "";
         $this->isLider = "";
         $this->tipoIntegrante = "";
-
     }
 
     public static function modalMaxWidth(): string
