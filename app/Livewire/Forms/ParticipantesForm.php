@@ -111,6 +111,11 @@ class ParticipantesForm extends Form
     #[Validate('accepted')]
     public $aceptoDatos = false;
 
+    #[Validate('required_unless:boucher,null')]
+    public $checkFactura;
+
+    #[Validate('required_if:checkFactura,1')]
+    public $csf;
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
 
@@ -198,6 +203,9 @@ class ParticipantesForm extends Form
 
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
         'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+        'checkFactura.required_unless' => 'Indica si requires factura.',
+        'csf.required_if' => 'La Constancia de Situación Fiscal es requerida.',
+
 
 
     ];

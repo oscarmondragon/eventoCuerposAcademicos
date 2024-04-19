@@ -28,6 +28,7 @@ return new class extends Migration {
             $table->string('email', 100)->unique();
             $table->string('telefono', 20);
             $table->boolean('adjuntoPago')->default(false);
+            $table->boolean('checkFactura')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
