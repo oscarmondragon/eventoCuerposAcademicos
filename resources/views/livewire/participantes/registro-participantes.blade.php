@@ -612,7 +612,8 @@
                                                     <div class="flex items-center">
                                                         <select id="tipoIntegrante" name="tipoIntegrante"
                                                             wire:model.live="tipoIntegrante"
-                                                            x-on:change="integrantesSeccion = true" class="w-auto h-9 text-sm">
+                                                            x-on:change="integrantesSeccion = true"
+                                                            class="w-auto h-9 text-sm">
                                                             <option value="Integrante" selected>Integrante</option>
                                                             <option value="Colaborador">Colaborador</option>
 
@@ -1009,9 +1010,49 @@
                                                 comprobante de pago para ser
                                                 considerado como participante.
                                             </div>
-                                            @error('form.boucher')
-                                                <span class="text-rojo block">{{ $message }}</span>
-                                            @enderror
+                                            @if ($form->boucher != null)
+                                                <div class="mt-4">
+                                                    <label for="form.checkFactura" class="label-modal">
+                                                        ¿Requieres factura?<span
+                                                            class="font-bold text-red-600">*</span>
+                                                    </label>
+                                                    <div class="flex mx-auto justify-around gap-x-5">
+                                                        <div>
+                                                            <input type="radio" id="form.checkFactura"
+                                                                name="form.checkFactura"
+                                                                wire:model.live="form.checkFactura" value="1">
+                                                            <label for="form.checkFactura"
+                                                                class="ml-2 text-textos">Si</label>
+                                                        </div>
+                                                        <div>
+                                                            <input type="radio" id="form.checkFactura"
+                                                                name="form.checkFactura"
+                                                                wire:model.live="form.checkFactura" value="0">
+                                                            <label for="form.checkFactura"
+                                                                class="ml-2 text-textos">No</label>
+                                                        </div>
+                                                    </div>
+                                                    @error('form.checkFactura')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            @endif
+                                            @if ($form->checkFactura == 1)
+                                                <div class="mt-4">
+                                                    <label class="block mb-2 dark:text-white" for="form.csf">Subir
+                                                        Constancia de Situación Fiscal</label>
+                                                    <input
+                                                        class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                                        aria-describedby="form.csf_help" id="form.csf"
+                                                        type="file" accept=".pdf" wire:model.live="form.csf">
+                                                    <div wire:loading wire:target="form.csf">Cargando archivo...
+                                                    </div>
+                                                    @error('form.csf')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
+                                                </div>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
