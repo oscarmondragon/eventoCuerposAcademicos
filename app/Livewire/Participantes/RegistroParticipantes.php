@@ -58,7 +58,7 @@ class RegistroParticipantes extends Component
             $query->select('area_id')
                 ->from('areas_to_registros')
                 ->groupBy('area_id')
-                ->havingRaw('COUNT(*) > 70');
+                ->havingRaw('COUNT(*) > 69');
         })->get();
 
         if ($this->form->areaSeleccionada) {
