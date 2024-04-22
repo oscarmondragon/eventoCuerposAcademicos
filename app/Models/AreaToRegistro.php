@@ -10,4 +10,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AreaToRegistro extends Model
 {
     use HasFactory, HasUuids, SoftDeletes;
+
+
+    protected $table = "areas_to_registros";
+
 }
