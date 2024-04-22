@@ -944,8 +944,6 @@
                                                         <button type="button"
                                                             class="button bg-dorado sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="Otra red social">
-                                                            {{-- <img src="{{ 'img/iconos/icRedesOtra.png' }}"
-                                                                alt="Icono Facebook" class="inline-block"> --}}
                                                             <h1 class="font-bold sm:-ml-1">Otra</h1>
                                                         </button>
                                                         <div x-show="open" class="mt-2">
@@ -986,73 +984,119 @@
                                         :class="{ 'hidden': boucher == null }"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado dark:border-gray-700">
-                                            <p><strong>Datos para realizar pago:</strong></p>
-                                            <ul>
-                                                <li><strong>Banco:</strong> BBVA Bancomer</li>
-                                                <li><strong>Nombre:</strong> Ingresos Extraordinarios Centro de
-                                                    Investigación en
-                                                    Ciencias Biológicas Aplicadas</li>
-                                                <li><strong>Cuenta:</strong> 0117895704</li>
-                                                <li><strong>Concepto:</strong> inscripción EICARTISSA 2024</li>
-                                                <li><strong>CLABE INTERBANCARIA:</strong></li>
-                                                <li><strong>Código Swift:</strong></li>
-                                            </ul>
-                                            <label class="block mb-2 dark:text-white" for="form.boucher">Subir
-                                                comprobante de pago</label>
-                                            <input
-                                                class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                aria-describedby="form.boucher_help" id="form.boucher" type="file"
-                                                accept=".jpg,.png, .pdf" wire:model.live="form.boucher">
-                                            <div wire:loading wire:target="form.boucher">Cargando archivo...</div>
-                                            <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                                id="form.boucher_help">
-                                                <span class="font-bold">Importante:</span> Es necesario subir tu
-                                                comprobante de pago para ser
-                                                considerado como participante.
-                                            </div>
-                                            @if ($form->boucher != null)
-                                                <div class="mt-4">
-                                                    <label for="form.checkFactura" class="label-modal">
-                                                        ¿Requieres factura?<span
-                                                            class="font-bold text-red-600">*</span>
-                                                    </label>
-                                                    <div class="flex mx-auto justify-around gap-x-5">
-                                                        <div>
-                                                            <input type="radio" id="form.checkFactura"
-                                                                name="form.checkFactura"
-                                                                wire:model.live="form.checkFactura" value="1">
-                                                            <label for="form.checkFactura"
-                                                                class="ml-2 text-textos">Si</label>
-                                                        </div>
-                                                        <div>
-                                                            <input type="radio" id="form.checkFactura"
-                                                                name="form.checkFactura"
-                                                                wire:model.live="form.checkFactura" value="0">
-                                                            <label for="form.checkFactura"
-                                                                class="ml-2 text-textos">No</label>
-                                                        </div>
+                                            <h1>Datos para realizar pago:</h1>
+                                            <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 items-center">
+                                                <div
+                                                    class="basis-1/2 bg-[#003a7c] sm:w-1/2 w-full h-72 rounded-xl mt-5 p-4 text-white">
+                                                    <h1 class="text-2xl">BBVA Bancomer</h1>
+                                                    <h2 class="mt-4">Nombre:
+                                                        <span
+                                                            class="font-bold cursor-pointer hover:underline hover:decoration-1">
+                                                            Ingresos Extraordinarios Centro de Investigación en Ciencias
+                                                            Biológicas Aplicadas.
+                                                        </span>
+                                                    </h2>
+                                                    <h2 class="text-center mt-6">
+                                                        CLABE INTERBANCARIA:
+                                                        <span
+                                                            class="font-bold cursor-pointer hover:underline hover:decoration-1">
+                                                        </span>
+                                                    </h2>
+                                                    <h2 class="text-center mt-4">
+                                                        Código Swift:
+                                                        <span
+                                                            class="font-bold cursor-pointer hover:underline hover:decoration-1">
+                                                        </span>
+                                                    </h2>
+                                                    <div class="flex sm:flex-row flex-col justify-around mt-12">
+                                                        <h2>
+                                                            Cuenta:
+                                                            <span
+                                                                class="font-bold cursor-pointer hover:underline hover:decoration-1">
+                                                                011 789 5704
+                                                            </span>
+                                                        </h2>
+                                                        <h2>
+                                                            Concepto:
+                                                            <span
+                                                                class="font-bold cursor-pointer hover:underline hover:decoration-1">
+                                                                inscripción EICARTISSA 2024
+                                                            </span>
+                                                        </h2>
                                                     </div>
-                                                    @error('form.checkFactura')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
                                                 </div>
-                                            @endif
-                                            @if ($form->checkFactura == 1)
-                                                <div class="mt-4">
-                                                    <label class="block mb-2 dark:text-white" for="form.csf">Subir
-                                                        Constancia de Situación Fiscal</label>
+
+                                                <div class="basis-1/2">
+                                                    <label class="block mb-2 dark:text-white" for="form.boucher">Subir
+                                                        comprobante de pago</label>
                                                     <input
                                                         class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                        aria-describedby="form.csf_help" id="form.csf"
-                                                        type="file" accept=".pdf" wire:model.live="form.csf">
-                                                    <div wire:loading wire:target="form.csf">Cargando archivo...
+                                                        aria-describedby="form.boucher_help" id="form.boucher"
+                                                        type="file" accept=".jpg,.png, .pdf"
+                                                        wire:model.live="form.boucher" />
+                                                    <div wire:loading wire:target="form.boucher">Cargando archivo...
                                                     </div>
-                                                    @error('form.csf')
-                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                                                        id="form.boucher_help">
+                                                        <span class="font-bold">Importante:</span> Es necesario subir
+                                                        tu
+                                                        comprobante de pago para ser
+                                                        considerado como participante.
+                                                    </div>
+                                                    @error('form.boucher')
+                                                        <span class=" text-rojo error block">{{ $message }}</span>
                                                     @enderror
-                                                </div>
-                                            @endif
 
+                                                    @if ($form->boucher != null)
+                                                        <div class="mt-4">
+                                                            <label for="form.checkFactura" class="label-modal">
+                                                                ¿Requieres factura?<span
+                                                                    class="font-bold text-red-600">*</span>
+                                                            </label>
+                                                            <div class="flex gap-x-5">
+                                                                <div>
+                                                                    <input type="radio" id="form.checkFactura"
+                                                                        name="checkFactura"
+                                                                        wire:model.live="form.checkFactura"
+                                                                        value="1">
+                                                                    <label for="form.checkFactura"
+                                                                        class="ml-2 text-textos">Si</label>
+                                                                </div>
+                                                                <div>
+                                                                    <input type="radio" id="form.checkFactura"
+                                                                        name="checkFactura"
+                                                                        wire:model.live="form.checkFactura"
+                                                                        value="0">
+                                                                    <label for="form.checkFactura"
+                                                                        class="ml-2 text-textos">No</label>
+                                                                </div>
+                                                            </div>
+                                                            @error('form.checkFactura')
+                                                                <span class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    @endif
+                                                    @if ($form->checkFactura == 1)
+                                                        <div class="mt-4">
+                                                            <label class="block mb-2 dark:text-white"
+                                                                for="form.csf">Subir
+                                                                Constancia de Situación Fiscal</label>
+                                                            <input
+                                                                class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                                                aria-describedby="form.csf_help" id="form.csf"
+                                                                type="file" accept=".pdf"
+                                                                wire:model.live="form.csf">
+                                                            <div wire:loading wire:target="form.csf">Cargando
+                                                                archivo...
+                                                            </div>
+                                                            @error('form.csf')
+                                                                <span class="text-rojo block">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    @endif
+
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

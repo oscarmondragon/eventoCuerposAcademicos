@@ -427,4 +427,10 @@ class RegistroParticipantes extends Component
         $this->form->boucher = null;
         $this->form->aceptoDatos = false;
     }
+
+    // public function limpiarBoucher()
+    // {
+    //     //dd("entre");
+    //     $this->form->boucher = null;
+    // }
 }

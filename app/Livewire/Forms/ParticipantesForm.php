@@ -115,7 +115,7 @@ class ParticipantesForm extends Form
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
-    #[Validate('required_if:checkFactura,1')]
+    #[Validate('required_if:checkFactura,1||mimes:jpg,pdf,png|max:2048')]
     public $csf;
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
@@ -204,8 +204,10 @@ class ParticipantesForm extends Form
 
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
         'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
-        'checkFactura.required_unless' => 'Indica si requires factura.',
+        'checkFactura.required_unless' => 'Indica si requieres factura.',
         'csf.required_if' => 'La Constancia de Situación Fiscal es requerida.',
+        'csf.max' => 'El archivo debe pesar máximo 2 MB.',
+        'csf.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
 
 
 
@@ -244,6 +246,7 @@ class ParticipantesForm extends Form
             $registro->telefono = $this->telefonoGeneral;
             $registro->aceptoDatos = $this->aceptoDatos;
             $registro->adjuntoPago = $this->adjuntoPago;
+            $registro->checkFactura = $this->checkFactura;
 
             $registro->save();
 
@@ -386,16 +389,34 @@ class ParticipantesForm extends Form
                 $archivo->save();
             }
 
+            if (!empty($this->csf) && $this->checkFactura == 1) {
+                //Guardar en sistema de archivos
+                $ruta_boucher = "public/" . $registro->id . "/Pago/";
+                $extension = $this->boucher->getClientOriginalExtension();
+
+                $this->boucher->storeAs($ruta_boucher, 'CSF.' . $extension);
+
+                $rutaCompleta = $ruta_boucher . 'CSF.' . $extension;
+
+                //guardar en DB
+                $archivo = new Archivo;
+
+                $archivo->registro_id = $registro->id;
+                $archivo->ruta = $rutaCompleta;
+                $archivo->tipo = "CSF";
+                $archivo->user_id = 0; //significa que no lo subio un usuario autenticado
+
+                $archivo->save();
+            }
+
             DB::commit();
             if (!empty($this->boucher)) {
                 return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo, vamos a validar la información y  el pago , te notificaremos por correo electrónico cuando finalicemos.');
-
             } else {
                 return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo. Si aun no has
                 completado el
                 pago no te preocupes, puedes completarlo y adjuntar tu evidencia desde el link que
                 te hemos enviado por correo.');
-
             }
         } catch (\Exception $e) {
             DB::rollback();
