@@ -23,11 +23,23 @@ class AdjuntarBoucherCorreo extends Component
     #[Validate('required|mimes:jpg,pdf,png|max:2048')]
     public $boucher;
 
+    #[Validate('required_unless:boucher,null')]
+    public $checkFactura;
+
+    #[Validate('required_if:checkFactura,1||mimes:jpg,pdf,png|max:2048')]
+    public $csf;
+
 
     protected $messages = [
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
         'boucher.required' => 'No ha seleccionado ningun archivo.',
         'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+
+        'checkFactura.required_unless' => 'Indica si requieres factura.',
+
+        'csf.max' => 'El archivo debe pesar máximo 2 MB.',
+        'csf.required_if' => 'No ha seleccionado ningun archivo.',
+        'csf.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
 
     ];
 
@@ -37,7 +49,6 @@ class AdjuntarBoucherCorreo extends Component
         if ($registroBuscar) {
             $this->registroFound = $registroBuscar;
         }
-
     }
     public function render()
     {
@@ -73,9 +84,28 @@ class AdjuntarBoucherCorreo extends Component
             $archivo->user_id = 0; //significa que no lo subio un usuario autenticado
             $archivo->save();
 
+            if (!empty($this->csf) && $this->checkFactura == 1) {
+                //Guardar en sistema de archivos
+                $ruta_boucher = "public/" . $this->registroFound->id . "/Pago/";
+                $extension = $this->boucher->getClientOriginalExtension();
+
+                $this->boucher->storeAs($ruta_boucher, 'CSF.' . $extension);
+
+                $rutaCompleta = $ruta_boucher . 'CSF.' . $extension;
+
+                //guardar en DB
+                $archivo = new Archivo;
+
+                $archivo->registro_id = $this->registroFound->id;
+                $archivo->ruta = $rutaCompleta;
+                $archivo->tipo = "CSF";
+                $archivo->user_id = 0; //significa que no lo subio un usuario autenticado
+                $archivo->save();
+            }
 
             //ACTUALIZAMOS BANDERA DE PAGO EN REGISTRO
             $this->registroFound->adjuntoPago = 1;
+            $this->registroFound->checkFactura = $this->checkFactura;
             $this->registroFound->save();
 
             DB::commit();
@@ -83,7 +113,6 @@ class AdjuntarBoucherCorreo extends Component
             $this->registroFound->notify(new NewRegistroConPago($this->registroFound));
 
             return redirect('/registro-creado')->with('success', 'Se ha adjuntado su evidencia de pago correctamente. Lo estamos validando, te notificaremos por correo electrónico cuando finalicemos.');
-
         } catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Error al cargar el comprobante de pago. Por favor, intente más tarde. Si el problema persiste contacte al administrador del sistema.' . $e->getMessage());
