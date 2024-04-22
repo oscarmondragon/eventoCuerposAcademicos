@@ -51,8 +51,15 @@ class RegistroParticipantes extends Component
     {
         //Inicializacion de variables
         $subareasOptions = [];
-        $areasOptions = Area::all();
-        // $tiposFiltro = [];
+        // $areasOptions = Area::all();
+
+        //Solo trae los registros de Area que no esten mas de 70 veces en tabla areas_to_registros
+        $areasOptions = Area::whereNotIn('id', function ($query) {
+            $query->select('area_id')
+                ->from('areas_to_registros')
+                ->groupBy('area_id')
+                ->havingRaw('COUNT(*) > 70');
+        })->get();
 
         if ($this->form->areaSeleccionada) {
             $subareasOptions = Subarea::where('area_id', '=', $this->form->areaSeleccionada)->get(); //Obtiene las subareas correspondientes a la area seleccionada

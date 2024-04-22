@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Archivo;
+use App\Models\AreaToRegistro;
 use App\Models\Banner;
 use App\Models\FortalezaNecesidad;
 use App\Models\Integrantes;
@@ -355,6 +356,13 @@ class ParticipantesForm extends Form
 
                 $subareasToRegistroDB->save();
             }
+
+            //Guardamos en areaToRegistro
+            $areaToRegistro = new AreaToRegistro;
+            $areaToRegistro->registro_id = $registro->id;
+            $areaToRegistro->area_id = $this->areaSeleccionada;
+
+            $areaToRegistro->save();
 
             //Guardamos el boucher
 
