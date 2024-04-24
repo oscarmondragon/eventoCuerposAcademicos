@@ -115,7 +115,7 @@ class ParticipantesForm extends Form
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
-    #[Validate('required_if:checkFactura,1||mimes:jpg,pdf,png|max:2048')]
+    #[Validate('nullable|required_if:checkFactura,1|mimes:jpg,pdf,png|max:2048')]
     public $csf;
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
