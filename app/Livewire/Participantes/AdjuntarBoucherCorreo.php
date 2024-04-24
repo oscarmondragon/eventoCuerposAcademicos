@@ -26,7 +26,7 @@ class AdjuntarBoucherCorreo extends Component
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
-    #[Validate('required_if:checkFactura,1||mimes:jpg,pdf,png|max:2048')]
+    #[Validate('nullable|required_if:checkFactura,1|mimes:pdf|max:2048')]
     public $csf;
 
 
@@ -37,9 +37,9 @@ class AdjuntarBoucherCorreo extends Component
 
         'checkFactura.required_unless' => 'Indica si requieres factura.',
 
-        'csf.max' => 'El archivo debe pesar máximo 2 MB.',
+        'csf.max' => 'El archivo CSF debe pesar máximo 2 MB.',
         'csf.required_if' => 'No ha seleccionado ningun archivo.',
-        'csf.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+        'csf.mimes' => 'El archivo CSF debe ser de tipo: .pdf.',
 
     ];
 
