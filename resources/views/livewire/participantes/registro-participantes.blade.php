@@ -271,7 +271,7 @@
                                                 </p>
                                             </div>
                                             <div class="sm:flex flex-row  gap-x-4 bg-[#34778A]/30 rounded-lg">
-                                                <div class="flex-initial sm:w-1/4 w-full rounded-l-lg pl-4 py-5">
+                                                <div class="flex-initial sm:w-1/4 w-full rounded-l-lg px-4 py-5">
                                                     <label for="form.areaSeleccionada"
                                                         class="block mb-2 font-bold dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
@@ -295,12 +295,12 @@
                                                             </option>
                                                         @endforeach
                                                     </select>
-                                                    @error('form.areasSeleccionadas')
+                                                    @error('form.areaSeleccionada')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
-                                                <div class="flex-initial sm:w-3/4 w-full bg-gray-100 pl-4 py-4">
+                                                <div class="flex-initial sm:w-3/4 w-full bg-gray-100 px-4 py-4">
                                                     <p class="block mb-2 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
                                                     </p>
@@ -887,10 +887,10 @@
                                                     Redes sociales (opcionales)
                                                 </p>
                                                 <div
-                                                    class="flex sm:flex-row flex-col sm:gap-y-0 gap-y-4 text-center mt-1">
+                                                    class="flex sm:flex-row flex-col sm:gap-x-4 gap-y-4 text-center mt-1 overflow-x-auto p-5">
                                                     <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
-                                                            class="button bg-[#1877f2] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            class="button bg-[#1877f2] sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="Facebook">
                                                             <img src="{{ 'img/iconos/icFacebook.png' }}"
                                                                 alt="Icono Facebook" class="inline-block w-8">
@@ -908,7 +908,7 @@
 
                                                     <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
-                                                            class="button bg-black sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            class="button bg-black sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="X">
                                                             <img src="{{ 'img/iconos/icX.png' }}" alt="Icono X"
                                                                 class="inline-block w-8">
@@ -924,7 +924,7 @@
 
                                                     <div x-data="{ open: false }" class="basis-1/4">
                                                         <button type="button"
-                                                            class="button bg-[#ff0000] sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            class="button bg-[#ff0000] sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="YouTube">
                                                             <img src="{{ 'img/iconos/icYoutube.png' }}"
                                                                 alt="Icono YouTube" class="inline-block w-8">
@@ -940,9 +940,9 @@
                                                         </div>
                                                     </div>
 
-                                                    <div x-data="{ open: false }" class="basis-1/4">
+                                                    <div x-data="{ open: false }" class="basis-1/4 mb-5">
                                                         <button type="button"
-                                                            class="button bg-dorado sm:w-14 w-full sm:h-14 h-12 sm:rounded-full"
+                                                            class="button bg-dorado sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="Otra red social">
                                                             <h1 class="font-bold sm:-ml-1">Otra</h1>
                                                         </button>
@@ -957,7 +957,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                     <h2 id="accordion-open-heading-4">
@@ -1029,45 +1028,60 @@
                                                 <div class="basis-1/2">
                                                     <label class="block mb-2 dark:text-white" for="form.boucher">Subir
                                                         comprobante de pago</label>
-                                                    <input
-                                                        class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                        aria-describedby="form.boucher_help" id="form.boucher"
-                                                        type="file" accept=".jpg,.png, .pdf"
-                                                        wire:model.live="form.boucher" />
-                                                    <div wire:loading wire:target="form.boucher">Cargando archivo...
+                                                    <div class="bg-transparent h-10 flex items-center rounded-l-lg">
+                                                        <div>
+                                                            <input aria-describedby="form.boucher_help"
+                                                                id="form.boucher" type="file"
+                                                                accept=".jpg,.png,.pdf" wire:model.live="form.boucher"
+                                                                class="inline-block" />
+                                                        </div>
+                                                        <div
+                                                            class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                                            @empty($form->boucher)
+                                                                <label for="form.boucher"
+                                                                    class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
+                                                                    Sin archivos seleccionados.
+                                                                </label>
+                                                            @endempty
+                                                            @empty(!$form->boucher)
+                                                                <label for="form.boucher"
+                                                                    class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
+                                                                    {{ $form->boucher->getClientOriginalName() }}</label>
+                                                            @endempty
+                                                        </div>
+                                                    </div>
+                                                    <div wire:loading wire:target="form.boucher">
+                                                        <span class="text-sm text-textos">Cargando archivo...</span>
                                                     </div>
                                                     <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
                                                         id="form.boucher_help">
                                                         <span class="font-bold">Importante:</span> Es necesario subir
-                                                        tu
-                                                        comprobante de pago para ser
-                                                        considerado como participante.
+                                                        tu comprobante de pago para ser considerado como participante.
                                                     </div>
                                                     @error('form.boucher')
                                                         <span class=" text-rojo error block">{{ $message }}</span>
                                                     @enderror
-
                                                     @if ($form->boucher != null)
                                                         <div class="mt-4">
-                                                            <label for="form.checkFactura" class="label-modal">
+                                                            <label for="form.checkFactura" class="block mb-2 mt-5">
                                                                 ¿Requieres factura?<span
                                                                     class="font-bold text-red-600">*</span>
                                                             </label>
                                                             <div class="flex gap-x-5">
                                                                 <div>
-                                                                    <input type="radio" id="form.checkFactura"
+                                                                    <input type="radio" id="si"
                                                                         name="checkFactura"
                                                                         wire:model.live="form.checkFactura"
                                                                         value="1">
-                                                                    <label for="form.checkFactura"
+                                                                    <label for="si"
                                                                         class="ml-2 text-textos">Si</label>
                                                                 </div>
                                                                 <div>
-                                                                    <input type="radio" id="form.checkFactura"
+                                                                    <input type="radio" id="no"
                                                                         name="checkFactura"
                                                                         wire:model.live="form.checkFactura"
                                                                         value="0">
-                                                                    <label for="form.checkFactura"
+                                                                    <label for="no"
                                                                         class="ml-2 text-textos">No</label>
                                                                 </div>
                                                             </div>
@@ -1081,122 +1095,141 @@
                                                             <label class="block mb-2 dark:text-white"
                                                                 for="form.csf">Subir
                                                                 Constancia de Situación Fiscal</label>
-                                                            <input
-                                                                class="block w-full text-sm border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                                                aria-describedby="form.csf_help" id="form.csf"
-                                                                type="file" accept=".pdf"
-                                                                wire:model.live="form.csf">
-                                                            <div wire:loading wire:target="form.csf">Cargando
-                                                                archivo...
-                                                            </div>
-                                                            @error('form.csf')
-                                                                <span class="text-rojo block">{{ $message }}</span>
-                                                            @enderror
+                                                            <div
+                                                                class="bg-transparent h-10 flex items-center rounded-l-lg">
+                                                                <div>
+                                                                    <input aria-describedby="form.csf_help"
+                                                                        id="form.csf" type="file" accept=".pdf"
+                                                                        wire:model.live="form.csf">
+                                                                </div>
+                                                                <div
+                                                                    class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                                                @empty($form->csf)
+                                                                    <label for="form.csf"
+                                                                        class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
+                                                                        Sin archivos seleccionados.
+                                                                    </label>
+                                                                @endempty
+                                                            @empty(!$form->csf)
+                                                                <label for="form.csf"
+                                                                    class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
+                                                                    {{ $form->csf->getClientOriginalName() }}</label>
+                                                            @endempty
                                                         </div>
-                                                    @endif
-
+                                                    </div>
+                                                    <div wire:loading wire:target="form.csf">
+                                                        <span class="text-sm text-textos">
+                                                            Cargando archivo...
+                                                        </span>
+                                                    </div>
+                                                    @error('form.csf')
+                                                        <span class="text-rojo block">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
-                                            </div>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-5">
-                            <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
-                                name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
-                            <label for="form.aceptoDatos">
-                                Acepto aviso de privacidad de la UAEMex y acepto que los datos puedan ser utilizados con
-                                fines de vinculación y estadísticos.<samp class="text-rojo">*</samp>
-                            </label>
-                            @error('form.aceptoDatos')
-                                <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
-                            @enderror
-                            @if (session()->has('errorDb'))
-                                <div id="alert-2"
-                                    class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
-                                    role="alert">
-                                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
-                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                    </svg>
-                                    <span class="sr-only">Info</span>
-                                    <div class="ms-3 text-sm font-medium">
-
-                                        <div class="alert alert-success">
-                                            {{ session('errorDb') }}
-                                        </div>
-
-                                    </div>
-                                </div>
-                            @endif
-                            @if ($errors->any())
-                                <div id="alert-4"
-                                    class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
-                                    role="alert">
-                                    <span class="sr-only">Info</span>
-                                    <div class="ms-3">
-                                        <p><span class="font-bold">Advertencia: </span>Faltan campos por completar</p>
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>
-                                                    <svg class="flex-shrink-0 w-3 h-3 inline-block" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                        viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                                                    </svg> {{ $error }}
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            @endif
-                            <div class="sm:block flex sm:flex-row flex-col sm:text-end mt-5">
-                                <x-secondary-button wire:click="limpiarCampos">
-                                    Limpiar Campos
-                                </x-secondary-button>
-                                <x-primary-button class="ms-3" @click="save()">
-                                    {{ __('Enviar') }}
-                                </x-primary-button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+                <div class="mt-5">
+                    <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
+                        name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
+                    <label for="form.aceptoDatos">
+                        Acepto aviso de privacidad de la UAEMex y acepto que los datos puedan ser utilizados con
+                        fines de vinculación y estadísticos.<samp class="text-rojo">*</samp>
+                    </label>
+                    @error('form.aceptoDatos')
+                        <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
+                    @enderror
+                    @if (session()->has('errorDb'))
+                        <div id="alert-2"
+                            class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
+                            role="alert">
+                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path
+                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                            </svg>
+                            <span class="sr-only">Info</span>
+                            <div class="ms-3 text-sm font-medium">
+
+                                <div class="alert alert-success">
+                                    {{ session('errorDb') }}
+                                </div>
+
+                            </div>
+                        </div>
+                    @endif
+                    @if ($errors->any())
+                        <div id="alert-4"
+                            class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
+                            role="alert">
+                            <span class="sr-only">Info</span>
+                            <div class="ms-3">
+                                <p><span class="font-bold">Advertencia: </span>Faltan campos por completar</p>
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>
+                                            <svg class="flex-shrink-0 w-3 h-3 inline-block" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                            </svg> {{ $error }}
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="sm:block flex sm:flex-row flex-col sm:text-end mt-5">
+                        <x-secondary-button wire:click="limpiarCampos">
+                            Limpiar Campos
+                        </x-secondary-button>
+                        <x-primary-button @click="save">
+                            {{ __('Enviar') }}
+                        </x-primary-button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        function save() {
-            Swal.fire({
-                customClass: {
-                    title: 'swal2-title'
-                },
-                title: '¿Estas seguro de enviarlo?',
-                text: 'Te recomendamos revisar la información capturada, ya que una vez enviada no podrás modificarla.',
-                position: 'center',
-                icon: 'warning',
-                iconColor: '#9D9361',
-                showCancelButton: true,
-                confirmButtonColor: '#62836C',
-                cancelButtonColor: '#E86562',
-                confirmButtonText: 'Si, enviar',
-                cancelButtonText: 'Cerrar',
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function save() {
+        Swal.fire({
+            customClass: {
+                title: 'swal2-title'
+            },
+            title: '¿Estas seguro de enviarlo?',
+            text: 'Te recomendamos revisar la información capturada, ya que una vez enviada no podrás modificarla.',
+            position: 'center',
+            icon: 'warning',
+            iconColor: '#9D9361',
+            showCancelButton: true,
+            confirmButtonColor: '#62836C',
+            cancelButtonColor: '#E86562',
+            confirmButtonText: 'Si, enviar',
+            cancelButtonText: 'Cerrar',
 
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Livewire.dispatch('save');
-                }
-            });
-        }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Livewire.dispatch('save');
+            }
+        });
+    }
 
-        document.getElementById("form.correoGeneral").oncopy = function() {
-            return false;
-        };
-        document.getElementById("form.correoGeneralConfirmacion").oncopy = function() {
-            return false;
-        };
-    </script>
+    document.getElementById("form.correoGeneral").oncopy = function() {
+        return false;
+    };
+    document.getElementById("form.correoGeneralConfirmacion").oncopy = function() {
+        return false;
+    };
+</script>
 </div>

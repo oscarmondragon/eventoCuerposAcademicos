@@ -115,7 +115,7 @@ class ParticipantesForm extends Form
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
-    #[Validate('nullable|required_if:checkFactura,1|mimes:jpg,pdf,png|max:2048')]
+    #[Validate('nullable|required_if:checkFactura,1|mimes:pdf|max:2048')]
     public $csf;
 
     public $adjuntoPago = false; //Sirve para saber si adjunto boucher o no y asi poder enviar diferente notificacion por mail
@@ -145,6 +145,8 @@ class ParticipantesForm extends Form
 
         'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',
+
+        'areaSeleccionada.required' => 'Debes de seleccionar un área temática.',
 
         'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
         'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
@@ -202,12 +204,12 @@ class ParticipantesForm extends Form
 
         'otraRed.max' => 'El nombre de esta red social es demasiado largo.',
 
-        'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
-        'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+        'boucher.max' => 'El archivo comprobante de pago debe pesar máximo 2 MB.',
+        'boucher.mimes' => 'El archivo comprobante de pago debe ser de tipo: .jpg, .pdf, .png.',
         'checkFactura.required_unless' => 'Indica si requieres factura.',
         'csf.required_if' => 'La Constancia de Situación Fiscal es requerida.',
-        'csf.max' => 'El archivo debe pesar máximo 2 MB.',
-        'csf.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+        'csf.max' => 'El archivo CSF debe pesar máximo 2 MB.',
+        'csf.mimes' => 'El archivo CSF debe ser de tipo: .pdf',
 
 
 
