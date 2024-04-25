@@ -36,7 +36,7 @@
     }
 
     input[type="file"] {
-        @apply my-3 file:mr-0 file:h-10 file:border-none file:text-sm file:font-semibold file:bg-[#34778A]
+        @apply my-3 file:mr-6 file:w-full file:h-10 file:border-none file:text-sm file:font-semibold file:bg-[#34778A]
     file:text-white text-transparent text-[0px] border border-transparent rounded-l-lg bg-transparent hover:file:bg-[#083c49fd] focus:outline-none focus:ring-0 appearance-none cursor-pointer;
     }
 }

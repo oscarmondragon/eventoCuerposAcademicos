@@ -4,12 +4,12 @@
             {{ __('Registro participantes') }}
         </h2>
     </x-slot>
-    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), tipoRegistro: $wire.entangle('form.tipoRegistro'), cuerpoAcademico: $wire.entangle('form.nombreGrupo'), integrantesSeccion: false }" class="py-6 text-textos">
+    <div x-data="{ integrantes: $wire.entangle('form.integrantes'), lideres: $wire.entangle('form.lideres'), tipoRegistro: $wire.entangle('form.tipoRegistro'), cuerpoAcademico: $wire.entangle('form.nombreGrupo'), integrantesSeccion: false, alertaLink: false }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-10 dark:text-gray-100">
-                    <div id="alert-1"
-                        class="flex items-center p-4 mb-4 text-color_primary rounded-lg bg-verde/40 dark:bg-gray-800 dark:text-blue-400"
+                <div class="px-10 py-4 dark:text-gray-100">
+                    <div id="alert-1" :class="{ 'hidden': alertaLink == true }"
+                        class="flex items-center p-4 text-color_primary rounded-lg bg-verde/40 dark:bg-gray-800 dark:text-blue-400"
                         role="alert">
                         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -21,7 +21,7 @@
                             Si ya te has registrado antes dirigete <a href="{{ route('registro.buscar') }}"
                                 class="font-semibold underline hover:no-underline">aquí</a>.
                         </div>
-                        <button type="button"
+                        <button type="button" x-on:click="alertaLink = true"
                             class="btn-transition ms-auto -mx-1.5 -my-1.5 bg-verde/60 text-color_primary rounded-lg focus:ring-2 focus:ring-verde p-1.5 hover:bg-verde inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
                             data-dismiss-target="#alert-1" aria-label="Close">
                             <span class="sr-only">Close</span>
@@ -35,7 +35,7 @@
                     <form x-on:submit.prevent="save">
                         @csrf
                         <div>
-                            <div class="mt-4">
+                            <div class="mt-2">
                                 <div id="accordion-open" data-accordion="open">
                                     <h2 id="accordion-open-heading-1">
                                         <button type="button"
@@ -220,7 +220,7 @@
                                                             wire:model.live="form.correoGeneral"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5" placeholder="uaemex@uaemex.mx"
-                                                            autocomplete="false" />
+                                                            autocomplete="off" />
                                                     </div>
                                                     <p class="text-sm text-textos ml-1">
                                                         <span class="font-bold">Nota: </span>
@@ -256,7 +256,7 @@
                                                             wire:model.live="form.correoGeneralConfirmacion"
                                                             wire:change="updateCorreoBanner"
                                                             class="w-full ps-10 p-2.5" placeholder="uaemex@uaemex.mx"
-                                                            autocomplete="false" />
+                                                            autocomplete="off" />
                                                     </div>
                                                     @error('form.correoGeneralConfirmacion')
                                                         <span class="text-rojo block ml-1">{{ $message }}</span>
@@ -979,12 +979,12 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div id="accordion-open-body-4" x-data="{ boucher: $wire.entangle('form.boucher') }"
-                                        :class="{ 'hidden': boucher == null }"
+                                    <div id="accordion-open-body-4" x-data="{ pagoAcordeon: false, cerrarAlerta: false }"
+                                        :class="{ 'hidden': pagoAcordeon == false }"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado dark:border-gray-700">
                                             <h1>Datos para realizar pago:</h1>
-                                            <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 items-center">
+                                            <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 ">
                                                 <div
                                                     class="basis-1/2 bg-[#003a7c] sm:w-1/2 w-full h-72 rounded-xl mt-5 p-4 text-white">
                                                     <h1 class="text-2xl">BBVA Bancomer</h1>
@@ -1026,6 +1026,42 @@
                                                 </div>
 
                                                 <div class="basis-1/2">
+                                                    <div id="alert-8" :class="{ 'hidden': cerrarAlerta == true }"
+                                                        class="flex items-center p-4 mb-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                                                        role="alert">
+                                                        <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
+                                                            xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                            viewBox="0 0 20 20">
+                                                            <path
+                                                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                                        </svg>
+                                                        <span class="sr-only">Info</span>
+                                                        <div class="ms-3 text-sm font-medium">
+                                                            <span class="font-extrabold">Importante:</span> El
+                                                            comprobante
+                                                            de
+                                                            pago es necesario
+                                                            para ser considerado como participante.
+                                                            Puedes adjuntarlo aquí o bien
+                                                            desde el link que te enviaremos por correo electrónico al
+                                                            finalizar tu registro.
+                                                        </div>
+                                                        <button type="button"
+                                                            class="ms-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
+                                                            data-dismiss-target="#alert-8" aria-label="Close"
+                                                            x-on:click="cerrarAlerta = true">
+                                                            <span class="sr-only">Close</span>
+                                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                viewBox="0 0 14 14">
+                                                                <path stroke="currentColor" stroke-linecap="round"
+                                                                    stroke-linejoin="round" stroke-width="2"
+                                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+
                                                     <label class="block mb-2 dark:text-white" for="form.boucher">Subir
                                                         comprobante de pago</label>
                                                     <div class="bg-transparent h-10 flex items-center rounded-l-lg">
@@ -1033,10 +1069,11 @@
                                                             <input aria-describedby="form.boucher_help"
                                                                 id="form.boucher" type="file"
                                                                 accept=".jpg,.png,.pdf" wire:model.live="form.boucher"
-                                                                class="inline-block" />
+                                                                class="inline-block"
+                                                                x-on:change="pagoAcordeon = true" />
                                                         </div>
                                                         <div
-                                                            class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                                            class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-6">
                                                             @empty($form->boucher)
                                                                 <label for="form.boucher"
                                                                     class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
@@ -1044,26 +1081,22 @@
                                                                 </label>
                                                             @endempty
                                                             @empty(!$form->boucher)
-                                                                <label for="form.boucher"
-                                                                    class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
-                                                                    {{ $form->boucher->getClientOriginalName() }}</label>
+                                                                <p title="Clic para quitar archivo adjuntado."
+                                                                    class="text-textos sm:text-base text-sm pl-2 cursor-pointer"
+                                                                    wire:click="limpiarArchivo('boucher')">
+                                                                    {{ $form->boucher->getClientOriginalName() }}</p>
                                                             @endempty
                                                         </div>
                                                     </div>
                                                     <div wire:loading wire:target="form.boucher">
                                                         <span class="text-sm text-textos">Cargando archivo...</span>
                                                     </div>
-                                                    <div class="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                                        id="form.boucher_help">
-                                                        <span class="font-bold">Importante:</span> Es necesario subir
-                                                        tu comprobante de pago para ser considerado como participante.
-                                                    </div>
                                                     @error('form.boucher')
                                                         <span class=" text-rojo error block">{{ $message }}</span>
                                                     @enderror
                                                     @if ($form->boucher != null)
                                                         <div class="mt-4">
-                                                            <label for="form.checkFactura" class="block mb-2 mt-5">
+                                                            <label for="si" class="block mb-2 mt-5">
                                                                 ¿Requieres factura?<span
                                                                     class="font-bold text-red-600">*</span>
                                                             </label>
@@ -1080,6 +1113,7 @@
                                                                     <input type="radio" id="no"
                                                                         name="checkFactura"
                                                                         wire:model.live="form.checkFactura"
+                                                                        wire:click="limpiarArchivo('csf')"
                                                                         value="0">
                                                                     <label for="no"
                                                                         class="ml-2 text-textos">No</label>
@@ -1090,7 +1124,7 @@
                                                             @enderror
                                                         </div>
                                                     @endif
-                                                    @if ($form->checkFactura == 1)
+                                                    @if ($form->checkFactura == 1 && $form->boucher != null)
                                                         <div class="mt-4">
                                                             <label class="block mb-2 dark:text-white"
                                                                 for="form.csf">Subir
@@ -1103,7 +1137,7 @@
                                                                         wire:model.live="form.csf">
                                                                 </div>
                                                                 <div
-                                                                    class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                                                    class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-6">
                                                                 @empty($form->csf)
                                                                     <label for="form.csf"
                                                                         class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
@@ -1111,9 +1145,11 @@
                                                                     </label>
                                                                 @endempty
                                                             @empty(!$form->csf)
-                                                                <label for="form.csf"
+                                                                <p wire:click="limpiarArchivo('csf')"
+                                                                    title="Clic para quitar archivo adjuntado."
                                                                     class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
-                                                                    {{ $form->csf->getClientOriginalName() }}</label>
+                                                                    {{ $form->csf->getClientOriginalName() }}
+                                                                </p>
                                                             @endempty
                                                         </div>
                                                     </div>

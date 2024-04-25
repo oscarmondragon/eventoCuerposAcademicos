@@ -4,7 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -13,7 +14,7 @@ return new class extends Migration {
         Schema::create('registros', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->enum('tipo_solicitante', ['Externo', 'Interno']);
-            $table->string('cuerpo_grupo_red', 150);
+            $table->string('cuerpo_grupo_red', 200);
             $table->text('productos_logrados');
             $table->text('casos_exito');
             $table->text('servicios_proyectos');
