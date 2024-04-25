@@ -425,12 +425,13 @@ class RegistroParticipantes extends Component
         $this->form->youtube = '';
         $this->form->otraRed = '';
         $this->form->boucher = null;
+        $this->form->checkFactura = '';
+        $this->form->csf = null;
         $this->form->aceptoDatos = false;
     }
 
-    // public function limpiarBoucher()
-    // {
-    //     //dd("entre");
-    //     $this->form->boucher = null;
-    // }
+    public function limpiarArchivo($tipoArchivo)
+    {
+        $this->form->$tipoArchivo = null;
+    }
 }

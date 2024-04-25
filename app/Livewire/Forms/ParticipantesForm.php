@@ -23,7 +23,7 @@ class ParticipantesForm extends Form
     #[Validate('required|gt:0')]
     public $tipoRegistro = 0;
 
-    #[Validate('required|max:150')]
+    #[Validate('required|max:200')]
     public $nombreGrupo = '';
 
     #[Validate('required|max:50')]
@@ -248,7 +248,12 @@ class ParticipantesForm extends Form
             $registro->telefono = $this->telefonoGeneral;
             $registro->aceptoDatos = $this->aceptoDatos;
             $registro->adjuntoPago = $this->adjuntoPago;
-            $registro->checkFactura = $this->checkFactura;
+
+            if ($this->boucher != null) {
+                $registro->checkFactura = $this->checkFactura;
+            } else {
+                $registro->checkFactura = 0;
+            }
 
             $registro->save();
 
@@ -391,14 +396,14 @@ class ParticipantesForm extends Form
                 $archivo->save();
             }
 
-            if (!empty($this->csf) && $this->checkFactura == 1) {
+            if (!empty($this->csf) && $this->checkFactura == 1  && $this->boucher != null) {
                 //Guardar en sistema de archivos
-                $ruta_boucher = "public/" . $registro->id . "/Pago/";
-                $extension = $this->boucher->getClientOriginalExtension();
+                $ruta_csf = "public/" . $registro->id . "/Pago/";
+                $extension = $this->csf->getClientOriginalExtension();
 
-                $this->boucher->storeAs($ruta_boucher, 'CSF.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF.' . $extension);
 
-                $rutaCompleta = $ruta_boucher . 'CSF.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF.' . $extension;
 
                 //guardar en DB
                 $archivo = new Archivo;

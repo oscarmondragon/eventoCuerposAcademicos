@@ -15,12 +15,12 @@
                                 <div>
                                     <h2>Correo electronico registrado:
                                         <span
-                                            class="font-bold underline underline-offset-8 decoration-2 decoration-verde">{{ $this->registroFound->email }}</span>
+                                            class="font-bold underline decoration-solid underline-offset-4 decoration-2 decoration-verde">{{ $this->registroFound->email }}</span>
                                     </h2>
                                     <h2 class="mt-2">Nombre del cuerpo académico, red o grupo de
                                         investigación:
                                         <span
-                                            class="font-bold underline underline-offset-8 decoration-2 decoration-verde">
+                                            class="font-bold underline decoration-solid underline-offset-4 decoration-2 decoration-verde block">
                                             {{ $this->registroFound->cuerpo_grupo_red }}
                                         </span>
                                     </h2>
@@ -75,10 +75,10 @@
                                             comprobante de pago</label>
                                         <div class="bg-transparent h-10 flex items-center rounded-l-lg">
                                             <div>
-                                                <input aria-describedby="form.boucher_help" id="boucher"
-                                                    type="file" accept=".jpg,.png, .pdf" wire:model.live="boucher">
+                                                <input id="boucher" type="file" accept=".jpg,.png, .pdf"
+                                                    wire:model.live="boucher">
                                             </div>
-                                            <div class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                            <div class="bg-gray-200 h-10 w-full flex items-center rounded-r-md -ml-6">
                                                 @empty($boucher)
                                                     <label for="boucher"
                                                         class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
@@ -86,9 +86,11 @@
                                                     </label>
                                                 @endempty
                                                 @empty(!$boucher)
-                                                    <label for="boucher"
+                                                    <p wire:click="limpiarArchivo('boucher')"
+                                                        title="Clic para quitar archivo adjuntado."
                                                         class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
-                                                        {{ $boucher->getClientOriginalName() }}</label>
+                                                        {{ $boucher->getClientOriginalName() }}
+                                                    </p>
                                                 @endempty
                                             </div>
                                         </div>
@@ -119,7 +121,8 @@
                                                     </div>
                                                     <div>
                                                         <input type="radio" id="no" name="checkFactura"
-                                                            wire:model.live="checkFactura" value="0">
+                                                            wire:model.live="checkFactura" value="0"
+                                                            wire:click="limpiarArchivo('csf')" />
                                                         <label for="no" class="ml-2 text-textos">No</label>
                                                     </div>
                                                 </div>
@@ -128,7 +131,7 @@
                                                 @enderror
                                             </div>
                                         @endif
-                                        @if ($checkFactura == 1)
+                                        @if ($checkFactura == 1 && $boucher != null)
                                             <div class="mt-4">
                                                 <label class="block mb-2 dark:text-white" for="csf">Subir
                                                     Constancia de Situación Fiscal</label>
@@ -138,7 +141,7 @@
                                                             type="file" accept=".pdf" wire:model.live="csf">
                                                     </div>
                                                     <div
-                                                        class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-1">
+                                                        class="flex items-center bg-gray-200 h-10 w-full rounded-r-md -ml-6">
                                                     @empty($csf)
                                                         <label for="csf"
                                                             class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
@@ -146,9 +149,10 @@
                                                         </label>
                                                     @endempty
                                                 @empty(!$csf)
-                                                    <label for="csf"
+                                                    <p wire:click="limpiarArchivo('csf')"
+                                                        title="Clic para quitar archivo adjuntado."
                                                         class="text-textos sm:text-base text-sm pl-2 cursor-pointer">
-                                                        {{ $csf->getClientOriginalName() }}</label>
+                                                        {{ $csf->getClientOriginalName() }}</p>
                                                 @endempty
                                             </div>
                                         </div>

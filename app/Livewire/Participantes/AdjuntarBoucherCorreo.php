@@ -33,7 +33,7 @@ class AdjuntarBoucherCorreo extends Component
     protected $messages = [
         'boucher.max' => 'El archivo debe pesar máximo 2 MB.',
         'boucher.required' => 'No ha seleccionado ningun archivo.',
-        'boucher.mimes' => 'El archivo debe ser de tipo: jpg, pdf, png.',
+        'boucher.mimes' => 'El archivo debe ser de tipo: .jpg, .png, .pdf',
 
         'checkFactura.required_unless' => 'Indica si requieres factura.',
 
@@ -86,12 +86,12 @@ class AdjuntarBoucherCorreo extends Component
 
             if (!empty($this->csf) && $this->checkFactura == 1) {
                 //Guardar en sistema de archivos
-                $ruta_boucher = "public/" . $this->registroFound->id . "/Pago/";
-                $extension = $this->boucher->getClientOriginalExtension();
+                $ruta_csf = "public/" . $this->registroFound->id . "/Pago/";
+                $extension = $this->csf->getClientOriginalExtension();
 
-                $this->boucher->storeAs($ruta_boucher, 'CSF.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF.' . $extension);
 
-                $rutaCompleta = $ruta_boucher . 'CSF.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF.' . $extension;
 
                 //guardar en DB
                 $archivo = new Archivo;
@@ -117,5 +117,10 @@ class AdjuntarBoucherCorreo extends Component
             DB::rollback();
             return redirect()->back()->with('error', 'Error al cargar el comprobante de pago. Por favor, intente más tarde. Si el problema persiste contacte al administrador del sistema.' . $e->getMessage());
         }
+    }
+
+    public function limpiarArchivo($tipoArchivo)
+    {
+        $this->$tipoArchivo = null;
     }
 }
