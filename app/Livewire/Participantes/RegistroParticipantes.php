@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Participantes;
 
+use App\Enums\TiposIntegrantes;
 use App\Livewire\Forms\ParticipantesForm;
 use App\Models\Area;
 use App\Models\CuerpoAcademico;
@@ -11,6 +12,8 @@ use App\Models\Linea;
 use App\Models\PaisCatalogo;
 use App\Models\Subarea;
 use App\Models\TipoLider;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Validation\Rule as ValidationRule;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
@@ -433,5 +436,17 @@ class RegistroParticipantes extends Component
     public function limpiarArchivo($tipoArchivo)
     {
         $this->form->$tipoArchivo = null;
+    }
+
+    public function validarTipoIntegrante()
+    {
+        $this->validate(
+            [
+                'tipoIntegrante' => [
+                    ValidationRule::enum(TiposIntegrantes::class)
+                ]
+            ],
+            ['tipoIntegrante' => 'Tipo de integrante invalido.']
+        );
     }
 }

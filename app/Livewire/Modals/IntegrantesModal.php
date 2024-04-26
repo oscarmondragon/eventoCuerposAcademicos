@@ -6,6 +6,9 @@ use App\Livewire\Participantes\RegistroParticipantes;
 use Livewire\Attributes\Validate;
 use App\Models\TipoLider;
 use LivewireUI\Modal\ModalComponent;
+use App\Enums\Generos;
+use App\Enums\Sexos;
+use Illuminate\Validation\Rule;
 
 class IntegrantesModal extends ModalComponent
 {
@@ -15,6 +18,8 @@ class IntegrantesModal extends ModalComponent
 
     public $tipoRegistro = '';
     public $isLider = "";
+
+    public $generosList = ['Masculino', 'Femenino', 'Otro'];
 
 
     #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
@@ -26,7 +31,7 @@ class IntegrantesModal extends ModalComponent
     #[Validate('nullable|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $apellidoMaterno = '';
 
-    #[Validate('required_if:isLider,1')]
+    #[Validate('required_if:isLider,1|uuid')]
     public $tipoLider = '';
 
     #[Validate('required|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
@@ -38,7 +43,7 @@ class IntegrantesModal extends ModalComponent
     #[Validate('required')]
     public $sexo = '';
 
-    #[Validate('required')]
+    #[Validate("required")]
     public $genero = '';
 
 
@@ -69,6 +74,7 @@ class IntegrantesModal extends ModalComponent
         'apellidoMaterno.regex' => 'El apellido materno no puede tener caracteres especiales.',
 
         'tipoLider.required_if' => 'El tipo de lider es obligatorio.',
+        'tipoLider.uuid' => 'El tipo de lider es invalido.',
 
         'gradoAcademico.required' => 'El grado académico no puede estar vacío.',
         'gradoAcademico.max' => 'El grado académico acepta máximo 100 caracteres.',
@@ -111,6 +117,7 @@ class IntegrantesModal extends ModalComponent
     public function save()
     {
         $this->validate();
+        $this->validarGenero();
 
         $this->closeModalWithEvents([
             RegistroParticipantes::class => [
@@ -151,5 +158,29 @@ class IntegrantesModal extends ModalComponent
     public static function modalMaxWidth(): string
     {
         return '4xl';
+    }
+
+    public function validarGenero()
+    {
+        $this->validate(
+            [
+                'genero' => [
+                    Rule::enum(Generos::class)
+                ]
+            ],
+            ['genero' => 'Genero invalido.']
+        );
+    }
+
+    public function validarSexo()
+    {
+        $this->validate(
+            [
+                'sexo' => [
+                    Rule::enum(Sexos::class)
+                ]
+            ],
+            ['sexo' => 'Sexo invalido.']
+        );
     }
 }

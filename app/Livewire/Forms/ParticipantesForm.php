@@ -41,7 +41,7 @@ class ParticipantesForm extends Form
     #[Validate('required|max:150')]
     public $lugarProcedencia = '';
 
-    #[Validate('required')]
+    #[Validate('required|uuid')]
     public $areaSeleccionada;
 
     #[Validate('required|array|min:1')]
@@ -140,13 +140,14 @@ class ParticipantesForm extends Form
 
         'correoGeneral.required' => 'El correo electrónico no puede estar vacío.',
         'correoGeneral.email' => 'El coreo electrónico no tiene un formato valido.',
-        'correoGeneral.unique' => 'El correo electrónico ya existe.',
+        'correoGeneral.unique' => 'Ya existe un registro con este correo electrónico.',
         'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
 
         'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',
 
         'areaSeleccionada.required' => 'Debes de seleccionar un área temática.',
+        'areaSeleccionada.uuid' => 'Área temática invalida.',
 
         'subareasSeleccionadas.required' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
         'subareasSeleccionadas.array' => 'Debes de seleccionar por lo menos una área temática y una subárea.',
