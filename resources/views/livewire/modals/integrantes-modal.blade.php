@@ -7,7 +7,7 @@
             <div>
                 <div>
                     <label for="nombre" class="label-modal">
-                        Nombre<span class="font-bold text-red-600">*</span>
+                        Nombre completo<span class="font-bold text-red-600">*</span>
                     </label>
                     <input type="text" id="nombre" wire:model.live="nombre" class="input-modal" placeholder="Juan">
                     @error('nombre')
@@ -90,12 +90,12 @@
                         <div class="flex mx-auto sm:justify-normal justify-around gap-x-5">
                             <div>
                                 <input type="radio" id="mujer" name="sexo" wire:model.live="sexo"
-                                    value="Mujer">
+                                    value="Mujer" wire:click="validarSexo">
                                 <label for="mujer" class="ml-2 text-textos">Mujer</label>
                             </div>
                             <div>
                                 <input type="radio" id="hombre" name="sexo" wire:model.live="sexo"
-                                    value="Hombre">
+                                    value="Hombre" wire:click="validarSexo">
                                 <label for="hombre" class="ml-2 text-textos">Hombre</label>
                             </div>
                         </div>
@@ -108,8 +108,8 @@
                         <label for="genero" class="label-modal">
                             Género<span class="font-bold text-red-600">*</span>
                         </label>
-                        <select id="genero" class="w-full" wire:model.live="genero">
-                            <option value="">Selecciona una opción</option>
+                        <select id="genero" class="w-full" wire:model.live="genero" wire:change="validarGenero">
+                            <option value="0">Selecciona una opción</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
                             <option value="Otro">Otro</option>
