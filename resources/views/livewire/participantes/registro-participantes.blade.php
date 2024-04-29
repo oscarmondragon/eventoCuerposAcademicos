@@ -405,7 +405,7 @@
                                                                             <button type="button"
                                                                                 class="btn-tablas btn-transition"
                                                                                 @click="$wire.dispatch('openModal', { component: 'modals.lineas-modal', arguments: { _id: elemento._id, nombre: elemento.nombre, descripcion: elemento.descripcion, tipoRegistro, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
-                                                                                <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                <img src="{{ asset('/img/botones/btn_editar.png') }}"
                                                                                     alt="Image/png" title="Editar">
                                                                             </button>
                                                                         </div>
@@ -413,7 +413,7 @@
                                                                             <button type="button"
                                                                                 @click.stop="elementos.splice(index, 1); $wire.deleteLinea(elemento)"
                                                                                 class="btn-tablas btn-transition">
-                                                                                <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                <img src="{{ asset('img/botones/btn_eliminar.png') }}"
                                                                                     alt="Botón eliminar"
                                                                                     title="Eliminar">
                                                                             </button>
@@ -582,7 +582,7 @@
                                                                                         tipoRegistro: {{ $form->tipoRegistro }},
                                                                                         isLider: 1
                                                                                     }})">
-                                                                                        <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                        <img src="{{ asset('/img/botones/btn_editar.png') }}"
                                                                                             alt="Image/png"
                                                                                             title="Editar">
                                                                                     </button>
@@ -591,7 +591,7 @@
                                                                                     <button type="button"
                                                                                         @click.stop="lideres.splice(index, 1); $wire.deleteLinea(lider)"
                                                                                         class="btn-tablas btn-transition">
-                                                                                        <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                        <img src="{{ asset('img/botones/btn_eliminar.png') }}"
                                                                                             alt="Botón eliminar"
                                                                                             title="Eliminar">
                                                                                     </button>
@@ -670,7 +670,7 @@
                                                                                         tipoRegistro: {{ $form->tipoRegistro }},
                                                                                         isLider: 0
                                                                                     }})">
-                                                                                    <img src="{{ '/img/botones/btn_editar.png' }}"
+                                                                                    <img src="{{ asset('/img/botones/btn_editar.png') }}"
                                                                                         alt="Image/png"
                                                                                         title="Editar">
                                                                                 </button>
@@ -679,7 +679,7 @@
                                                                                 <button type="button"
                                                                                     @click.stop="integrantes.splice(index, 1); $wire.deleteLinea(integrante)"
                                                                                     class="btn-tablas btn-transition">
-                                                                                    <img src="{{ 'img/botones/btn_eliminar.png' }}"
+                                                                                    <img src="{{ asset('img/botones/btn_eliminar.png') }}"
                                                                                         alt="Botón eliminar"
                                                                                         title="Eliminar">
                                                                                 </button>
@@ -877,7 +877,7 @@
                                                         <input type="email" id="form.correoBanner"
                                                             wire:model="form.correoBanner"
                                                             class="w-full disabled ps-10 p-2.5"
-                                                            placeholder="Correo electrónico" disabled />
+                                                            placeholder="uaemex@uaemex.mx" disabled />
                                                     </div>
 
                                                     @error('form.correoBanner')
@@ -896,7 +896,7 @@
                                                         <button type="button"
                                                             class="button bg-[#1877f2] sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="Facebook">
-                                                            <img src="{{ 'img/iconos/icFacebook.png' }}"
+                                                            <img src="{{ asset('img/iconos/icFacebook.png') }}"
                                                                 alt="Icono Facebook" class="inline-block w-8">
                                                             <span class="sm:hidden">Facebook</span>
                                                         </button>
@@ -914,8 +914,8 @@
                                                         <button type="button"
                                                             class="button bg-black sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="X">
-                                                            <img src="{{ 'img/iconos/icX.png' }}" alt="Icono X"
-                                                                class="inline-block w-8">
+                                                            <img src="{{ asset('img/iconos/icX.png') }}"
+                                                                alt="Icono X" class="inline-block w-8">
                                                         </button>
                                                         <div x-show="open" class="mt-2">
                                                             <input type="text" id="x" wire:model="form.x"
@@ -930,7 +930,7 @@
                                                         <button type="button"
                                                             class="button bg-[#ff0000] sm:w-14 w-36 sm:h-14 h-12 sm:rounded-full"
                                                             @click="open = ! open" title="YouTube">
-                                                            <img src="{{ 'img/iconos/icYoutube.png' }}"
+                                                            <img src="{{ asset('img/iconos/icYoutube.png') }}"
                                                                 alt="Icono YouTube" class="inline-block w-8">
                                                             <span class="sm:hidden">YouTube</span>
                                                         </button>
@@ -1041,13 +1041,11 @@
                                                         </svg>
                                                         <span class="sr-only">Info</span>
                                                         <div class="ms-3 text-sm font-medium">
-                                                            <span class="font-extrabold">Importante:</span> El
-                                                            comprobante
-                                                            de
-                                                            pago es necesario
-                                                            para ser considerado como participante.
-                                                            Puedes adjuntarlo aquí o bien
-                                                            desde el link que te enviaremos por correo electrónico al
+                                                            <span class="font-extrabold">Importante:</span>
+                                                            El comprobante de pago es necesario para ser considerado
+                                                            como participante.
+                                                            Puedes adjuntarlo aquí o bien desde el link que te
+                                                            enviaremos por correo electrónico al
                                                             finalizar tu registro.
                                                         </div>
                                                         <button type="button"
