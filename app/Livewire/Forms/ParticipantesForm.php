@@ -32,7 +32,7 @@ class ParticipantesForm extends Form
     #[Validate('required|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefonoGeneral = '';
 
-    #[Validate('required|email|unique:registros,email|max:100')]
+    #[Validate("required|email|unique:registros,email|max:100|regex:'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'")]
     public $correoGeneral = '';
 
     #[Validate('required|same:correoGeneral')]
@@ -142,6 +142,7 @@ class ParticipantesForm extends Form
         'correoGeneral.email' => 'El coreo electrónico no tiene un formato valido.',
         'correoGeneral.unique' => 'Ya existe un registro con este correo electrónico.',
         'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
+        'correoGeneral.regex' => 'El coreo electrónico no tiene un formato valido.',
 
         'correoGeneralConfirmacion.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'correoGeneralConfirmacion.same' => 'El correo electrónico de confirmación no coincide.',

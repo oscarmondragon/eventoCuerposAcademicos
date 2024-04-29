@@ -116,7 +116,9 @@ class RegistroParticipantes extends Component
             $this->form->subareasSeleccionadas[] = $subarea;
         }
 
-        $this->validateOnly('form.subareasSeleccionadas');
+        if (count($this->form->subareasSeleccionadas) <= 1) {
+            $this->validateOnly('form.subareasSeleccionadas');
+        }
     }
 
     public function limpiarSubareas()
@@ -172,6 +174,11 @@ class RegistroParticipantes extends Component
         }
 
         $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
+
+        // valida lineasInvestigacion para quitar el error de validacion cuando solo hay un elemento
+        if (count($this->form->lineasInvestigacion) <= 1) {
+            $this->validateOnly('form.lineasInvestigacion');
+        }
     }
 
     public function addIntegrante(
@@ -348,17 +355,16 @@ class RegistroParticipantes extends Component
         $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
     }
 
+    public function updateLugarProcedenciaBanner()
+    {
+        $this->form->lugarProcedenciaBanner = $this->form->lugarProcedencia;
+    }
+
     public function cuerpoAcademicoId($id)
     {
         $this->form->idCuerpoAcademico = $id;
         $this->form->lineasInvestigacion = [];
         $this->form->nombreGrupoBanner = $this->form->nombreGrupo;
-    }
-
-
-    public function updateLugarProcedenciaBanner()
-    {
-        $this->form->lugarProcedenciaBanner = $this->form->lugarProcedencia;
     }
 
     public function deleteIntegrante($integrante)
@@ -382,6 +388,15 @@ class RegistroParticipantes extends Component
     public function espacioAcademicoId($id)
     {
         $this->cuerposAcademicos = CuerpoAcademico::where('espacio_academico_id', $id)->get();
+        $this->form->lugarProcedenciaBanner = $this->form->lugarProcedencia;
+        if (!empty($this->form->lineasInvestigacion)) {
+            $this->form->lineasInvestigacion = [];
+            $this->form->descripcionBanner = '';
+        }
+        if ($this->form->nombreGrupo != null || $this->form->nombreGrupo != '') {
+            $this->form->nombreGrupo = '';
+            $this->form->nombreGrupoBanner = '';
+        }
     }
 
 
@@ -391,6 +406,9 @@ class RegistroParticipantes extends Component
         $this->form->nombreGrupo = null;
         $this->form->lineasInvestigacion = [];
         $this->form->lideres = [];
+        $this->form->lugarProcedenciaBanner = null;
+        $this->form->nombreGrupoBanner = null;
+        $this->form->descripcionBanner = null;
     }
 
     // public function limpiarLineas()
