@@ -384,6 +384,10 @@
                                                 @error('form.lineasInvestigacion')
                                                     <span class="text-rojo block mt-2">{{ $message }}</span>
                                                 @enderror
+                                                @if ($lineaExistenteMessage != null)
+                                                    <span
+                                                        class="text-rojo block mt-2">{{ $lineaExistenteMessage }}</span>
+                                                @endif
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
                                                     class="overflow-x-auto mt-5">
                                                     <table
