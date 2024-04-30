@@ -29,6 +29,7 @@ class RegistroParticipantes extends Component
     public $cuerposAcademicos;
     public $tipoIntegrante = 'Integrante';
 
+    public $lineaExistenteMessage = null;
     public ParticipantesForm $form;
 
     public $listeners = [
@@ -136,42 +137,63 @@ class RegistroParticipantes extends Component
 
     public function addLinea($_id, $nombre, $descripcion)
     {
+
+        //reiniciamos mensaje de nombre repetido de linea
+        $this->lineaExistenteMessage = null;
+        //convertimos a coleccion
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
 
+        //Buscamos el nombre en las lineas anteriores
+        $existe = $this->form->lineasInvestigacion->where('nombre', $nombre)->count();
+        //entra aqui si el nombre no coicide con una linea existente
+
         if ($_id == 0) { //entramos aqui si el item es nuevo
-            // Genera un nuevo ID para el elemento
-            $newItemId = $this->form->lineasInvestigacion->max('_id') + 1;
+            if ($existe > 0) { //si ya existe una linea con ese nombre no la agrega y muestra el mensaje
+                $this->lineaExistenteMessage = 'No se añadio la linea de investigación debido a que ya esta agregada.';
+            } else {
+                // Genera un nuevo ID para el elemento
+                $newItemId = $this->form->lineasInvestigacion->max('_id') + 1;
 
-            //Agregamos la linea al arreglo
-            $this->form->lineasInvestigacion->push([
-                '_id' => $newItemId,
-                'nombre' => $nombre,
-                'descripcion' => $descripcion,
-            ]);
+                //Agregamos la linea al arreglo
+                $this->form->lineasInvestigacion->push([
+                    '_id' => $newItemId,
+                    'nombre' => $nombre,
+                    'descripcion' => $descripcion,
+                ]);
+            }
         } else {
-            //Entra aqui para editar el existente
-            //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
-            $linea = $this->form->lineasInvestigacion->firstWhere('_id', $_id);
+            if ($existe > 1) { //si ya existe una linea con ese nombre no la agrega y muestra el mensaje
+                $this->lineaExistenteMessage = 'No se han hecho los cambios debido a que ese nombre de linea ya lo has agregado.';
+            } else {
 
-            if ($linea) {
-                //actualizamos el item si existe en la busqueda
-                $linea['nombre'] = $nombre;
-                $linea['descripcion'] = $descripcion;
+                //Entra aqui para editar el existente
+                //Si entra aqui es por que entro a la funcion editar, entonces buscamos el item en la collecion por su id
+                $linea = $this->form->lineasInvestigacion->firstWhere('_id', $_id);
 
-                //Devolvemos la nueva collecion
-                $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->map(function ($linea) use ($_id, $nombre, $descripcion) {
-                    if ($linea['_id'] == $_id) {
-                        $linea['nombre'] = $nombre;
-                        $linea['descripcion'] = $descripcion;
-                    }
-                    return $linea;
-                });
-                //actualizamos indices
-                $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->values();
+                if ($linea) {
+                    //actualizamos el item si existe en la busqueda
+                    $linea['nombre'] = $nombre;
+                    $linea['descripcion'] = $descripcion;
+
+                    //Devolvemos la nueva collecion
+                    $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->map(function ($linea) use ($_id, $nombre, $descripcion) {
+                        if ($linea['_id'] == $_id) {
+                            $linea['nombre'] = $nombre;
+                            $linea['descripcion'] = $descripcion;
+                        }
+                        return $linea;
+                    });
+                    //actualizamos indices
+                    $this->form->lineasInvestigacion = $this->form->lineasInvestigacion->values();
+                }
             }
         }
 
+        //actualizamos la descripcion de la linea en el banner
         $this->form->descripcionBanner = $this->form->lineasInvestigacion->first()['descripcion'];
+
+        $this->validateOnly('form.lineasInvestigacion');
+
     }
 
     public function addIntegrante(
