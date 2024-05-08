@@ -23,7 +23,7 @@ class ParticipantesForm extends Form
     #[Validate('required|gt:0')]
     public $tipoRegistro = 0;
 
-    #[Validate('required|max:200')]
+    #[Validate('required|min:3|max:200')]
     public $nombreGrupo = '';
 
     #[Validate('required|max:50')]
@@ -38,7 +38,7 @@ class ParticipantesForm extends Form
     #[Validate('required|same:correoGeneral')]
     public $correoGeneralConfirmacion;
 
-    #[Validate('required|max:150')]
+    #[Validate('required|min:3|max:150')]
     public $lugarProcedencia = '';
 
     #[Validate('required|uuid')]
@@ -50,19 +50,19 @@ class ParticipantesForm extends Form
     #[Validate('required|array|min:1')]
     public $lineasInvestigacion;
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $productosLogrados = '';
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $casosExito = '';
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $propuestas = '';
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $fortalezas = '';
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $necesidades = '';
 
     //INTEGRANTES
@@ -127,8 +127,10 @@ class ParticipantesForm extends Form
         'tipoRegistro.gt' => 'La procedencia no puede estar vacía.',
 
         'nombreGrupo.required' => 'El nombre del Cuerpo Académico, red o grupo de investigación no puede estar vacío.',
+        'nombreGrupo.min' => 'El nombre del Cuerpo Académico, red o grupo de investigación es muy corto.',
         'nombreGrupo.max' => 'El nombre del Cuerpo Académico es demasiado largo.',
         'lugarProcedencia.required' => 'El nombre de la universidad, dependencia o departamento de adscripción no puede estar vacío.',
+        'lugarProcedencia.min' => 'El nombre de la universidad es muy corto.',
         'lugarProcedencia.max' => 'El nombre de la universidad es demasiado largo.',
         'pais.required' => 'El país no puede estar vacío.',
         // 'pais.gt' => 'El país no puede estar vacío.',
@@ -158,18 +160,23 @@ class ParticipantesForm extends Form
         'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
 
         'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
+        'productosLogrados.min' => 'El campo de pincipales productos logrados es muy corto.',
         'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
 
         'casosExito.required' => 'Los casos de éxito de trasnferencia no pueden estar vacíos.',
+        'casosExito.min' => 'El campo de casos de éxito de trasnferencia es muy corto.',
         'casosExito.max' => 'Los casos de éxito de trasnferencia solo admite máximo 500 caracteres.',
 
         'propuestas.required' => 'La proyección y propuesta de vinculación no puede estar vacía.',
+        'propuestas.min' => 'La proyección y propuesta de vinculación es muy corta.',
         'propuestas.max' => 'La proyección y propuesta de vinculación solo admite máximo 500 caracteres.',
 
         'fortalezas.required' => 'Las fortalezas no pueden estar vacías.',
+        'fortalezas.min' => 'Las fortalezas son muy cortas.',
         'fortalezas.max' => 'Las fortalezas solo admiten máximo 500 caracteres.',
 
         'necesidades.required' => 'Las necesidades no pueden estar vacías.',
+        'necesidades.min' => 'Las necesidades son muy cortas.',
         'necesidades.max' => 'Las necesidades solo admiten máximo 500 caracteres.',
 
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',

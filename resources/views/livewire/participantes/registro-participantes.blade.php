@@ -76,7 +76,7 @@
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                @if ($form->tipoRegistro == 1)
+                                                @if ($form->tipoRegistro == 0 || $form->tipoRegistro == 1)
                                                     <div class="basis-3/4">
                                                         <label for="form.lugarProcedencia"
                                                             class="block mb-2 dark:text-white">
@@ -84,7 +84,9 @@
                                                                 class="font-bold text-red-600">*</span>
                                                         </label>
                                                         <select name="form.lugarProcedencia" id="form.lugarProcedencia"
-                                                            wire:model.live="form.lugarProcedencia" class="w-full h-10"
+                                                            wire:model.live="form.lugarProcedencia"
+                                                            class="w-full h-10 disabled"
+                                                            @if ($form->tipoRegistro == 0) disabled title="Debes de seleccionar la procedencia." @endif
                                                             @change="$wire.espacioAcademicoId($event.target.selectedOptions[0].getAttribute('data-espacio-academico-id'))">
                                                             <option value="" data-espacio-academico-id="0">
                                                                 Selecciona una opción</option>
@@ -123,7 +125,7 @@
                                                     Nombre del Cuerpo Académico, red o grupo de investigación<span
                                                         class="font-bold text-red-600">*</span>
                                                 </label>
-                                                @if ($form->tipoRegistro == 1)
+                                                @if ($form->tipoRegistro == 0 || $form->tipoRegistro == 1)
                                                     <div>
                                                         <select name="form.nombreGrupo" id="form.nombreGrupo"
                                                             wire:model.live="form.nombreGrupo"
@@ -131,7 +133,7 @@
                                                             @if ($form->lugarProcedencia == null) disabled title="Selecciona el espacio academico." @endif
                                                             @change="$wire.cuerpoAcademicoId($event.target.selectedOptions[0].getAttribute('data-cuerpo-academico-id'))">
                                                             <option value="" data-cuerpo-academico-id="0">
-                                                                Seleccione una opción</option>
+                                                                Selecciona una opción</option>
                                                             @foreach ($cuerposAcademicos as $cuerpoAcademico)
                                                                 <option value="{{ $cuerpoAcademico->nombre }}"
                                                                     data-cuerpo-academico-id="{{ $cuerpoAcademico->id }}">
@@ -140,7 +142,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                @elseif($form->tipoRegistro == 2 || $form->tipoRegistro == 0)
+                                                @elseif($form->tipoRegistro == 2)
                                                     <div>
                                                         <input type="text" id="form.nombreGrupo"
                                                             class="w-full disabled"
@@ -175,24 +177,32 @@
                                                 </div>
 
                                                 <div class="flex-initial sm:w-2/5 w-full sm:mt-0 mt-5">
-                                                    <label for="form.telefonoGeneral"
-                                                        class="block mb-2 dark:text-white">
+                                                    <label for="telefonoGeneral" class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
                                                     <div class="relative">
+
                                                         <div
-                                                            class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-                                                            <svg class="w-4 h-4 dark:text-gray-400" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 19 18">
-                                                                <path
-                                                                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
-                                                            </svg>
+                                                            class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none justify-between w-full">
+                                                            <div class="basis-1/4">
+                                                                <svg class="w-4 h-4 dark:text-gray-400"
+                                                                    aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="currentColor" viewBox="0 0 19 18">
+                                                                    <path
+                                                                        d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
+                                                                </svg>
+                                                            </div>
+
+                                                            <div class="text-sm mr-2">
+                                                                {{ $contadorTelefono }} / {{ $contadorTelefonoMax }}
+                                                            </div>
                                                         </div>
-                                                        <input type="text" id="form.telefonoGeneral"
+
+                                                        <input type="text" id="telefonoGeneral"
                                                             wire:model.live="form.telefonoGeneral"
                                                             wire:change="updateTelefonoBanner"
-                                                            class="w-full ps-10 p-2.5" {{-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" --}}
+                                                            class="w-full ps-10 p-2.5 pr-14" {{-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" --}}
                                                             placeholder="(+52)7226490394" />
                                                     </div>
                                                     @error('form.telefonoGeneral')
@@ -374,7 +384,7 @@
                                                                 cuerpoAcademico == null ||
                                                                 cuerpoAcademico == ''
                                                         }"
-                                                        class="btn-transition bg-verde text-white text-xl rounded-full px-4 py-2"
+                                                        class="btn-redondo"
                                                         @if ($form->tipoRegistro < 1) title="Debes seleccionar la procedencia en la sección de datos generales."
                                                         @elseif($form->nombreGrupo == null || $form->nombreGrupo == '') title="Debes de completar el campo: Nombre del Cuerpo Académico, red o grupo de investigación." @endif
                                                         @click="$wire.dispatch('openModal', {component: 'modals.lineas-modal', arguments: { tipoRegistro: {{ $form->tipoRegistro }}, idCuerpo: '{{ $form->idCuerpoAcademico }}' }})">
@@ -384,10 +394,6 @@
                                                 @error('form.lineasInvestigacion')
                                                     <span class="text-rojo block mt-2">{{ $message }}</span>
                                                 @enderror
-                                                @if ($lineaExistenteMessage != null)
-                                                    <span
-                                                        class="text-rojo block mt-2">{{ $lineaExistenteMessage }}</span>
-                                                @endif
                                                 <div x-data="{ elementos: $wire.entangle('form.lineasInvestigacion') }" x-show="elementos.length > 0 "
                                                     class="overflow-x-auto mt-5">
                                                     <table
@@ -430,6 +436,37 @@
                                                             </template>
                                                         </tbody>
                                                     </table>
+                                                </div>
+                                                <div x-data="{ lineaExistente: $wire.entangle('lineaExistenteMessage') }">
+                                                    <div class="flex flex-row-reverse items-center mt-5 "
+                                                        x-show="lineaExistente != null">
+                                                        <div id="alert-11"
+                                                            class="flex items-center sm:w-3/5 w-full  p-4 text-yellow-800 rounded-l rounded-lg bg-yellow-100 border-l-4 border-yellow-800 dark:bg-gray-800 dark:text-yellow-300"
+                                                            role="alert">
+                                                            <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
+                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path
+                                                                    d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                                            </svg>
+                                                            <span class="sr-only">Info</span>
+                                                            <div class="ms-3 text-sm font-medium">
+                                                                Advertencia: {{ $lineaExistenteMessage }}
+                                                            </div>
+                                                            <button type="button"
+                                                                class="ms-auto -mx-1.5 -my-1.5 bg-yellow-50 text-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-400 p-1.5 hover:bg-yellow-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-yellow-300 dark:hover:bg-gray-700"
+                                                                data-dismiss-target="#alert-11" aria-label="Close">
+                                                                <span class="sr-only">Close</span>
+                                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                    viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2"
+                                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                                </svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -544,7 +581,7 @@
                                                                 'disabled:bg-[#e0dddd]': lideres.length > 0 ||
                                                                     tipoRegistro < 1
                                                             }"
-                                                            class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
+                                                            class="btn-redondo ml-2"
                                                             @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: {
                                                                 tipoRegistro: {{ $form->tipoRegistro }}, isLider: 1
                                                             }})">
@@ -627,7 +664,7 @@
 
                                                         </select>
                                                         <button type="button" id="btnIntegrantes"
-                                                            class="btn-transition bg-verde px-3 py-1 rounded-full text-white text-xl ml-2"
+                                                            class="btn-redondo ml-2"
                                                             @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: {
                                                                 tipoRegistro: {{ $form->tipoRegistro }}, isLider: 0, tipoIntegrante: '{{ $tipoIntegrante }}'
                                                             }})">
@@ -641,8 +678,8 @@
                                                             class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                             <thead>
                                                                 <tr class="bg-blanco">
-                                                                    <th class="w-[65%]">Nombre de los integrantes</th>
-                                                                    <th class="w-[15%]">Tipo</th>
+                                                                    <th class="w-[50%]">Nombre de los integrantes</th>
+                                                                    <th class="w-[35%]">Tipo</th>
                                                                     <th class="w-[15%]">Acción</th>
                                                                 </tr>
                                                             </thead>
@@ -656,9 +693,7 @@
                                                                         </th>
                                                                         <th x-text="integrante.tipoIntegrante">
                                                                         </th>
-                                                                        <td
-                                                                            class="sm:flex
-                                                                            gap-2">
+                                                                        <td class="sm:flex gap-2">
                                                                             <div>
                                                                                 <button type="button"
                                                                                     class="btn-tablas btn-transition"
@@ -1135,9 +1170,10 @@
                                                     @endif
                                                     @if ($form->checkFactura == 1 && $form->boucher != null)
                                                         <div class="mt-4">
-                                                            <label class="block mb-2 dark:text-white"
-                                                                for="form.csf">Subir
-                                                                Constancia de Situación Fiscal</label>
+                                                            <label class="block mb-2 dark:text-white" for="form.csf">
+                                                                Subir Constancia de Situación Fiscal<span
+                                                                    class="font-bold text-red-600">*</span>
+                                                            </label>
                                                             <div
                                                                 class="bg-transparent h-10 flex items-center rounded-l-lg">
                                                                 <div>
@@ -1252,7 +1288,8 @@
                 <div
                     class="overflow-y-auto overflow-x-hidden cursor-progress bg-gray-500/40 fixed flex top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-2 w-full max-w-md max-h-full">
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <div
+                            class="relative bg-white rounded-lg border border-[#34778A] shadow-md shadow-[#34778A]/50 dark:bg-gray-700">
                             <div class="p-4 md:p-5 text-center">
                                 <svg aria-hidden="true"
                                     class="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-[#34778A]"
@@ -1272,9 +1309,6 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </div>
@@ -1302,10 +1336,16 @@
                 //Livewire.dispatch('save');
                 let btn = document.getElementById('btnEnviar');
                 btn.click();
-                //document.formulario1.submit();
             }
         });
     }
+
+    telefonoGeneral.addEventListener('keyup', (e) => {
+        let valorInput = e.target.value;
+        telefonoGeneral.value = valorInput
+            .replace(/[^0-9()+]/g, '')
+            .replace(/\s/g, '');
+    });
 
     document.getElementById("form.correoGeneral").oncopy = function() {
         return false;

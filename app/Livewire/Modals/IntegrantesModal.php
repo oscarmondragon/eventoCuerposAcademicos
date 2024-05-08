@@ -22,19 +22,19 @@ class IntegrantesModal extends ModalComponent
     public $generosList = ['Masculino', 'Femenino', 'Otro'];
 
 
-    #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $nombre = '';
 
-    #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $apellidoPaterno = '';
 
-    #[Validate('nullable|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('nullable|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $apellidoMaterno = '';
 
     #[Validate('required_if:isLider,1|uuid')]
     public $tipoLider = '';
 
-    #[Validate('required|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
     public $gradoAcademico = '';
 
     #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ.\s]*$/u')]
@@ -62,21 +62,25 @@ class IntegrantesModal extends ModalComponent
     ];
 
     protected $messages = [
-        'nombre.required' => 'El nombre no puede estar vacío.',
-        'nombre.max' => 'El nombre acepta máximo 30 caracteres.',
-        'nombre.regex' => 'El nombre no puede tener caracteres especiales.',
+        'nombre.required' => 'El nombre completo no puede estar vacío.',
+        'nombre.min' => 'El nombre completo es muy corto.',
+        'nombre.max' => 'El nombre completo acepta máximo 50 caracteres.',
+        'nombre.regex' => 'El nombre completo no puede tener caracteres especiales.',
 
         'apellidoPaterno.required' => 'El apellido paterno no puede estar vacío.',
-        'apellidoPaterno.max' => 'El apellido paterno acepta máximo 30 caracteres.',
+        'apellidoPaterno.min' => 'El apellido paterno es muy corto.',
+        'apellidoPaterno.max' => 'El apellido paterno acepta máximo 50 caracteres.',
         'apellidoPaterno.regex' => 'El apellido paterno no puede tener caracteres especiales.',
 
-        'apellidoMaterno.max' => 'El apellido materno acepta máximo 30 caracteres.',
+        'apellidoMaterno.min' => 'El apellido materno es muy corto.',
+        'apellidoMaterno.max' => 'El apellido materno acepta máximo 50 caracteres.',
         'apellidoMaterno.regex' => 'El apellido materno no puede tener caracteres especiales.',
 
         'tipoLider.required_if' => 'El tipo de lider es obligatorio.',
         'tipoLider.uuid' => 'El tipo de lider es invalido.',
 
         'gradoAcademico.required' => 'El grado académico no puede estar vacío.',
+        'gradoAcademico.min' => 'El grado académico es muy corto.',
         'gradoAcademico.max' => 'El grado académico acepta máximo 100 caracteres.',
         'gradoAcademico.regex' => 'El grado académico no puede contener caracteres especiales.',
 

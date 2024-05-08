@@ -64,7 +64,7 @@
                             Nombre completo del último grado académico<span class="font-bold text-red-600">*</span>
                         </label>
                         <input type="text" id="gradoAcademico" wire:model.live="gradoAcademico" class="input-modal"
-                            placeholder="Licenciatura en Inteligencia Artificial">
+                            placeholder="Química Farmacéutica Biológica">
                         @error('gradoAcademico')
                             <span class="text-rojo block">{{ $message }}</span>
                         @enderror
@@ -75,7 +75,7 @@
                             Nombre abreviado del último grado académico<span class="font-bold text-red-600">*</span>
                         </label>
                         <input type="text" id="gradoAcademicoAbrev" wire:model.live="gradoAcademicoAbrev"
-                            class="input-modal" placeholder="LIA">
+                            class="input-modal" placeholder="QFB">
                         @error('gradoAcademicoAbrev')
                             <span class="text-rojo block">{{ $message }}</span>
                         @enderror
@@ -157,8 +157,7 @@
                                 </svg>
                             </div>
                             <input type="email" id="correo" wire:model.live="correo"
-                                class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx"
-                                autocomplete="false" />
+                                class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx" autocomplete="off" />
                         </div>
                         @error('correo')
                             <span class="text-rojo block">{{ $message }}</span>
@@ -180,8 +179,7 @@
                                 </svg>
                             </div>
                             <input type="email" id="confirmarCorreo" wire:model.live="confirmarCorreo"
-                                class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx"
-                                autocomplete="false" />
+                                class="input-modal ps-10 p-2.5" placeholder="juanbh4@uaemex.mx" autocomplete="off" />
                         </div>
                         @error('confirmarCorreo')
                             <span class="text-rojo block">{{ $message }}</span>
@@ -201,3 +199,57 @@
         </button>
     </x-slot>
 </x-modal>
+
+
+@script
+    <script>
+        let valorInput;
+        nombre.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            nombre.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+        });
+
+        apellidoPaterno.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            apellidoPaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+        });
+
+        apellidoMaterno.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            apellidoMaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+        });
+
+        gradoAcademico.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            gradoAcademico.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+        });
+
+        gradoAcademicoAbrev.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            gradoAcademicoAbrev.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+        });
+
+        telefono.addEventListener('keyup', (e) => {
+            valorInput = e.target.value;
+            telefono.value = valorInput
+                .replace(/[^0-9()+]/g, '')
+                .replace(/\s/g, '');
+        });
+
+        document.getElementById("correo").oncopy = function() {
+            return false;
+        };
+
+        document.getElementById("correo").onpaste = function() {
+            return false;
+        };
+
+        document.getElementById("confirmarCorreo").oncopy = function() {
+            return false;
+        };
+
+        document.getElementById("confirmarCorreo").onpaste = function() {
+            return false;
+        };
+    </script>
+@endscript
