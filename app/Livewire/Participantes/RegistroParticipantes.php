@@ -17,6 +17,7 @@ use Illuminate\Validation\Rule as ValidationRule;
 use Livewire\WithFileUploads;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Illuminate\Support\Str;
 
 class RegistroParticipantes extends Component
 {
@@ -31,6 +32,9 @@ class RegistroParticipantes extends Component
 
     public $lineaExistenteMessage = null;
     public ParticipantesForm $form;
+
+    public $contadorTelefono;
+    public $contadorTelefonoMax = 10;
 
     public $listeners = [
         'addLinea',
@@ -68,6 +72,14 @@ class RegistroParticipantes extends Component
         if ($this->form->areaSeleccionada) {
             $subareasOptions = Subarea::where('area_id', '=', $this->form->areaSeleccionada)->get(); //Obtiene las subareas correspondientes a la area seleccionada
         }
+
+        if (Str::startsWith($this->form->telefonoGeneral, ['(', '+'])) {
+            $this->contadorTelefonoMax = 15;
+        } else {
+            $this->contadorTelefonoMax = 10;
+        }
+        $this->contadorTelefono = Str::of($this->form->telefonoGeneral)->length();
+
 
 
         //Filtramos los tipos de lider de acuerdo a si es externo o interno
@@ -146,12 +158,12 @@ class RegistroParticipantes extends Component
         $this->form->lineasInvestigacion = collect($this->form->lineasInvestigacion);
 
         //Buscamos el nombre en las lineas anteriores
-        $existe = $this->form->lineasInvestigacion->where('nombre', $nombre)->count();
+        $existe = $this->form->lineasInvestigacion->where('nombre', $nombre)->whereNotIn('_id', $_id)->count();
         //entra aqui si el nombre no coicide con una linea existente
 
         if ($_id == 0) { //entramos aqui si el item es nuevo
             if ($existe > 0) { //si ya existe una linea con ese nombre no la agrega y muestra el mensaje
-                $this->lineaExistenteMessage = 'No se añadio la linea de investigación debido a que ya esta agregada.';
+                $this->lineaExistenteMessage = 'No se añadió la línea de investigación debido a que ya esta agregada.';
             } else {
                 // Genera un nuevo ID para el elemento
                 $newItemId = $this->form->lineasInvestigacion->max('_id') + 1;
@@ -164,7 +176,7 @@ class RegistroParticipantes extends Component
                 ]);
             }
         } else {
-            if ($existe > 1) { //si ya existe una linea con ese nombre no la agrega y muestra el mensaje
+            if ($existe >= 1) { //si ya existe una linea con ese nombre no la agrega y muestra el mensaje
                 $this->lineaExistenteMessage = 'No se han hecho los cambios debido a que ese nombre de linea ya lo has agregado.';
             } else {
 
@@ -198,7 +210,6 @@ class RegistroParticipantes extends Component
         if (count($this->form->lineasInvestigacion) <= 1) {
             $this->validateOnly('form.lineasInvestigacion');
         }
-
     }
 
     public function addIntegrante(
@@ -473,6 +484,10 @@ class RegistroParticipantes extends Component
 
     public function limpiarArchivo($tipoArchivo)
     {
+        if ($tipoArchivo == 'boucher') {
+            $this->form->checkFactura = null;
+        }
+
         $this->form->$tipoArchivo = null;
     }
 

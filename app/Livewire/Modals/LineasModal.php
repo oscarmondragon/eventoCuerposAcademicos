@@ -11,10 +11,10 @@ class LineasModal extends ModalComponent
 {
     public $_id = 0;
 
-    #[Validate('required|max:255')]
+    #[Validate('required|min:3|max:255')]
     public $nombre = '';
 
-    #[Validate('required|max:500')]
+    #[Validate('required|min:3|max:500')]
     public $descripcion = '';
 
     public $tipoRegistro = '';
@@ -28,8 +28,10 @@ class LineasModal extends ModalComponent
 
     protected $messages = [
         'nombre.required' => 'El nombre no puede estar vacío.',
+        'nombre.min' => 'El nombre de la línea es muy corto.',
         'nombre.max' => 'El nombre es demasiado largo.',
-        'descripcion.required' => 'La descripción  no puede estar vacía.',
+        'descripcion.required' => 'La descripción no puede estar vacía.',
+        'descripcion.min' => 'La descripción es muy corta.',
         'descripcion.max' => 'La descripción acepta máximo 500 caracteres.',
 
     ];
