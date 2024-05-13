@@ -771,11 +771,9 @@
                                         <div class="p-5 border border-t-0 border-dorado/60 dark:border-gray-700">
                                             <label for="form.lugarProcedenciaBanner"
                                                 class="block mb-2 dark:text-white">
-                                                Institución de procedencia<span class="font-bold text-red-600">*</span>
+                                                Institución de procedencia:
                                             </label>
-                                            <input type="text" id="form.lugarProcedenciaBanner"
-                                                wire:model="form.lugarProcedenciaBanner" class="w-full disabled"
-                                                placeholder="Lugar de procedencia" disabled>
+                                            <p class="font-bold">{{ $form->lugarProcedenciaBanner }}</p>
                                             @error('form.lugarProcedenciaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
@@ -783,23 +781,18 @@
 
                                             <label for="form.nombreGrupoBanner"
                                                 class="block mb-2 mt-5 dark:text-white">
-                                                Nombre del Cuerpo Académico, red o grupo de investigación<span
-                                                    class="font-bold text-red-600">*</span>
+                                                Nombre del Cuerpo Académico, red o grupo de investigación:
                                             </label>
-                                            <input type="text" id="form.nombreGrupoBanner"
-                                                wire:model="form.nombreGrupoBanner" class="w-full disabled"
-                                                placeholder="Nombre del Cuerpo Académico" disabled>
+                                            <p class="font-bold">{{ $form->nombreGrupoBanner }}</p>
                                             @error('form.nombreGrupoBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
                                             <label for="form.areaSeleccionadaBanner"
                                                 class="block mb-2 mt-5 dark:text-white">
-                                                Área temática<span class="font-bold text-red-600">*</span>
+                                                Área temática:
                                             </label>
-                                            <input type="text" id="form.areaSeleccionadaBanner"
-                                                wire:model="form.areaSeleccionadaBanner" class="w-full disabled"
-                                                placeholder="Área temática" disabled>
+                                            <p class="font-bold">{{ $form->areaSeleccionadaBanner }}</p>
                                             @error('form.areaSeleccionadaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
@@ -864,65 +857,31 @@
                                             <div class="mt-5">
                                                 <label for="form.descripcionBanner" class="mb-2 mt-2 dark:text-white">
                                                     Descripción de su principal línea de generación y aplicación del
-                                                    conocimiento<span class="font-bold text-red-600">*</span> (máximo
-                                                    500 caracteres)
+                                                    conocimiento:
                                                 </label>
-                                                <textarea id="form.descripcionBanner" rows="4" wire:model="form.descripcionBanner" class="w-full disabled"
-                                                    placeholder="Descripción..." disabled></textarea>
+                                                <p class="font-bold">{{ $form->descripcionBanner }}</p>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
                                                 @enderror
                                             </div>
 
-                                            <h2 class="mt-5">Datos de contacto</h2>
+                                            <h2 class="mt-5 text-lg font-medium text-verde">Datos de contacto</h2>
                                             <div class="sm:flex flex-row gap-x-4 mt-2">
                                                 <div class="flex-initial sm:w-2/5 w-full">
-                                                    <label for="form.telefonoBanner"
-                                                        class="block mb-2 dark:text-white">
-                                                        Teléfono<span class="font-bold text-red-600">*</span>
+                                                    <label for="form.telefonoBanner" class=" mb-2 dark:text-white">
+                                                        Teléfono:
                                                     </label>
-                                                    <div class="relative">
-                                                        <div
-                                                            class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-                                                            <svg class="w-4 h-4 dark:text-gray-400" aria-hidden="true"
-                                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                                viewBox="0 0 19 18">
-                                                                <path
-                                                                    d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z" />
-                                                            </svg>
-                                                        </div>
-                                                        <input type="text" id="form.telefonoBanner"
-                                                            wire:model="form.telefonoBanner"
-                                                            class="w-full disabled ps-10 p-2.5"
-                                                            wire:change="updateTelefonoBanner"
-                                                            placeholder="(+52)7226490394" disabled />
-                                                    </div>
+                                                    <p class="font-bold inline-block">{{ $form->telefonoBanner }}</p>
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/5 w-full">
-                                                    <label for="form.correoBanner" class="block mb-2 dark:text-white">
-                                                        Correo electrónico<span class="font-bold text-red-600">*</span>
+                                                    <label for="form.correoBanner" class="mb-2 dark:text-white">
+                                                        Correo electrónico:
                                                     </label>
-                                                    <div class="relative">
-                                                        <div
-                                                            class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-                                                            <svg class="w-4 h-4  dark:text-gray-400"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="currentColor" viewBox="0 0 20 16">
-                                                                <path
-                                                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                                                <path
-                                                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                                                            </svg>
-                                                        </div>
-                                                        <input type="email" id="form.correoBanner"
-                                                            wire:model="form.correoBanner"
-                                                            class="w-full disabled ps-10 p-2.5"
-                                                            placeholder="uaemex@uaemex.mx" disabled />
-                                                    </div>
+                                                    <p class="font-bold inline-block">{{ $form->correoBanner }}</p>
 
                                                     @error('form.correoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -1215,7 +1174,6 @@
                                                     @enderror
                                                 </div>
                                             @endif
-
                                         </div>
                                     </div>
                                 </div>
