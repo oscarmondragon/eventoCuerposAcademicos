@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         //\App\Models\User::factory(1)->create();
 
         User::factory()->count(1)->sequence(
-            ['name' => 'admin', 'email' => 'admin@gmail.com'],
+            ['name' => 'Oscar Mondragón Alcántara', 'email' => 'oscarmondragon100@gmail.com'],
         )
             ->create();
 
