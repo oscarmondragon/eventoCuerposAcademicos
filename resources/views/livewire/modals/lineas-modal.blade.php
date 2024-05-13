@@ -10,7 +10,7 @@
                 </label>
                 @if ($tipoRegistro == 1)
                     <select id="nombre" wire:model.live="nombre" class="w-full">
-                        <option value="">Selecciona una opción</option>
+                        <option value="" selected disabled>Selecciona una opción</option>
                         @foreach ($lineasInvestigacion as $linea)
                             <option value="{{ $linea->nombre }}" title="{{ $linea->nombre }}">
                                 {{ $linea->nombre }}

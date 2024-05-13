@@ -24,7 +24,7 @@ class ParticipantesForm extends Form
     public $tipoRegistro = 0;
 
     #[Validate('required|min:3|max:200')]
-    public $nombreGrupo = '';
+    public $nombreGrupo = null;
 
     #[Validate('required|max:50')]
     public $pais = "México";
@@ -39,7 +39,7 @@ class ParticipantesForm extends Form
     public $correoGeneralConfirmacion;
 
     #[Validate('required|min:3|max:150')]
-    public $lugarProcedencia = '';
+    public $lugarProcedencia = null;
 
     #[Validate('required|uuid')]
     public $areaSeleccionada;
@@ -106,7 +106,7 @@ class ParticipantesForm extends Form
     public $otraRed = '';
 
     //BOUCHER
-    #[Validate('nullable|mimes:jpg,pdf,png|max:2048')]
+    #[Validate('required|mimes:jpg,pdf,png|max:2048')]
     public $boucher = null;
 
     #[Validate('accepted')]
@@ -213,8 +213,10 @@ class ParticipantesForm extends Form
 
         'otraRed.max' => 'El nombre de esta red social es demasiado largo.',
 
+        'boucher.required' => 'El comprobante de pago es requerido.',
         'boucher.max' => 'El archivo comprobante de pago debe pesar máximo 2 MB.',
         'boucher.mimes' => 'El archivo comprobante de pago debe ser de tipo: .jpg, .pdf, .png.',
+
         'checkFactura.required_unless' => 'Indica si requieres factura.',
         'csf.required_if' => 'La Constancia de Situación Fiscal es requerida.',
         'csf.max' => 'El archivo CSF debe pesar máximo 2 MB.',

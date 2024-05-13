@@ -45,7 +45,7 @@
                             Tipo de lider<span class="font-bold text-red-600">*</span>
                         </label>
                         <select id="tipoLider" wire:model.live="tipoLider" class="w-full">
-                            <option value="0">Selecciona una opción</option>
+                            <option value="" selected disabled>Selecciona una opción</option>
                             @foreach ($tipos_lider as $tipo)
                                 <option value="{{ $tipo->id }}">
                                     {{ $tipo->nombre }}
@@ -109,7 +109,7 @@
                             Género<span class="font-bold text-red-600">*</span>
                         </label>
                         <select id="genero" class="w-full" wire:model.live="genero" wire:change="validarGenero">
-                            <option value="0">Selecciona una opción</option>
+                            <option value="" selected disabled>Selecciona una opción</option>
                             <option value="Masculino">Masculino</option>
                             <option value="Femenino">Femenino</option>
                             <option value="Otro">Otro</option>

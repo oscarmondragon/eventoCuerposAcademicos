@@ -47,7 +47,7 @@ class IntegrantesModal extends ModalComponent
     public $genero = '';
 
 
-    #[Validate('required|email|max:100')]
+    #[Validate("required|email|max:100|regex:'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'")]
     public $correo = '';
 
     #[Validate('required|same:correo')]
@@ -94,6 +94,7 @@ class IntegrantesModal extends ModalComponent
         'correo.required' => 'El correo electrónico no puede estar vacío.',
         'correo.email' => 'El coreo electrónico no tiene un formato valido.',
         'correo.max' => 'El correo electrónico es demasiado largo.',
+        'correo.regex' => 'El coreo electrónico no tiene un formato valido.',
 
         'confirmarCorreo.required' => 'El correo electrónico de confirmación no puede estar vacío.',
         'confirmarCorreo.same' => 'El correo electrónico de confirmación no coincide.',

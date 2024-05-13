@@ -142,7 +142,7 @@ class RegistroParticipantes extends Component
         $this->form->subareasSeleccionadas = [];
 
         //Aprovechamos para actualizar la area seleccionada en el banner
-        if ($this->form->areaSeleccionada != 0) {
+        if ($this->form->areaSeleccionada != "null") {
             $nombreArea = Area::find($this->form->areaSeleccionada); //Buscamos para obtener el nombre
             //Actualizamos area en el banner
             $this->form->areaSeleccionadaBanner = $nombreArea->nombre;
@@ -425,16 +425,20 @@ class RegistroParticipantes extends Component
             $this->form->descripcionBanner = '';
         }
         if ($this->form->nombreGrupo != null || $this->form->nombreGrupo != '') {
-            $this->form->nombreGrupo = '';
-            $this->form->nombreGrupoBanner = '';
+            $this->form->nombreGrupo = null;
+            $this->form->nombreGrupoBanner = null;
         }
     }
 
 
     public function limpiarCamposProcedencia()
     {
+
+
         $this->form->lugarProcedencia = null;
         $this->form->nombreGrupo = null;
+
+
         $this->form->lineasInvestigacion = [];
         $this->form->lideres = [];
         $this->form->lugarProcedenciaBanner = null;
@@ -484,10 +488,6 @@ class RegistroParticipantes extends Component
 
     public function limpiarArchivo($tipoArchivo)
     {
-        if ($tipoArchivo == 'boucher') {
-            $this->form->checkFactura = null;
-        }
-
         $this->form->$tipoArchivo = null;
     }
 
