@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="px-10 py-4 dark:text-gray-100">
-                    <div id="alert-1" :class="{ 'hidden': alertaLink == true }"
+                    {{-- <div id="alert-1" :class="{ 'hidden': alertaLink == true }"
                         class="flex items-center p-4 text-color_primary rounded-lg bg-verde/40 dark:bg-gray-800 dark:text-blue-400"
                         role="alert">
                         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +31,7 @@
                                     stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                         </button>
-                    </div>
+                    </div> --}}
                     <form wire:submit="save">
                         @csrf
                         <div>
@@ -39,7 +39,7 @@
                                 <div id="accordion-open" data-accordion="open">
                                     <h2 id="accordion-open-heading-1">
                                         <button type="button"
-                                            class="flex items-center justify-between w-full p-5 font-medium bg-blanco rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-1 focus:ring-dorado dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3
+                                            class="flex items-center justify-between w-full p-5 font-medium bg-blanco rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3
                                             btn-accot"
                                             data-accordion-target="#accordion-open-body-1" aria-expanded="true"
                                             aria-controls="accordion-open-body-1">
@@ -59,7 +59,7 @@
                                         </button>
                                     </h2>
                                     <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1">
-                                        <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
+                                        <div class="p-5 border border-t-0 border-dorado/60 dark:border-gray-700">
                                             <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5">
                                                 <div class="basis-1/4">
                                                     <label for="form.tipoRegistro" class="block mb-2 dark:text-white">
@@ -68,7 +68,8 @@
                                                     </label>
                                                     <select id="form.tipoRegistro" wire:model.live="form.tipoRegistro"
                                                         class="w-full" wire:change="limpiarCamposProcedencia">
-                                                        <option value="0">Selecciona una opción</option>
+                                                        <option value="0" selected disabled>Selecciona una opción
+                                                        </option>
                                                         <option value="1">Interno a la UAEMex</option>
                                                         <option value="2">Externo a la UAEMex</option>
                                                     </select>
@@ -88,7 +89,8 @@
                                                             class="w-full h-10 disabled"
                                                             @if ($form->tipoRegistro == 0) disabled title="Debes de seleccionar la procedencia." @endif
                                                             @change="$wire.espacioAcademicoId($event.target.selectedOptions[0].getAttribute('data-espacio-academico-id'))">
-                                                            <option value="" data-espacio-academico-id="0">
+                                                            <option value="null" selected disabled
+                                                                data-espacio-academico-id="0">
                                                                 Selecciona una opción</option>
                                                             @foreach ($espaciosAcademicos as $espacioAcademico)
                                                                 <option value="{{ $espacioAcademico->nombre }}"
@@ -130,9 +132,10 @@
                                                         <select name="form.nombreGrupo" id="form.nombreGrupo"
                                                             wire:model.live="form.nombreGrupo"
                                                             class="w-full h-10 disabled"
-                                                            @if ($form->lugarProcedencia == null) disabled title="Selecciona el espacio academico." @endif
+                                                            @if ($form->lugarProcedencia == null || $form->lugarProcedencia == 0) disabled title="Selecciona el espacio academico." @endif
                                                             @change="$wire.cuerpoAcademicoId($event.target.selectedOptions[0].getAttribute('data-cuerpo-academico-id'))">
-                                                            <option value="" data-cuerpo-academico-id="0">
+                                                            <option value="null" selected disabled
+                                                                data-cuerpo-academico-id="0">
                                                                 Selecciona una opción</option>
                                                             @foreach ($cuerposAcademicos as $cuerpoAcademico)
                                                                 <option value="{{ $cuerpoAcademico->nombre }}"
@@ -163,9 +166,8 @@
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <select id="form.pais" wire:model.live="form.pais"
-                                                        class="w-full">
-                                                        <option value="">Selecciona un país</option>
+                                                    <select id="form.pais" wire:model.live="form.pais" class="w-full">
+                                                        <option value="" disabled>Selecciona un país</option>
                                                         @foreach ($paises as $pais)
                                                             <option value="{{ $pais->nombre }}">{{ $pais->nombre }}
                                                             </option>
@@ -301,7 +303,7 @@
                                                         wire:model.live="form.areaSeleccionada"
                                                         wire:change="limpiarSubareas"
                                                         class="w-full border border-gray-300 hover:bg-[#34778A]/40">
-                                                        <option value="0">Selecciona una opción</option>
+                                                        <option value="null" disabled>Selecciona una opción</option>
                                                         @foreach ($areasOptions as $area)
                                                             <option value="{{ $area->id }}">
                                                                 {{ $area->nombre }}
@@ -438,10 +440,10 @@
                                                     </table>
                                                 </div>
                                                 <div x-data="{ lineaExistente: $wire.entangle('lineaExistenteMessage') }">
-                                                    <div class="flex flex-row-reverse items-center mt-5 "
+                                                    <div class="flex flex-row-reverse items-center mt-5"
                                                         x-show="lineaExistente != null">
                                                         <div id="alert-11"
-                                                            class="flex items-center sm:w-3/5 w-full  p-4 text-yellow-800 rounded-l rounded-lg bg-yellow-100 border-l-4 border-yellow-800 dark:bg-gray-800 dark:text-yellow-300"
+                                                            class="flex items-center sm:w-3/5 w-full p-4 text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
                                                             role="alert">
                                                             <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
                                                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor"
@@ -539,7 +541,7 @@
                                     </div>
                                     <h2 id="accordion-open-heading-2">
                                         <button type="button"
-                                            class="flex items-center justify-between w-full p-5 font-medium bg-blanco rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-1 focus:ring-dorado dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                            class="flex items-center justify-between w-full p-5 font-medium bg-blanco rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
                                             data-accordion-target="#accordion-open-body-2" aria-expanded="false"
                                             aria-controls="accordion-open-body-2">
                                             <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0"
@@ -563,7 +565,7 @@
                                                 integrantesSeccion == false
                                         }"
                                         aria-labelledby="accordion-open-heading-2">
-                                        <div class="p-5 border border-b-0 border-dorado dark:border-gray-700">
+                                        <div class="p-5 border border-b-0 border-dorado/60 dark:border-gray-700">
                                             <div class="flex sm:flex-row flex-col gap-6">
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
@@ -744,7 +746,7 @@
                                     </div>
                                     <h2 id="accordion-open-heading-3">
                                         <button type="button"
-                                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right bg-blanco text-gray-500 border border-gray-200 focus:ring-1 focus:ring-dorado dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right bg-blanco text-gray-500 border border-gray-200 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
                                             data-accordion-target="#accordion-open-body-3" aria-expanded="false"
                                             aria-controls="accordion-open-body-3">
                                             <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0"
@@ -766,7 +768,7 @@
                                     </h2>
                                     <div id="accordion-open-body-3" class="hidden" x-data="{ email: $wire.entangle('form.correoBanner') }"
                                         :class="{ 'hidden': email == '' }" aria-labelledby="accordion-open-heading-3">
-                                        <div class="p-5 border border-t-0 border-dorado dark:border-gray-700">
+                                        <div class="p-5 border border-t-0 border-dorado/60 dark:border-gray-700">
                                             <label for="form.lugarProcedenciaBanner"
                                                 class="block mb-2 dark:text-white">
                                                 Institución de procedencia<span class="font-bold text-red-600">*</span>
@@ -1007,7 +1009,7 @@
                                     </div>
                                     <h2 id="accordion-open-heading-4">
                                         <button type="button"
-                                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right bg-blanco text-gray-500 border border-b-0 border-gray-200 focus:ring-1 focus:ring-dorado dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right bg-blanco text-gray-500 border border-b-0 border-gray-200 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
                                             data-accordion-target="#accordion-open-body-4" aria-expanded="false"
                                             aria-controls="accordion-open-body-4">
                                             <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0"
@@ -1028,7 +1030,7 @@
                                     <div id="accordion-open-body-4" x-data="{ pagoAcordeon: false, cerrarAlerta: false }"
                                         :class="{ 'hidden': pagoAcordeon == false }"
                                         aria-labelledby="accordion-open-heading-4">
-                                        <div class="p-5 border border-dorado dark:border-gray-700">
+                                        <div class="p-5 border border-dorado/60 rounded-b-xl dark:border-gray-700">
                                             <h1>Datos para realizar pago:</h1>
                                             <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 ">
                                                 <div
@@ -1247,7 +1249,7 @@
                     @endif
                     @if ($errors->any())
                         <div id="alert-4"
-                            class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-100 dark:bg-gray-800 dark:text-yellow-300"
+                            class="flex items-center p-4 mt-5 text-yellow-600 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
                             role="alert">
                             <span class="sr-only">Info</span>
                             <div class="ms-3">
@@ -1282,14 +1284,12 @@
                     </div>
                 </div>
             </form>
-
-
             <div wire:loading wire:target="save">
                 <div
                     class="overflow-y-auto overflow-x-hidden cursor-progress bg-gray-500/40 fixed flex top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-2 w-full max-w-md max-h-full">
                         <div
-                            class="relative bg-white rounded-lg border border-[#34778A] shadow-md shadow-[#34778A]/50 dark:bg-gray-700">
+                            class="relative bg-white rounded-lg shadow-2xl shadow-[#34778A]/50 dark:bg-gray-700">
                             <div class="p-4 md:p-5 text-center">
                                 <svg aria-hidden="true"
                                     class="inline w-10 h-10 text-gray-200 animate-spin dark:text-gray-600 fill-[#34778A]"

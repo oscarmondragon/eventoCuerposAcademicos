@@ -21,8 +21,8 @@ use App\Livewire\Admin\RegistroParticipantesShow;
 //RUTAS invitado publico
 Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro-participantes');
 Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.creado');
-Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('boucher.completar');
-Route::get('/registro-buscar', BuscarRegistroParticipantes::class)->name('registro.buscar');
+//Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('boucher.completar');
+//Route::get('/registro-buscar', BuscarRegistroParticipantes::class)->name('registro.buscar');
 
 Route::get('/', RegistroParticipantes::class)->name('home');
 
