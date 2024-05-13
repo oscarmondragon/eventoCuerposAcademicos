@@ -1043,9 +1043,9 @@
                                                 </svg>
                                                 <span class="sr-only">Info</span>
                                                 <div class="ms-3 text-sm font-medium">
-                                                    <span class="font-extrabold">Importante para transferencias
-                                                        internacionales:</span>
-                                                    El banco de la persona ordenante debe emitir la
+                                                    <span class="font-extrabold">Importante:</span>
+                                                    para transferencias
+                                                    internacionales el banco de la persona ordenante debe emitir la
                                                     transferencia internacional mediante un mensaje SWIFT MT10.
                                                     Costos y comisiones no bonificables • El costo de emisión en
                                                     sucursal es de $39 dólares + IVA • El costo de emisión por
