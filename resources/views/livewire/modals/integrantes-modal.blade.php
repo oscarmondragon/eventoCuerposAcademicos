@@ -226,7 +226,7 @@
 
         gradoAcademicoAbrev.addEventListener('keyup', (e) => {
             valorInput = e.target.value;
-            gradoAcademicoAbrev.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+            gradoAcademicoAbrev.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ.]/g, '');
         });
 
         telefono.addEventListener('keyup', (e) => {
