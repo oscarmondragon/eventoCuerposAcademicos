@@ -15,7 +15,7 @@ class LineasModal extends ModalComponent
     #[Validate('required|min:3|max:255')]
     public $nombre = '';
 
-    #[Validate('required|min:3|max:500')]
+    #[Validate('required|min:3|max:400')]
     public $descripcion = '';
 
     public $tipoRegistro = '';
@@ -35,7 +35,7 @@ class LineasModal extends ModalComponent
         'nombre.max' => 'El nombre es demasiado largo.',
         'descripcion.required' => 'La descripción no puede estar vacía.',
         'descripcion.min' => 'La descripción es muy corta.',
-        'descripcion.max' => 'La descripción acepta máximo 500 caracteres.',
+        'descripcion.max' => 'La descripción acepta máximo 400 caracteres.',
 
     ];
 

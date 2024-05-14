@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="px-10 py-4 dark:text-gray-100">
-                    {{-- <div id="alert-1" :class="{ 'hidden': alertaLink == true }"
+                    <div id="alert-1" :class="{ 'hidden': alertaLink == true }"
                         class="flex items-center p-4 text-color_primary rounded-lg bg-verde/40 dark:bg-gray-800 dark:text-blue-400"
                         role="alert">
                         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -18,8 +18,17 @@
                         </svg>
                         <span class="sr-only">Info</span>
                         <div class="ms-3 text-sm font-medium">
-                            Si ya te has registrado antes dirigete <a href="{{ route('registro.buscar') }}"
-                                class="font-semibold underline hover:no-underline">aquí</a>.
+                            <div>
+                                <span class="font-medium"> Sugerencias para la captura:</span>
+                                <ul class="mt-1.5 list-disc list-inside">
+                                    <li>¡Prepara tu información con antelación!</li>
+                                    <li>Asegúrate de tener a mano cualquier documento o referencia relevante.</li>
+                                    <li>Los registros con * en rojo son campos obligatorios.</li>
+                                    <li>Al concluir la captura de TODOS los datos obligatorios debes darle enviar para
+                                        guardar tu registro.</li>
+
+                                </ul>
+                            </div>
                         </div>
                         <button type="button" x-on:click="alertaLink = true"
                             class="btn-transition ms-auto -mx-1.5 -my-1.5 bg-verde/60 text-color_primary rounded-lg focus:ring-2 focus:ring-verde p-1.5 hover:bg-verde inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700"
@@ -31,7 +40,7 @@
                                     stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                         </button>
-                    </div> --}}
+                    </div>
                     <form wire:submit="save">
                         @csrf
                         <div>
@@ -166,7 +175,8 @@
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
-                                                    <select id="form.pais" wire:model.live="form.pais" class="w-full">
+                                                    <select id="form.pais" wire:model.live="form.pais"
+                                                        class="w-full">
                                                         <option value="" disabled>Selecciona un país</option>
                                                         @foreach ($paises as $pais)
                                                             <option value="{{ $pais->nombre }}">{{ $pais->nombre }}
@@ -848,7 +858,7 @@
                                     <div id="accordion-open-body-3" class="hidden" x-data="{ email: $wire.entangle('form.correoBanner') }"
                                         :class="{ 'hidden': email == '' }" aria-labelledby="accordion-open-heading-3">
                                         <div class="p-5 border border-t-0 border-dorado/60 dark:border-gray-700">
-                                            <div id="alert-88" :class="{ 'hidden': cerrarAlerta == true }"
+                                            <div id="alert-88"
                                                 class="flex  items-center p-4  text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
                                                 role="alert">
                                                 <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true"
@@ -922,6 +932,7 @@
                                                         <template x-for="(lider, index) in lideres"
                                                             :key="index">
                                                             <li>
+                                                                <span x-text="lider.gradoAcademicoAbrev"></span>
                                                                 <span x-text="lider.nombre"></span> <span
                                                                     x-text="lider.apellidoPaterno"></span>
                                                                 <span x-text="lider.apellidoMaterno"></span>
@@ -939,6 +950,8 @@
                                                             <template
                                                                 x-if="integrante.tipoIntegrante == 'Colaborador'">
                                                                 <li>
+                                                                    <span
+                                                                        x-text="integrante.gradoAcademicoAbrev"></span>
                                                                     <span x-text="integrante.nombre"></span> <span
                                                                         x-text="integrante.apellidoPaterno"></span>
                                                                     <span x-text="integrante.apellidoMaterno"></span>
@@ -956,6 +969,8 @@
                                                             :key="index">
                                                             <template x-if="integrante.tipoIntegrante == 'Integrante'">
                                                                 <li>
+                                                                    <span
+                                                                        x-text="integrante.gradoAcademicoAbrev"></span>
                                                                     <span x-text="integrante.nombre"></span> <span
                                                                         x-text="integrante.apellidoPaterno"></span>
                                                                     <span x-text="integrante.apellidoMaterno"></span>
@@ -1360,7 +1375,7 @@
                     @endif
                     <div class="sm:block flex sm:flex-row flex-col sm:text-end mt-5">
                         <x-secondary-button wire:click="limpiarCampos">
-                            Limpiar Campos
+                            Limpiar campos
                         </x-secondary-button>
                         <button type="button" class="btn-success button" wire:loading.class="opacity-50"
                             wire:target="save" @click="save">

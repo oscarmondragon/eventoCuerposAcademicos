@@ -346,6 +346,7 @@ class ParticipantesForm extends Form
             $integrantesFiltrado = $IntegrantesCompleto->map(function ($item) { //creamos una coleccion con menos campos para guardarlos en la tabla banner
                 return [
                     '_id' => $item['_id'],
+                    'gradoAcademicoAbrev' => $item['gradoAcademicoAbrev'],
                     'nombre' => $item['nombre'],
                     'apellidoPaterno' => $item['apellidoPaterno'],
                     'apellidoMaterno' => $item['apellidoMaterno'],
