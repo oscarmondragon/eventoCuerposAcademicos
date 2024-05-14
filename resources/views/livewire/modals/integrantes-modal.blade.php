@@ -206,17 +206,17 @@
         let valorInput;
         nombre.addEventListener('keyup', (e) => {
             valorInput = e.target.value;
-            nombre.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+            nombre.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ.]/g, '');
         });
 
         apellidoPaterno.addEventListener('keyup', (e) => {
             valorInput = e.target.value;
-            apellidoPaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+            apellidoPaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ.]/g, '');
         });
 
         apellidoMaterno.addEventListener('keyup', (e) => {
             valorInput = e.target.value;
-            apellidoMaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ]/g, '');
+            apellidoMaterno.value = valorInput.replace(/[^a-zA-ZñÑáéíóú\sÁÉÍÓÚ.]/g, '');
         });
 
         gradoAcademico.addEventListener('keyup', (e) => {

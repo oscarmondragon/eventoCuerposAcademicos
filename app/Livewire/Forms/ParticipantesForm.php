@@ -112,6 +112,9 @@ class ParticipantesForm extends Form
     #[Validate('accepted')]
     public $aceptoDatos = false;
 
+    #[Validate('accepted')]
+    public $checkBanner = false;
+
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
@@ -180,6 +183,8 @@ class ParticipantesForm extends Form
         'necesidades.max' => 'Las necesidades solo admiten máximo 500 caracteres.',
 
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',
+        'checkBanner.accepted' => 'Debes de aceptar que la información del banner esta correcta.',
+
 
         'lideres.required' => 'Debes de agregar un líder.',
         'lideres.min' => 'Debe ser por lo menos un líder.',
@@ -258,6 +263,7 @@ class ParticipantesForm extends Form
             $registro->email = $this->correoGeneral;
             $registro->telefono = $this->telefonoGeneral;
             $registro->aceptoDatos = $this->aceptoDatos;
+            $registro->checkBanner = $this->checkBanner;
             $registro->adjuntoPago = $this->adjuntoPago;
 
             if ($this->boucher != null) {
@@ -407,7 +413,7 @@ class ParticipantesForm extends Form
                 $archivo->save();
             }
 
-            if (!empty($this->csf) && $this->checkFactura == 1  && $this->boucher != null) {
+            if (!empty($this->csf) && $this->checkFactura == 1 && $this->boucher != null) {
                 //Guardar en sistema de archivos
                 $ruta_csf = "public/" . $registro->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
