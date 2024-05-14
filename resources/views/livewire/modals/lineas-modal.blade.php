@@ -25,15 +25,27 @@
                     <span class="text-rojo block">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="mt-4">
+            <div class="mt-4" x-data="{ contadorDescripcion: $wire.entangle('contadorDescripcion') }">
                 <label for="descripcion" class="label-modal">
                     Descripción<span class="font-bold text-red-600">*</span> (máximo 500 caracteres)
                 </label>
                 <textarea id="descripcion" rows="4" wire:model.live="descripcion" class="input-modal"
                     placeholder="Descripción de la línea..."></textarea>
-                @error('descripcion')
-                    <span class="text-rojo block">{{ $message }}</span>
-                @enderror
+                <div class="flex justify-between">
+                    <div class ="sm:basis-4/5 basis-2/3">
+                        @error('descripcion')
+                            <span class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div>
+                        <p class="sm:text-sm text-xs font-bold"
+                            :class="{
+                                'text-rojo': contadorDescripcion > 500
+                            }">
+                            {{ $contadorDescripcion }} / 500
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </x-slot>

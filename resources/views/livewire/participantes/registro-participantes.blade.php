@@ -471,70 +471,149 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="mt-7">
-                                                <label for="form.productosLogrados"
-                                                    class="block mb-2 dark:text-white">
-                                                    Principales productos logrados<span
-                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
-                                                </label>
-                                                <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
-                                                    placeholder="Principales productos logrados..."></textarea>
-                                                @error('form.productosLogrados')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mt-5">
-                                                <label for="form.casosExito" class="block mb-2 mt-2 dark:text-white">
-                                                    Casos de éxito de transferencia<span
-                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
-                                                </label>
-                                                <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
-                                                    placeholder="Casos de éxito..."></textarea>
-                                                @error('form.casosExito')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="mt-5">
-                                                <label for="form.propuestas" class="block mb-2 mt-2 dark:text-white">
-                                                    Proyección y propuesta de vinculación o servicios que se brindan o
-                                                    proyectos para posible vinculación<span
-                                                        class="font-bold text-red-600">*</span> (máximo 500 caracteres)
-                                                </label>
-                                                <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
-                                                    placeholder="Proyección y propuesta de vinculación..."></textarea>
-                                                @error('form.propuestas')
-                                                    <span class="text-rojo block">{{ $message }}</span>
-                                                @enderror
-                                            </div>
-
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-1/2 w-full">
-                                                    <label for="form.fortalezas"
-                                                        class="block mb-2 mt-2 dark:text-white">
-                                                        Fortalezas<span class="font-bold text-red-600">*</span> (máximo
-                                                        500 caracteres)
+                                            <div x-data="{
+                                                contadorProductos: $wire.entangle('contadorProductos'),
+                                                contadorCasos: $wire.entangle('contadorCasosExito'),
+                                                contadorPropuestas: $wire.entangle('contadorPropuestas'),
+                                                contadorFortalezas: $wire.entangle('contadorFortalezas'),
+                                                contadorNecesidades: $wire.entangle('contadorNecesidades')
+                                            }">
+                                                <div class="mt-7">
+                                                    <label for="form.productosLogrados"
+                                                        class="block mb-2 dark:text-white">
+                                                        Principales productos logrados<span
+                                                            class="font-bold text-red-600">*</span> (máximo 500
+                                                        caracteres)
                                                     </label>
-                                                    <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
-                                                        placeholder="Fortalezas..."></textarea>
-                                                    @error('form.fortalezas')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
+                                                    <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
+                                                        placeholder="Principales productos logrados..."></textarea>
+                                                    <div class="flex justify-between">
+                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                            @error('form.productosLogrados')
+                                                                <span
+                                                                    class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div>
+                                                            <p class="sm:text-sm text-xs font-bold"
+                                                                :class="{
+                                                                    'text-rojo': contadorProductos > 500
+                                                                }">
+                                                                {{ $contadorProductos }} / 500
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
-                                                <div class="flex-initial sm:w-1/2 w-full">
-                                                    <label for="form.necesidades"
+                                                <div class="mt-5">
+                                                    <label for="form.casosExito"
                                                         class="block mb-2 mt-2 dark:text-white">
-                                                        Necesidades<span class="font-bold text-red-600">*</span>
-                                                        (máximo 500 caracteres)
+                                                        Casos de éxito de transferencia<span
+                                                            class="font-bold text-red-600">*</span> (máximo 500
+                                                        caracteres)
                                                     </label>
-                                                    <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
-                                                        placeholder="Necesidades..."></textarea>
-                                                    @error('form.necesidades')
-                                                        <span class="text-rojo block">{{ $message }}</span>
-                                                    @enderror
+                                                    <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
+                                                        placeholder="Casos de éxito..."></textarea>
+                                                    <div class="flex justify-between">
+                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                            @error('form.casosExito')
+                                                                <span
+                                                                    class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div>
+                                                            <p class="sm:text-sm text-xs font-bold"
+                                                                :class="{
+                                                                    'text-rojo': contadorCasos > 500
+                                                                }">
+                                                                {{ $contadorCasosExito }} / 500
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="mt-5">
+                                                    <label for="form.propuestas"
+                                                        class="block mb-2 mt-2 dark:text-white">
+                                                        Proyección y propuesta de vinculación o servicios que se brindan
+                                                        o
+                                                        proyectos para posible vinculación<span
+                                                            class="font-bold text-red-600">*</span> (máximo 500
+                                                        caracteres)
+                                                    </label>
+                                                    <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
+                                                        placeholder="Proyección y propuesta de vinculación..."></textarea>
+                                                    <div class="flex justify-between">
+                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                            @error('form.propuestas')
+                                                                <span
+                                                                    class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                        <div>
+                                                            <p class="sm:text-sm text-xs font-bold"
+                                                                :class="{
+                                                                    'text-rojo': contadorPropuestas > 500
+                                                                }">
+                                                                {{ $contadorPropuestas }} / 500
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="sm:flex flex-row gap-x-4 mt-5">
+                                                    <div class="flex-initial sm:w-1/2 w-full">
+                                                        <label for="form.fortalezas"
+                                                            class="block mb-2 mt-2 dark:text-white">
+                                                            Fortalezas<span class="font-bold text-red-600">*</span>
+                                                            (máximo
+                                                            500 caracteres)
+                                                        </label>
+                                                        <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
+                                                            placeholder="Fortalezas..."></textarea>
+                                                        <div class="flex justify-between">
+                                                            <div class ="sm:basis-4/5 basis-2/3">
+                                                                @error('form.fortalezas')
+                                                                    <span
+                                                                        class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+                                                            <div>
+                                                                <p class="sm:text-sm text-xs font-bold"
+                                                                    :class="{
+                                                                        'text-rojo': contadorFortalezas > 500
+                                                                    }">
+                                                                    {{ $contadorFortalezas }} / 500
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="flex-initial sm:w-1/2 w-full">
+                                                        <label for="form.necesidades"
+                                                            class="block mb-2 mt-2 dark:text-white">
+                                                            Necesidades<span class="font-bold text-red-600">*</span>
+                                                            (máximo 500 caracteres)
+                                                        </label>
+                                                        <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
+                                                            placeholder="Necesidades..."></textarea>
+                                                        <div class="flex justify-between">
+                                                            <div class ="sm:basis-4/5 basis-2/3">
+                                                                @error('form.necesidades')
+                                                                    <span
+                                                                        class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
+                                                                @enderror
+                                                            </div>
+                                                            <div>
+                                                                <p class="sm:text-sm text-xs font-bold"
+                                                                    :class="{
+                                                                        'text-rojo': contadorNecesidades > 500
+                                                                    }">
+                                                                    {{ $contadorNecesidades }} / 500
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
