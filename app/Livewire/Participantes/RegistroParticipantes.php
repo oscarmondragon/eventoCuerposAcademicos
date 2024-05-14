@@ -35,6 +35,11 @@ class RegistroParticipantes extends Component
 
     public $contadorTelefono;
     public $contadorTelefonoMax = 10;
+    public $contadorProductos = 0;
+    public $contadorCasosExito = 0;
+    public $contadorPropuestas = 0;
+    public $contadorFortalezas = 0;
+    public $contadorNecesidades = 0;
 
     public $listeners = [
         'addLinea',
@@ -79,6 +84,12 @@ class RegistroParticipantes extends Component
             $this->contadorTelefonoMax = 10;
         }
         $this->contadorTelefono = Str::of($this->form->telefonoGeneral)->length();
+
+        $this->contadorProductos = Str::of($this->form->productosLogrados)->length();
+        $this->contadorCasosExito = Str::of($this->form->casosExito)->length();
+        $this->contadorPropuestas = Str::of($this->form->propuestas)->length();
+        $this->contadorFortalezas = Str::of($this->form->fortalezas)->length();
+        $this->contadorNecesidades = Str::of($this->form->necesidades)->length();
 
 
 

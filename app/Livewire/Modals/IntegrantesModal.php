@@ -22,19 +22,19 @@ class IntegrantesModal extends ModalComponent
     public $generosList = ['Masculino', 'Femenino', 'Otro'];
 
 
-    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $nombre = '';
 
-    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $apellidoPaterno = '';
 
-    #[Validate('nullable|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('nullable|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $apellidoMaterno = '';
 
     #[Validate('required_if:isLider,1|uuid')]
     public $tipoLider = '';
 
-    #[Validate('required|min:3|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]*$/u')]
+    #[Validate('required|min:3|max:100|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $gradoAcademico = '';
 
     #[Validate('required|max:30|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ.\s]*$/u')]
