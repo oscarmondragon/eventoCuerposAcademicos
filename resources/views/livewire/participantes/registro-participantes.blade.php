@@ -23,7 +23,7 @@
                                 <ul class="mt-1.5 list-disc list-inside">
                                     <li>¡Prepara tu información con antelación!</li>
                                     <li>Asegúrate de tener a mano cualquier documento o referencia relevante.</li>
-                                    <li>Los registros con * en rojo son campos obligatorios.</li>
+                                    <li>Los campos con * en rojo son campos obligatorios.</li>
                                     <li>Al concluir la captura de TODOS los datos obligatorios debes darle enviar para
                                         guardar tu registro.</li>
 

@@ -162,13 +162,13 @@ class ParticipantesForm extends Form
         'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
         'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
 
-        'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
+        'productosLogrados.required' => 'El campo de pincipales productos logrados no puede estar vacío.',
         'productosLogrados.min' => 'El campo de pincipales productos logrados es muy corto.',
         'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
 
-        'casosExito.required' => 'Los casos de éxito de trasnferencia no pueden estar vacíos.',
-        'casosExito.min' => 'El campo de casos de éxito de trasnferencia es muy corto.',
-        'casosExito.max' => 'Los casos de éxito de trasnferencia solo admite máximo 500 caracteres.',
+        'casosExito.required' => 'El campo de casos de éxito de transferencia no puede estar vacío.',
+        'casosExito.min' => 'El campo de casos de éxito de transferencia es muy corto.',
+        'casosExito.max' => 'Los casos de éxito de transferencia solo admite máximo 500 caracteres.',
 
         'propuestas.required' => 'La proyección y propuesta de vinculación no puede estar vacía.',
         'propuestas.min' => 'La proyección y propuesta de vinculación es muy corta.',
