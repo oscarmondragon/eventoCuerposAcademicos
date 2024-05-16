@@ -713,6 +713,7 @@
                                                                                         sexo: lider.sexo, 
                                                                                         genero: lider.genero, 
                                                                                         correo: lider.correo, 
+                                                                                        confirmarCorreo: lider.correo,
                                                                                         telefono: lider.telefono, 
                                                                                         tipoRegistro: {{ $form->tipoRegistro }},
                                                                                         isLider: 1
