@@ -465,12 +465,13 @@ class RegistroParticipantes extends Component
     public function limpiarCampos()
     {
         $this->form->tipoRegistro = 0;
-        $this->form->lugarProcedencia = '';
-        $this->form->nombreGrupo = '';
+        $this->form->lugarProcedencia = null;
+        $this->form->nombreGrupo = null;
         $this->form->pais = '';
         $this->form->telefonoGeneral = '';
         $this->form->correoGeneral = '';
         $this->form->correoGeneralConfirmacion = '';
+        $this->form->areaSeleccionada = null;
         $this->selectedSubareas = [];
         $this->form->subareasSeleccionadas = [];
         $this->form->lineasInvestigacion = [];
@@ -492,7 +493,8 @@ class RegistroParticipantes extends Component
         $this->form->youtube = '';
         $this->form->otraRed = '';
         $this->form->boucher = null;
-        $this->form->checkFactura = '';
+        $this->form->checkFactura = false;
+        $this->form->checkBanner = false;
         $this->form->csf = null;
         $this->form->aceptoDatos = false;
     }
