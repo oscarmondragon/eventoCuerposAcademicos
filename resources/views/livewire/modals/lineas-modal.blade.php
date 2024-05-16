@@ -27,7 +27,7 @@
             </div>
             <div class="mt-4" x-data="{ contadorDescripcion: $wire.entangle('contadorDescripcion') }">
                 <label for="descripcion" class="label-modal">
-                    Descripción<span class="font-bold text-red-600">*</span> (máximo 500 caracteres)
+                    Descripción<span class="font-bold text-red-600">*</span> (máximo 400 caracteres)
                 </label>
                 <textarea id="descripcion" rows="4" wire:model.live="descripcion" class="input-modal"
                     placeholder="Descripción de la línea..."></textarea>
@@ -40,9 +40,9 @@
                     <div>
                         <p class="sm:text-sm text-xs font-bold"
                             :class="{
-                                'text-rojo': contadorDescripcion > 500
+                                'text-rojo': contadorDescripcion > 400
                             }">
-                            {{ $contadorDescripcion }} / 500
+                            {{ $contadorDescripcion }} / 400
                         </p>
                     </div>
                 </div>

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->string('telefono', 20);
             $table->boolean('adjuntoPago')->default(false);
             $table->boolean('checkFactura')->default(false)->nullable();
+            $table->boolean('checkBanner')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -22,13 +22,13 @@ class IntegrantesModal extends ModalComponent
     public $generosList = ['Masculino', 'Femenino', 'Otro'];
 
 
-    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
+    #[Validate('required|min:2|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $nombre = '';
 
-    #[Validate('required|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
+    #[Validate('required|min:2|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $apellidoPaterno = '';
 
-    #[Validate('nullable|min:3|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
+    #[Validate('nullable|min:2|max:50|regex:/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s.]*$/u')]
     public $apellidoMaterno = '';
 
     #[Validate('required_if:isLider,1|uuid')]

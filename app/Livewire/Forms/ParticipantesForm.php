@@ -112,6 +112,9 @@ class ParticipantesForm extends Form
     #[Validate('accepted')]
     public $aceptoDatos = false;
 
+    #[Validate('accepted')]
+    public $checkBanner = false;
+
     #[Validate('required_unless:boucher,null')]
     public $checkFactura;
 
@@ -159,13 +162,13 @@ class ParticipantesForm extends Form
         'lineasInvestigacion.array' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
         'lineasInvestigacion.min' => 'Debes agregar por lo menos una linea de generación y aplicación del conocimiento.',
 
-        'productosLogrados.required' => 'Los productos logrados no pueden estar vacíos.',
+        'productosLogrados.required' => 'El campo de pincipales productos logrados no puede estar vacío.',
         'productosLogrados.min' => 'El campo de pincipales productos logrados es muy corto.',
         'productosLogrados.max' => 'Los productos logrados solo admiten máximo 500 caracteres.',
 
-        'casosExito.required' => 'Los casos de éxito de trasnferencia no pueden estar vacíos.',
-        'casosExito.min' => 'El campo de casos de éxito de trasnferencia es muy corto.',
-        'casosExito.max' => 'Los casos de éxito de trasnferencia solo admite máximo 500 caracteres.',
+        'casosExito.required' => 'El campo de casos de éxito de transferencia no puede estar vacío.',
+        'casosExito.min' => 'El campo de casos de éxito de transferencia es muy corto.',
+        'casosExito.max' => 'Los casos de éxito de transferencia solo admite máximo 500 caracteres.',
 
         'propuestas.required' => 'La proyección y propuesta de vinculación no puede estar vacía.',
         'propuestas.min' => 'La proyección y propuesta de vinculación es muy corta.',
@@ -180,6 +183,8 @@ class ParticipantesForm extends Form
         'necesidades.max' => 'Las necesidades solo admiten máximo 500 caracteres.',
 
         'aceptoDatos.accepted' => 'Debes de aceptar el aviso de privacidad.',
+        'checkBanner.accepted' => 'Debes de aceptar que la información del banner esta correcta.',
+
 
         'lideres.required' => 'Debes de agregar un líder.',
         'lideres.min' => 'Debe ser por lo menos un líder.',
@@ -258,6 +263,7 @@ class ParticipantesForm extends Form
             $registro->email = $this->correoGeneral;
             $registro->telefono = $this->telefonoGeneral;
             $registro->aceptoDatos = $this->aceptoDatos;
+            $registro->checkBanner = $this->checkBanner;
             $registro->adjuntoPago = $this->adjuntoPago;
 
             if ($this->boucher != null) {
@@ -340,6 +346,7 @@ class ParticipantesForm extends Form
             $integrantesFiltrado = $IntegrantesCompleto->map(function ($item) { //creamos una coleccion con menos campos para guardarlos en la tabla banner
                 return [
                     '_id' => $item['_id'],
+                    'gradoAcademicoAbrev' => $item['gradoAcademicoAbrev'],
                     'nombre' => $item['nombre'],
                     'apellidoPaterno' => $item['apellidoPaterno'],
                     'apellidoMaterno' => $item['apellidoMaterno'],
@@ -407,7 +414,7 @@ class ParticipantesForm extends Form
                 $archivo->save();
             }
 
-            if (!empty($this->csf) && $this->checkFactura == 1  && $this->boucher != null) {
+            if (!empty($this->csf) && $this->checkFactura == 1 && $this->boucher != null) {
                 //Guardar en sistema de archivos
                 $ruta_csf = "public/" . $registro->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
