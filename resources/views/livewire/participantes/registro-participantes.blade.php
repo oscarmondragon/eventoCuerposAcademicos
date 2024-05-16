@@ -23,10 +23,11 @@
                                 <ul class="mt-1.5 list-disc list-inside">
                                     <li>¡Prepara tu información con antelación!</li>
                                     <li>Asegúrate de tener a mano cualquier documento o referencia relevante.</li>
-                                    <li>Los campos con * en rojo son campos obligatorios.</li>
-                                    <li>Al concluir la captura de TODOS los datos obligatorios debes darle enviar para
+                                    <li>Los campos con <span class="text-rojo">*</span> son obligatorios.</li>
+                                    <li>El formulario esta dividido por secciones, asegurate de completarlas.</li>
+                                    <li>Al concluir la captura de <span class="font-bold">TODOS</span> los datos
+                                        obligatorios debes darle enviar para
                                         guardar tu registro.</li>
-
                                 </ul>
                             </div>
                         </div>
@@ -892,29 +893,26 @@
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <label for="form.lugarProcedenciaBanner"
-                                                class="block mb-2 mt-5 dark:text-white">
+                                            <p class="block mb-2 mt-5 dark:text-white">
                                                 Institución de procedencia:
-                                            </label>
+                                            </p>
                                             <p class="font-bold">{{ $form->lugarProcedenciaBanner }}</p>
                                             @error('form.lugarProcedenciaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
 
-                                            <label for="form.nombreGrupoBanner"
-                                                class="block mb-2 mt-5 dark:text-white">
+                                            <p class="block mb-2 mt-5 dark:text-white">
                                                 Nombre del Cuerpo Académico, red o grupo de investigación:
-                                            </label>
+                                            </p>
                                             <p class="font-bold">{{ $form->nombreGrupoBanner }}</p>
                                             @error('form.nombreGrupoBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
                                             @enderror
 
-                                            <label for="form.areaSeleccionadaBanner"
-                                                class="block mb-2 mt-5 dark:text-white">
+                                            <p class="block mb-2 mt-5 dark:text-white">
                                                 Área temática:
-                                            </label>
+                                            </p>
                                             <p class="font-bold">{{ $form->areaSeleccionadaBanner }}</p>
                                             @error('form.areaSeleccionadaBanner')
                                                 <span class="text-rojo block">{{ $message }}</span>
@@ -983,10 +981,10 @@
                                             </div>
 
                                             <div class="mt-5">
-                                                <label for="form.descripcionBanner" class="mb-2 mt-2 dark:text-white">
+                                                <p class="mb-2 mt-2 dark:text-white">
                                                     Descripción de su principal línea de generación y aplicación del
                                                     conocimiento:
-                                                </label>
+                                                </p>
                                                 <p class="font-bold">{{ $form->descripcionBanner }}</p>
                                                 @error('form.descripcionBanner')
                                                     <span class="text-rojo block">{{ $message }}</span>
@@ -996,9 +994,9 @@
                                             <h2 class="mt-5 text-lg font-medium text-verde">Datos de contacto</h2>
                                             <div class="sm:flex flex-row gap-x-4 mt-2">
                                                 <div class="flex-initial sm:w-2/5 w-full">
-                                                    <label for="form.telefonoBanner" class=" mb-2 dark:text-white">
+                                                    <p class="mb-2 inline-block dark:text-white">
                                                         Teléfono:
-                                                    </label>
+                                                    </p>
                                                     <p class="font-bold inline-block">{{ $form->telefonoBanner }}</p>
                                                     @error('form.telefonoBanner')
                                                         <span class="text-rojo block">{{ $message }}</span>
@@ -1006,9 +1004,9 @@
                                                 </div>
 
                                                 <div class="flex-initial sm:w-3/5 w-full">
-                                                    <label for="form.correoBanner" class="mb-2 dark:text-white">
+                                                    <p class="mb-2 dark:text-white inline-block">
                                                         Correo electrónico:
-                                                    </label>
+                                                    </p>
                                                     <p class="font-bold inline-block">{{ $form->correoBanner }}</p>
 
                                                     @error('form.correoBanner')
@@ -1097,6 +1095,9 @@
                                     <h2 id="accordion-open-heading-4">
                                         <button type="button"
                                             class="flex items-center justify-between w-full p-5 font-medium rtl:text-right bg-blanco text-gray-500 border border-b-0 border-gray-200 focus:ring-1 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 gap-3"
+                                            :class="{
+                                                'bg-red-100': '{{ $errors->first('form.boucher') != '' }}'
+                                            }"
                                             data-accordion-target="#accordion-open-body-4" aria-expanded="false"
                                             aria-controls="accordion-open-body-4">
                                             <span class="flex items-center"><svg class="w-5 h-5 me-2 shrink-0"
@@ -1114,8 +1115,14 @@
                                             </svg>
                                         </button>
                                     </h2>
-                                    <div id="accordion-open-body-4" x-data="{ pagoAcordeon: false, cerrarAlerta: false }"
-                                        :class="{ 'hidden': pagoAcordeon == false }"
+                                    <div id="accordion-open-body-4" x-data="{
+                                        pagoAcordeon: false,
+                                        cerrarAlerta: false
+                                    }"
+                                        :class="{
+                                            'hidden': pagoAcordeon ==
+                                                false && '{{ $errors->first('form.boucher') == '' }}'
+                                        }"
                                         aria-labelledby="accordion-open-heading-4">
                                         <div class="p-5 border border-dorado/60 rounded-b-xl dark:border-gray-700">
                                             <h1>Datos para realizar pago:</h1>
