@@ -436,9 +436,9 @@ class ParticipantesForm extends Form
 
             DB::commit();
             if (!empty($this->boucher)) {
-                return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo, vamos a validar la información y  el pago , te notificaremos por correo electrónico cuando finalicemos.');
+                return redirect('/registro-creado')->with('success', 'El registro ha sido guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico desde la cuenta eicari_siea@uaemex.mx con la confirmación de tu registro. Vamos a validar la información de pago y desde esta cuenta de correo te estaremos notificando.');
             } else {
-                return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo. Si aun no has
+                return redirect('/registro-creado')->with('success', 'Registro guardado correctamente con el correo ' . $this->correoGeneral . '. Te hemos enviado un correo electrónico con la confirmación del mismo desde la cuenta eicari_siea@uaemex.mx. Si aun no has
                 completado el
                 pago no te preocupes, puedes completarlo y adjuntar tu evidencia desde el link que
                 te hemos enviado por correo.');
