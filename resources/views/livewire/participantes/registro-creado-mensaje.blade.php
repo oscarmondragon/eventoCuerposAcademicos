@@ -11,7 +11,7 @@
                         <h1 class="font-bold text-2xl text-verde">
                             ¡Registro exitoso!
                         </h1>
-                        <p class="text-justify">
+                        <p>
                             @if (session()->has('success'))
                                 {{ session('success') }}
                             @endif
