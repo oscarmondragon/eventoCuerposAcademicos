@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\Admin\Asistentes;
+use App\Livewire\Admin\Banners;
 use App\Livewire\Participantes\AdjuntarBoucherCorreo;
 use App\Livewire\Participantes\BuscarRegistroParticipantes;
 use App\Livewire\Participantes\RegistroCreadoMensaje;
@@ -24,16 +26,19 @@ Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.cre
 //Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('boucher.completar');
 //Route::get('/registro-buscar', BuscarRegistroParticipantes::class)->name('registro.buscar');
 
+
 Route::get('/', RegistroParticipantes::class)->name('home');
 
 
 //Rutas deshabilitadas por que aun no se programa la parte de usuarios y administradores del sistema
 /* Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard'); */
+->middleware(['auth', 'verified'])
+->name('dashboard'); */
 
 //RUTAS ADMIN
 Route::get('/participantes', RegistroParticipantesShow::class)->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/banners', Banners::class)->middleware(['auth', 'verified'])->name('banners');
+Route::get('/asistentes', Asistentes::class)->middleware(['auth', 'verified'])->name('asistentes');
 
 
 Route::view('profile', 'profile')
