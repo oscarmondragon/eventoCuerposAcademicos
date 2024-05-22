@@ -10,14 +10,20 @@
                 <div class="p-10 dark:text-gray-100">
 
                     <div class="flex flex-wrap items-end gap-2 sm:-mt-7">
-                        <div class="sm:w-2/3">
+                        <div class="sm:w-3/3">
+                            <h1>Filtros</h1>
                             <select class="sm:w-auto w-full" id="categoria" name="categoria">
-                                <option value="0">Pendintes de revision</option>
-                                <option value="3">Autorizados</option>
+                                <option value="0">Internos</option>
+                                <option value="3">Externos</option>
+                            </select>
+                            <select class="sm:w-auto w-full" id="categoria" name="categoria">
+                                <option value="0">Pendintes de revisión</option>
+                                <option value="1">Autorizados</option>
+                                <option value="2">Rechazados</option>
                             </select>
                             <input type="text" wire:model.live="search"
                                 class="inputs-formulario-solicitudes md:mt-0 mt-2 p-2.5 sm:w-96 w-full"
-                                placeholder="Buscar por id, espacio académico, nombre de cuerpo acádemico etc....">
+                                placeholder="Buscar por correo, espacio académico, nombre de cuerpo acádemico etc....">
                         </div>
 
                     </div>
@@ -28,21 +34,34 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>#</th>
+                                    <th>Correo electrónico</th>
                                     <th>Nombre grupo</th>
                                     <th>Espacio académico</th>
                                     <th>Procedencia</th>
-
-
+                                    <th>Estatus</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($registros as $registro)
                                     <tr>
-                                        <td>{{ $registro->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $registro->email }}</td>
                                         <td>{{ $registro->cuerpo_grupo_red }}</td>
                                         <td>{{ $registro->espacio_procedencia }}</td>
                                         <td>{{ $registro->tipo_solicitante }}</td>
+                                        <td>Pagado</td>
+                                        <td> <a href="{{ route('registro.revisar', ['id' => $registro->id]) }}">
+
+                                                <button class=" button btn-success" title="Revisar">
+                                                    Revisar
+                                                </button>
+
+                                            </a></td>
+
+
+
 
                                     </tr>
                                 @endforeach

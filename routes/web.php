@@ -40,6 +40,10 @@ Route::get('/participantes', RegistroParticipantesShow::class)->middleware(['aut
 Route::get('/banners', Banners::class)->middleware(['auth', 'verified'])->name('banners');
 Route::get('/asistentes', Asistentes::class)->middleware(['auth', 'verified'])->name('asistentes');
 
+//RUTAS ADMIN
+Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro.revisar');
+
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
