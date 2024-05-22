@@ -35,6 +35,10 @@ Route::get('/', RegistroParticipantes::class)->name('home');
 //RUTAS ADMIN
 Route::get('/participantes', RegistroParticipantesShow::class)->middleware(['auth', 'verified'])->name('dashboard');
 
+//RUTAS ADMIN
+Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro.revisar');
+
+
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
