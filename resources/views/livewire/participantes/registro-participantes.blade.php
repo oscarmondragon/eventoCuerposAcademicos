@@ -1208,8 +1208,9 @@
                                                 </div>
 
                                                 <div class="basis-1/2">
-                                                    <label class="block mb-2 dark:text-white" for="form.boucher">Subir
-                                                        comprobante de pago</label>
+                                                    <label class="mb-2 dark:text-white" for="form.boucher">Subir
+                                                        comprobante de pago</label><span
+                                                        class="font-bold text-red-600">*</span>
                                                     <div class="bg-transparent h-10 flex items-center rounded-l-lg">
                                                         <div>
                                                             <input aria-describedby="form.boucher_help"

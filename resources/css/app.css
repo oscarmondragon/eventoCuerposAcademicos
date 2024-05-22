@@ -31,7 +31,8 @@
     }
 
     input[type="text"],
-    input[type="email"] {
+    input[type="email"],
+    input[type="password"] {
         @apply bg-blanco text-textos rounded-md border-verde h-10 placeholder:text-sm;
     }
 
