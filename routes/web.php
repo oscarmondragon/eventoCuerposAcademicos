@@ -2,6 +2,7 @@
 
 use App\Livewire\Admin\Asistentes;
 use App\Livewire\Admin\Banners;
+use App\Livewire\Admin\RegistroDetail;
 use App\Livewire\Participantes\AdjuntarBoucherCorreo;
 use App\Livewire\Participantes\BuscarRegistroParticipantes;
 use App\Livewire\Participantes\RegistroCreadoMensaje;
@@ -39,9 +40,7 @@ Route::get('/', RegistroParticipantes::class)->name('home');
 Route::get('/participantes', RegistroParticipantesShow::class)->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/banners', Banners::class)->middleware(['auth', 'verified'])->name('banners');
 Route::get('/asistentes', Asistentes::class)->middleware(['auth', 'verified'])->name('asistentes');
-
-//RUTAS ADMIN
-Route::get('/registro-participantes', RegistroParticipantes::class)->name('registro.revisar');
+Route::get('/registro/{id}/revision', RegistroDetail::class)->name('registro.revisar');
 
 
 

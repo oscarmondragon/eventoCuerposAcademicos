@@ -21,8 +21,8 @@ return new class extends Migration {
             $table->string('area_tematica', 150);
             $table->json('integrantes');
             $table->text('descripcion_linea');
-            $table->string('email');
-            $table->string('telefono');
+            $table->string('email', 100);
+            $table->string('telefono', 20);
             $table->string('twitter', 50)->nullable();
             $table->string('facebook', 50)->nullable();
             $table->string('youtube', 50)->nullable();

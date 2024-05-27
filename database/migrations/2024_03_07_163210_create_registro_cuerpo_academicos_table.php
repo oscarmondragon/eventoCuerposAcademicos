@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->text('productos_logrados');
             $table->text('casos_exito');
             $table->text('servicios_proyectos');
-            $table->string('pais', 20);
+            $table->string('pais', 50);
             $table->string('espacio_procedencia', 150);
             $table->foreignUuid('user_id')->nullable()
                 ->constrained()

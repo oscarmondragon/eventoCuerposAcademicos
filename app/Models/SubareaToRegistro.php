@@ -13,4 +13,9 @@ class SubareaToRegistro extends Model
 
     protected $table = "subareas_to_registros";
 
+    public function subarea()
+    {
+        return $this->belongsTo(Subarea::class);
+    }
+
 }

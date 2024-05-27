@@ -46,8 +46,6 @@ new #[Layout('layouts.guest')] class extends Component {
 
             <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full" type="password"
                 name="password" />
-
-            {{-- <x-input-error :messages="$errors->get('password')" class="mt-1" /> --}}
             <x-input-error :messages="$errors->first('form.password')" class="mt-1" />
         </div>
 
