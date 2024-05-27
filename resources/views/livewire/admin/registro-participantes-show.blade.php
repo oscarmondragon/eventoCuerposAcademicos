@@ -12,14 +12,18 @@
                     <div class="flex flex-wrap items-end gap-2 sm:-mt-7">
                         <div class="sm:w-3/3">
                             <h1>Filtros</h1>
-                            <select class="sm:w-auto w-full" id="categoria" name="categoria">
-                                <option value="0">Internos</option>
-                                <option value="3">Externos</option>
+                            <select class="sm:w-auto w-full" wire:model.live="filtroProcedencia" id="filtroProcedencia"
+                                name="filtroProcedencia">
+                                <option value="0">Todos</option>
+                                <option value="1">Internos</option>
+                                <option value="2">Externos</option>
                             </select>
-                            <select class="sm:w-auto w-full" id="categoria" name="categoria">
-                                <option value="0">Pendintes de revisión</option>
-                                <option value="1">Autorizados</option>
-                                <option value="2">Rechazados</option>
+                            <select class="sm:w-auto w-full" wire:model.live="filtroEstatus" id="filtroEstatus"
+                                name="filtroEstatus">
+                                <option value="0">Todos</option>
+                                <option value="1">Pendintes de revisión</option>
+                                <option value="2">Autorizados</option>
+                                <option value="3">Rechazados</option>
                             </select>
                             <input type="text" wire:model.live="search"
                                 class="inputs-formulario-solicitudes md:mt-0 mt-2 p-2.5 sm:w-96 w-full"
@@ -51,7 +55,7 @@
                                         <td>{{ $registro->cuerpo_grupo_red }}</td>
                                         <td>{{ $registro->espacio_procedencia }}</td>
                                         <td>{{ $registro->tipo_solicitante }}</td>
-                                        <td>Pagado</td>
+                                        <td>Aprobado</td>
                                         <td> <a href="{{ route('registro.revisar', ['id' => $registro->id]) }}">
 
                                                 <button class=" button btn-success" title="Revisar">
@@ -59,10 +63,6 @@
                                                 </button>
 
                                             </a></td>
-
-
-
-
                                     </tr>
                                 @endforeach
                             </tbody>
