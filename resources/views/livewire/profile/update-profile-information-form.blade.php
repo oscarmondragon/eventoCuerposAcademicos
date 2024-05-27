@@ -77,7 +77,7 @@ new class extends Component {
 <section>
     <header>
         <h2 class="text-lg font-bold text-verde dark:text-gray-100">
-            {{ __('Perfil') }}
+            {{ __('Actualizar datos personales') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">

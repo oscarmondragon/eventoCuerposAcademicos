@@ -43,7 +43,7 @@ new #[Layout('layouts.guest')] class extends Component {
 
 <div>
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
-        {{ __('¿Olvidaste tu contraseña? No hay problema. Simplemente háganos saber su dirección de correo electrónico y le enviaremos un enlace para restablecer su contraseña que le permitirá elegir una nueva.') }}
+        {{ __('¿Olvidaste tu contraseña? No hay problema. Simplemente haznos  saber tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña.') }}
     </div>
 
     <!-- Session Status -->
@@ -53,12 +53,12 @@ new #[Layout('layouts.guest')] class extends Component {
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Correo electrónico')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email"
-                autofocus />
+            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" autofocus
+                placeholder="Correo electrónico" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center sm:justify-end justify-center mt-4">
             <x-primary-button>
                 {{ __('Restablecer contraseña') }}
             </x-primary-button>

@@ -37,6 +37,7 @@ new #[Layout('layouts.guest')] class extends Component {
                 'token' => ['required'],
                 'email' => ['required', 'string', 'email', "regex:'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'", 'exists:users,email'],
                 'password' => ['required', 'string', 'min:8', 'max:20', 'confirmed', Rules\Password::defaults()],
+                'password_confirmation' => ['required'],
             ],
             [
                 'token.required' => 'El token es requerido.',
@@ -50,6 +51,8 @@ new #[Layout('layouts.guest')] class extends Component {
                 'password.min' => 'La contraseña debe de tener al menos 8 caracteres.',
                 'password.max' => 'La contraseña es demasiado larga.',
                 'password.confirmed' => 'Las contraseñas no coinciden.',
+
+                'password_confirmation.required' => 'Las confirmación de la contraseña es requerida.',
             ],
         );
 
@@ -89,29 +92,30 @@ new #[Layout('layouts.guest')] class extends Component {
         <div>
             <x-input-label for="email" :value="__('Correo electrónico')" />
             <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" autofocus
-                autocomplete="email" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                autocomplete="email" placeholder="Correo electrónico" />
+            <x-input-error :messages="$errors->get('email')" class="mt-1" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Contraseña')" />
             <x-text-input wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password"
-                autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                autocomplete="new-password" placeholder="Nueva contraseña" />
+            <x-input-error :messages="$errors->get('password')" class="mt-1" />
         </div>
 
         <!-- Confirm Password -->
         <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Repetir contraseña')" />
+            <x-input-label for="password_confirmation" :value="__('Confirmar contraseña')" />
 
             <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                type="password" name="password_confirmation" autocomplete="new-password" />
+                type="password" name="password_confirmation" autocomplete="new-password"
+                placeholder="Confirmar contraseña" />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-1" />
         </div>
 
-        <div class="flex items-center justify-end mt-4">
+        <div class="flex items-center sm:justify-end justify-center mt-4">
             <x-primary-button>
                 {{ __('Restablecer contraseña') }}
             </x-primary-button>

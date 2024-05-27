@@ -23,12 +23,13 @@ new class extends Component {
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        {{-- <x-application-logo class=" h-9 w-9 fill-current text-gray-800 dark:text-gray-200" /> --}}
+                        <img src="{{ asset('img/logos/logo-app.png') }}" class="sm:w-40 w-32" alt="logo-aplicación">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-5 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Participantes') }}
                     </x-nav-link>
@@ -69,7 +70,7 @@ new class extends Component {
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Perfil') }}
+                            {{ __('Editar perfil') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -84,6 +85,17 @@ new class extends Component {
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
+                <div class="px-2 flex flex-col text-end gap-y-1">
+                    <div class="font-bold text-sm text-textos dark:text-gray-200" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name"
+                        x-on:profile-updated.window="name = $event.detail.name">
+                    </div>
+                    <div class="flex justify-end">
+                        <p
+                            class="bg-green-100 text-xs text-green-600 text-start w-[70px] border border-green-600 rounded-lg px-2 mb-1">
+                            En sesión
+                        </p>
+                    </div>
+                </div>
                 <button @click="open = ! open"
                     class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -100,29 +112,43 @@ new class extends Component {
 
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pb-1 pt-3 pl-1 space-y-1 border-t border-gray-200">
+            <h2 class="text-dorado font-bold text-lg">Secciones</h2>
+        </div>
+
+        <div class="pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Registros participantes') }}
             </x-responsive-nav-link>
         </div>
 
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('banners')" :active="request()->routeIs('banners')" wire:navigate>
+                {{ __('Banners') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('asistentes')" :active="request()->routeIs('asistentes')" wire:navigate>
+                {{ __('Asistentes') }}
+            </x-responsive-nav-link>
+        </div>
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200" x-data="{{ json_encode(['name' => auth()->user()->name]) }}"
-                    x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
+            <div class="pb-1 pt-0 pl-1 space-y-1">
+                <h2 class="text-dorado font-bold text-lg">Opciones</h2>
             </div>
 
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
+            <div class="space-y-1">
+                <x-responsive-nav-link :href="route('profile')" :active="request()->routeIs('profile')" wire:navigate>
+                    {{ __('Editar perfil') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
                 <button wire:click="logout" class="w-full text-start">
                     <x-responsive-nav-link>
-                        {{ __('Log Out') }}
+                        {{ __('Cerrar sesión') }}
                     </x-responsive-nav-link>
                 </button>
             </div>
