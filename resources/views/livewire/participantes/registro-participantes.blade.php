@@ -70,7 +70,7 @@
                                     </h2>
                                     <div id="accordion-open-body-1" aria-labelledby="accordion-open-heading-1">
                                         <div class="p-5 border border-t-0 border-dorado/60 dark:border-gray-700">
-                                            <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5">
+                                            <div class="flex md:flex-row flex-col md:items-end md:gap-x-5 gap-y-5">
                                                 <div class="basis-1/4">
                                                     <label for="form.tipoRegistro" class="block mb-2 dark:text-white">
                                                         Selecciona procedencia<span
@@ -171,8 +171,8 @@
                                                 @enderror
                                             </div>
 
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-3/5 w-full">
+                                            <div class="flex sm:flex-row flex-col sm:gap-x-4 gap-y-4 mt-5">
+                                                <div class="flex-initial md:w-3/5 sm:1/2 w-full">
                                                     <label for="form.pais" class="block mb-2 dark:text-white">
                                                         País procedente<span class="font-bold text-red-600">*</span>
                                                     </label>
@@ -189,7 +189,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="flex-initial sm:w-2/5 w-full sm:mt-0 mt-5">
+                                                <div class="flex-initial md:w-2/5 sm:1/2 w-full">
                                                     <label for="telefonoGeneral" class="block mb-2 dark:text-white">
                                                         Teléfono<span class="font-bold text-red-600">*</span>
                                                     </label>
@@ -224,8 +224,8 @@
                                                 </div>
                                             </div>
 
-                                            <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                <div class="flex-initial sm:w-1/2 w-full">
+                                            <div class="flex md:flex-row flex-col md:gap-x-4 gap-y-4 mt-5">
+                                                <div class="flex-initial md:w-1/2 w-full">
                                                     <label for="form.correoGeneral"
                                                         class="block mb-2 dark:text-white">
                                                         Correo electrónico<span class="font-bold text-red-600">*</span>
@@ -260,7 +260,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="flex-initial sm:w-1/2 w-full">
+                                                <div class="flex-initial md:w-1/2 w-full">
                                                     <label for="form.correoGeneralConfirmacion"
                                                         class="block mb-2 dark:text-white">
                                                         Confirmar correo electrónico<span
@@ -296,8 +296,8 @@
                                                         class="font-bold text-red-600">*</span>
                                                 </p>
                                             </div>
-                                            <div class="sm:flex flex-row  gap-x-4 bg-[#34778A]/30 rounded-lg">
-                                                <div class="flex-initial sm:w-1/4 w-full rounded-l-lg px-4 py-5">
+                                            <div class="flex md:flex-row flex-col  gap-x-4 bg-[#34778A]/30 rounded-lg">
+                                                <div class="flex-initial md:w-1/4 w-full rounded-l-lg px-4 py-5">
                                                     <label for="form.areaSeleccionada"
                                                         class="block mb-2 font-bold dark:text-white">
                                                         Área temática<span class="font-bold text-red-600">*</span>
@@ -326,7 +326,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="flex-initial sm:w-3/4 w-full bg-gray-100 px-4 py-4">
+                                                <div class="flex-initial md:w-3/4 w-full bg-gray-100 px-4 py-4">
                                                     <p class="block mb-2 dark:text-white">
                                                         Subárea temática<span class="font-bold text-red-600">*</span>
                                                     </p>
@@ -361,14 +361,14 @@
                                             @enderror
 
                                             @if (count($selectedSubareas) > 0)
-                                                <div class="mt-5 sm:ml-8">
+                                                <div class="mt-5 sm:ml-8 ml-4">
                                                     <h2 class="text-lg font-medium text-verde">
                                                         Subareas seleccionadas:
                                                     </h2>
                                                     <ul class="list-disc">
                                                         @foreach ($selectedSubareas as $subarea)
                                                             <li
-                                                                class="sm:ml-12 underline underline-offset-4 decoration-1 decoration-verde pt-2">
+                                                                class="sm:ml-12 ml-8 underline underline-offset-4 decoration-1 decoration-verde pt-2">
                                                                 {{ $subarea['area'] }} <span
                                                                     class="text-verde">&#10142;</span>
                                                                 {{ $subarea['grupo'] }} <span
@@ -499,7 +499,7 @@
                                                     <textarea id="form.productosLogrados" rows="4" wire:model.live="form.productosLogrados" class="w-full"
                                                         placeholder="Principales productos logrados..."></textarea>
                                                     <div class="flex justify-between">
-                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                        <div class ="w-10/12">
                                                             @error('form.productosLogrados')
                                                                 <span
                                                                     class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
@@ -526,7 +526,7 @@
                                                     <textarea id="form.casosExito" rows="4" wire:model.live="form.casosExito" class="w-full"
                                                         placeholder="Casos de éxito..."></textarea>
                                                     <div class="flex justify-between">
-                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                        <div class ="w-10/12">
                                                             @error('form.casosExito')
                                                                 <span
                                                                     class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
@@ -555,7 +555,7 @@
                                                     <textarea id="form.propuestas" rows="4" wire:model.live="form.propuestas" class="w-full"
                                                         placeholder="Proyección y propuesta de vinculación..."></textarea>
                                                     <div class="flex justify-between">
-                                                        <div class ="sm:basis-11/12 basis-2/3">
+                                                        <div class ="w-10/12">
                                                             @error('form.propuestas')
                                                                 <span
                                                                     class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
@@ -572,8 +572,8 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="sm:flex flex-row gap-x-4 mt-5">
-                                                    <div class="flex-initial sm:w-1/2 w-full">
+                                                <div class="flex md:flex-row flex-col md:gap-x-4 gap-y-4 mt-5">
+                                                    <div class="basis-1/2">
                                                         <label for="form.fortalezas"
                                                             class="block mb-2 mt-2 dark:text-white">
                                                             Fortalezas<span class="font-bold text-red-600">*</span>
@@ -583,7 +583,7 @@
                                                         <textarea id="form.fortalezas" rows="4" wire:model.live="form.fortalezas" class="w-full"
                                                             placeholder="Fortalezas..."></textarea>
                                                         <div class="flex justify-between">
-                                                            <div class ="sm:basis-4/5 basis-2/3">
+                                                            <div class ="w-10/12">
                                                                 @error('form.fortalezas')
                                                                     <span
                                                                         class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
@@ -600,7 +600,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="flex-initial sm:w-1/2 w-full">
+                                                    <div class="basis-1/2">
                                                         <label for="form.necesidades"
                                                             class="block mb-2 mt-2 dark:text-white">
                                                             Necesidades<span class="font-bold text-red-600">*</span>
@@ -609,7 +609,7 @@
                                                         <textarea id="form.necesidades" rows="4" wire:model.live="form.necesidades" class="w-full"
                                                             placeholder="Necesidades..."></textarea>
                                                         <div class="flex justify-between">
-                                                            <div class ="sm:basis-4/5 basis-2/3">
+                                                            <div class="w-10/12">
                                                                 @error('form.necesidades')
                                                                     <span
                                                                         class="text-rojo block sm:text-base text-sm">{{ $message }}</span>
@@ -656,7 +656,7 @@
                                         }"
                                         aria-labelledby="accordion-open-heading-2">
                                         <div class="p-5 border border-b-0 border-dorado/60 dark:border-gray-700">
-                                            <div class="flex sm:flex-row flex-col gap-6">
+                                            <div class="flex md:flex-row flex-col gap-6">
                                                 <div class="flex-initial w-full">
                                                     <div class="flex items-end">
                                                         <p class="block mb-2 dark:text-white">
@@ -699,10 +699,11 @@
                                                                             <th
                                                                                 x-text="lider.nombre + ' ' + lider.apellidoPaterno + ' ' + lider.apellidoMaterno">
                                                                             </th>
-                                                                            <td class="sm:flex gap-2">
+                                                                            <td
+                                                                                class="flex md:flex-row flex-col gap-2">
                                                                                 <div>
                                                                                     <button type="button"
-                                                                                        class="btn-tablas btn-transition"
+                                                                                        class="btn-transition"
                                                                                         @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
                                                                                         _id: lider._id, 
                                                                                         nombre: lider.nombre, 
@@ -727,7 +728,7 @@
                                                                                 <div>
                                                                                     <button type="button"
                                                                                         @click.stop="lideres.splice(index, 1); $wire.deleteLinea(lider)"
-                                                                                        class="btn-tablas btn-transition">
+                                                                                        class="btn-transition">
                                                                                         <img src="{{ asset('img/botones/btn_eliminar.png') }}"
                                                                                             alt="Botón eliminar"
                                                                                             title="Eliminar">
@@ -786,7 +787,7 @@
                                                                         </th>
                                                                         <th x-text="integrante.tipoIntegrante">
                                                                         </th>
-                                                                        <td class="sm:flex gap-2">
+                                                                        <td class="flex md:flex-row flex-col gap-2">
                                                                             <div>
                                                                                 <button type="button"
                                                                                     class="btn-tablas btn-transition"
@@ -1164,9 +1165,9 @@
                                                     </svg>
                                                 </button>
                                             </div>
-                                            <div class="flex items-center sm:flex-row flex-col sm:gap-x-5 gap-y-5 ">
+                                            <div class="flex md:items-center md:flex-row flex-col md:gap-x-5 gap-y-5 ">
                                                 <div
-                                                    class="basis-1/2 bg-[#003a7c] sm:w-1/2 w-full h-72 rounded-xl mt-5 p-4 text-white">
+                                                    class="basis-1/2 bg-[#003a7c] md:w-1/2 w-full rounded-xl mt-5 p-4 text-white">
                                                     <h1 class="text-2xl">BBVA</h1>
                                                     <h2 class="mt-4">Nombre:
                                                         <span
@@ -1175,14 +1176,14 @@
                                                             BIOLÓGICAS APLICADAS CICBA
                                                         </span>
                                                     </h2>
-                                                    <h2 class="text-center mt-6">
+                                                    <h2 class="sm:text-center text-start mt-6">
                                                         CLABE INTERBANCARIA:
                                                         <span
                                                             class="font-bold cursor-pointer hover:underline hover:decoration-1">
                                                             0124200 0117895704 7
                                                         </span>
                                                     </h2>
-                                                    <h2 class="text-center mt-4">
+                                                    <h2 class="sm:text-center text-start mt-4">
                                                         Código Swift:
                                                         <span
                                                             class="font-bold cursor-pointer hover:underline hover:decoration-1">
@@ -1247,7 +1248,7 @@
                                                                 ¿Requieres factura?<span
                                                                     class="font-bold text-red-600">*</span>
                                                             </label>
-                                                            <div class="flex gap-x-5">
+                                                            <div class="flex sm:justify-normal justify-around gap-x-5">
                                                                 <div>
                                                                     <input type="radio" id="si"
                                                                         name="checkFactura"
@@ -1319,9 +1320,9 @@
                     </div>
                 </div>
                 <div class="mt-5">
-                    <div>
+                    <div class="sm:ml-10 ml-4">
                         <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
-                            name="form.aceptoDatos" class="rounded-full sm:ml-10 mr-2">
+                            name="form.aceptoDatos" class="mr-2">
                         <label for="form.aceptoDatos">
                             Acepto aviso de privacidad de la UAEMex y acepto que los datos puedan ser utilizados
                             con
@@ -1331,9 +1332,9 @@
                             <span class=" text-rojo error sm:ml-16 block">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div>
+                    <div class="sm:ml-10 ml-4">
                         <input type="checkbox" id="form.checkBanner" wire:model.live='form.checkBanner'
-                            name="form.checkBanner" class="rounded-full sm:ml-10 mr-2">
+                            name="form.checkBanner" class="mr-2">
                         <label for="form.checkBanner">
                             Acepto que la información proporcionada para impresión del banner es correcta.<samp
                                 class="text-rojo">*</samp>
@@ -1383,7 +1384,7 @@
                             </div>
                         </div>
                     @endif
-                    <div class="sm:block flex sm:flex-row flex-col sm:text-end mt-5">
+                    <div class="flex sm:flex-row flex-col sm:justify-end justify-center items-center mt-5">
                         <x-secondary-button wire:click="limpiarCampos">
                             Limpiar campos
                         </x-secondary-button>

@@ -61,7 +61,7 @@ new class extends Component {
 <section>
     <header>
         <h2 class="text-lg font-bold text-verde dark:text-gray-100">
-            {{ __('Actualizar contraseña') }}
+            {{ __('Cambiar contraseña') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
@@ -83,12 +83,12 @@ new class extends Component {
             <x-input-error :messages="$errors->get('current_password')" class="mt-1" />
         </div>
 
-        <div class="flex sm:gap-x-4 gap-y-4 sm:flex-row flex-col ">
+        <div class="flex sm:gap-x-4 gap-y-4 md:flex-row flex-col ">
             <div class="relative basis-1/2">
                 <x-input-label for="update_password_password" :value="__('Nueva contraseña')" />
                 <x-text-input wire:model="password" wire:keyup="contadorCaracteres('contadorPassword', 'password')"
                     id="update_password_password" name="password" type="password" class="mt-1 block w-full"
-                    autocomplete="new-password" placeholder="Nueva contraseña" />
+                    autocomplete="new-password" placeholder="Nueva contraseña" maxlength="20" />
                 <div class="flex justify-end text-sm text-textos absolute right-3 top-9" x-show="password != ''">
                     {{ $contadorPassword }}
                 </div>
@@ -100,7 +100,8 @@ new class extends Component {
                 <x-text-input wire:model="password_confirmation"
                     wire:keyup="contadorCaracteres('contadorPasswordConfirmation', 'password_confirmation')"
                     id="update_password_password_confirmation" name="password_confirmation" type="password"
-                    class="mt-1 block w-full" autocomplete="new-password" placeholder="Confirmar contraseña" />
+                    class="mt-1 block w-full" autocomplete="new-password" placeholder="Confirmar contraseña"
+                    maxlength="20" />
                 <div class="flex justify-end text-sm text-textos absolute right-3 top-9" x-show="passwordConfirm != ''">
                     {{ $contadorPasswordConfirmation }}
                 </div>

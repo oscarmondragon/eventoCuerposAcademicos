@@ -9,6 +9,7 @@ use LivewireUI\Modal\ModalComponent;
 use App\Enums\Generos;
 use App\Enums\Sexos;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 
 class IntegrantesModal extends ModalComponent
 {
@@ -55,6 +56,8 @@ class IntegrantesModal extends ModalComponent
 
     #[Validate('nullable|min:10|max:15|regex:/^[0-9()+]*$/u')]
     public $telefono = '';
+    public $contadorTelefono = 0;
+    public $contadorTelefonoMax = 10;
 
 
     public $listeners = [
@@ -116,6 +119,14 @@ class IntegrantesModal extends ModalComponent
         } else {
             $tiposFiltro = [];
         }
+
+        if (Str::startsWith($this->telefono, ['(', '+'])) {
+            $this->contadorTelefonoMax = 15;
+        } else {
+            $this->contadorTelefonoMax = 10;
+        }
+        $this->contadorTelefono = Str::of($this->telefono)->length();
+
         return view('livewire.modals.integrantes-modal', ['tipos_lider' => $tiposFiltro]);
     }
 
