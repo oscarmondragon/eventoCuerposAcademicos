@@ -1,11 +1,13 @@
 <?php
 
-use App\Livewire\Admin\Asistentes;
-use App\Livewire\Admin\Banners;
+use App\Livewire\Admin\AsistentesShow;
+use App\Livewire\Admin\BannersShow;
 use App\Livewire\Admin\RegistroDetail;
+use App\Livewire\Admin\BannerDetail;
 use App\Livewire\Participantes\AdjuntarBoucherCorreo;
 use App\Livewire\Participantes\BuscarRegistroParticipantes;
 use App\Livewire\Participantes\RegistroCreadoMensaje;
+use App\Models\Banner;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Participantes\RegistroParticipantes;
 use App\Livewire\Admin\RegistroParticipantesShow;
@@ -38,9 +40,11 @@ Route::get('/', RegistroParticipantes::class)->name('home');
 
 //RUTAS ADMIN
 Route::get('/participantes', RegistroParticipantesShow::class)->middleware(['auth', 'verified'])->name('dashboard');
-Route::get('/banners', Banners::class)->middleware(['auth', 'verified'])->name('banners');
-Route::get('/asistentes', Asistentes::class)->middleware(['auth', 'verified'])->name('asistentes');
+Route::get('/banners', BannersShow::class)->middleware(['auth', 'verified'])->name('banners');
+Route::get('/asistentes', AsistentesShow::class)->middleware(['auth', 'verified'])->name('asistentes');
 Route::get('/registro/{id}/revision', RegistroDetail::class)->name('registro.revisar');
+Route::get('/banner/{id}/ver', BannerDetail::class)->name('banner.ver');
+
 
 
 

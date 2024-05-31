@@ -8,9 +8,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
-                    Banners
+
+                    <div class="flex flex-wrap items-end gap-2 sm:-mt-7">
+                        <div class="sm:w-3/3">
+                            <h1>{{ $id }}</h1>
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>

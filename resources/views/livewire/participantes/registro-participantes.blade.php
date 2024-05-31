@@ -80,14 +80,16 @@
                                                         class="w-full" wire:change="limpiarCamposProcedencia">
                                                         <option value="0" selected disabled>Selecciona una opción
                                                         </option>
-                                                        <option value="1">Interno a la UAEMex</option>
-                                                        <option value="2">Externo a la UAEMex</option>
+                                                        <option value="1">Cuerpo académico UAEMéx</option>
+                                                        <option value="2">Externo a la UAEMéx</option>
+                                                        <option value="3">Red de investigación UAEMéx</option>
+
                                                     </select>
                                                     @error('form.tipoRegistro')
                                                         <span class="text-rojo block">{{ $message }}</span>
                                                     @enderror
                                                 </div>
-                                                @if ($form->tipoRegistro == 0 || $form->tipoRegistro == 1)
+                                                @if ($form->tipoRegistro == 0 || $form->tipoRegistro == 1 || $form->tipoRegistro == 3)
                                                     <div class="basis-3/4">
                                                         <label for="form.lugarProcedencia"
                                                             class="block mb-2 dark:text-white">
@@ -155,7 +157,7 @@
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                @elseif($form->tipoRegistro == 2)
+                                                @elseif($form->tipoRegistro == 2 || $form->tipoRegistro == 3)
                                                     <div>
                                                         <input type="text" id="form.nombreGrupo"
                                                             class="w-full disabled"
