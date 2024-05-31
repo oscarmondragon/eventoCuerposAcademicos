@@ -21,8 +21,8 @@ class RegistroParticipantesShow extends Component
     public $selectedArea;
     public $optionsAreas;
 
-    public $sortColumna = 'id';
-    public $sortDireccion = 'ASC';
+    public $sortColumna = 'updated_at';
+    public $sortDireccion = 'DESC';
 
 
     public function render()

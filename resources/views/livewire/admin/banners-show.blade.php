@@ -61,8 +61,8 @@
                                         <th class="w-[25%] cursor-pointer" wire:click="sort('espacio_procedencia')">
                                             Espacio académico<span class="pl-1 text-verde font-bold">&#8645;</span>
                                         </th>
-                                        <th class="w-[10%] cursor-pointer" wire:click="sort('registros.id')">
-                                            Procedencia
+                                        <th class="w-[10%] cursor-pointer" wire:click="sort('updated_at')">
+                                            Última modificación<span class="pl-1 text-verde font-bold">&#8645;</span>
                                         </th>
                                         <th class="w-[10%]">Acciones</th>
                                     </tr>
@@ -74,7 +74,7 @@
                                             <td>{{ $banner->email }}</td>
                                             <td>{{ $banner->cuerpo_grupo_red }}</td>
                                             <td>{{ $banner->espacio_procedencia }}</td>
-                                            <td class="text-center">{{ $banner->registro->tipo_solicitante }}</td>
+                                            <td class="text-center">{{ $banner->registro->updated_at }}</td>
                                             <td class="text-center"> <a
                                                     href="{{ route('banner.ver', ['id' => $banner->registro->id]) }}">
 
