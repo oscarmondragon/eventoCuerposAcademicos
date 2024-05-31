@@ -76,8 +76,8 @@
                                         <th class="w-[25%] cursor-pointer" wire:click="sort('espacio_procedencia')">
                                             Espacio académico<span class="pl-1 text-verde font-bold">&#8645;</span>
                                         </th>
-                                        <th class="w-[10%] cursor-pointer" wire:click="sort('tipo_solicitante')">
-                                            Procedencia<span class="pl-1 text-verde font-bold">&#8645;</span>
+                                        <th class="w-[10%] cursor-pointer" wire:click="sort('updated_at')">
+                                            Última modificación<span class="pl-1 text-verde font-bold">&#8645;</span>
                                         </th>
                                         <th class="w-[10%] cursor-pointer" wire:click="sort('aprobacion')">
                                             Estatus<span class="pl-1 text-verde font-bold">&#8645;</span>
@@ -92,7 +92,7 @@
                                             <td>{{ $registro->email }}</td>
                                             <td>{{ $registro->cuerpo_grupo_red }} </td>
                                             <td>{{ $registro->espacio_procedencia }}</td>
-                                            <td class="text-center">{{ $registro->tipo_solicitante }}</td>
+                                            <td class="text-center">{{ $registro->updated_at }}</td>
                                             <td class="text-center">
                                                 @if ($registro->aprobacion === null)
                                                     <span class="estatus-pendiente">Pendiente</span>
