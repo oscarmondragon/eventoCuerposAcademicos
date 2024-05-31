@@ -23,8 +23,8 @@ class BannersShow extends Component
     public $filtroArea = 0;
     public $optionsArea;
 
-
-
+    public $columna = 'id';
+    public $direccion = 'ASC';
 
     public $bannersDownload;
 
@@ -46,16 +46,19 @@ class BannersShow extends Component
             $banners = $banners->whereHas('registro', function ($query) {
                 $query->where('tipo_solicitante', 'Externo');
             });
-
+        } else if ($this->filtroProcedencia == 3) {
+            $banners = $banners->whereHas('registro', function ($query) {
+                $query->where('tipo_solicitante', 'Red');
+            });
         }
+
+
         if ($this->filtroArea != 0) {
             $banners = $banners->whereHas('registro', function ($query) {
                 $query->whereHas('area', function ($query) {
                     $query->where('area_id', $this->filtroArea);
                 });
-
             });
-
         }
 
 
@@ -80,11 +83,11 @@ class BannersShow extends Component
                     $lider = $item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno;
                 } else
                     if ($item->tipo == 'Integrante') {
-                        $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                    } else
+                    $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                } else
                         if ($item->tipo == 'Colaborador') {
-                            $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                        }
+                    $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                }
             }
             return [ //se colocan todos los datos que llevara el excel de banners
                 'espacio_procedencia' => $banner->espacio_procedencia,
@@ -105,16 +108,21 @@ class BannersShow extends Component
 
         return view(
             'livewire.admin.banners-show',
-            ['banners' => $banners->paginate(5, pageName: 'banners')]
+            ['banners' => $banners->orderBy($this->columna, $this->direccion)->paginate(5, pageName: 'banners')]
         );
     }
+
+    public function sort($columna)
+    {
+        $this->columna = $columna;
+        $this->direccion = $this->direccion == 'ASC' ? 'DESC' : 'ASC';
+    }
+
     public function limpiarFiltros()
     {
         $this->filtroProcedencia = 0;
         $this->filtroArea = 0;
         $this->search = '';
-
-
     }
     public function export()
     {

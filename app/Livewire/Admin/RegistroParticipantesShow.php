@@ -38,6 +38,8 @@ class RegistroParticipantesShow extends Component
             $registros = $registros->where('tipo_solicitante', 'Interno');
         } else if ($this->filtroProcedencia == 2) {
             $registros = $registros->where('tipo_solicitante', 'Externo');
+        } else if ($this->filtroProcedencia == 3) {
+            $registros = $registros->where('tipo_solicitante', 'Red');
         }
 
         if ($this->filtroEstatus == 1) {
@@ -58,7 +60,7 @@ class RegistroParticipantesShow extends Component
 
         if (!empty($this->search)) {
 
-            $registros->where('email', 'like', '%' . $this->search . '%')
+            $registros = $registros->where('email', 'like', '%' . $this->search . '%')
                 ->orWhere('espacio_procedencia', 'like', '%' . $this->search . '%')
                 ->orWhere('cuerpo_grupo_red', 'like', '%' . $this->search . '%')
                 ->orWhere('tipo_solicitante', 'like', '%' . $this->search . '%');
@@ -81,5 +83,6 @@ class RegistroParticipantesShow extends Component
         $this->filtroEstatus = 0;
         $this->filtroProcedencia = 0;
         $this->search = '';
+        $this->selectedArea = 0;
     }
 }

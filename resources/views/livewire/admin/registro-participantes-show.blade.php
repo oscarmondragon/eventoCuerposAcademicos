@@ -11,43 +11,56 @@
                     <h1 class="text-2xl font-medium sm:-mt-5 text-center">
                         Registros de participantes
                     </h1>
-                    <div class="flex flex-row items-end gap-y-3 mt-2">
-                        <div class="w-full">
-                            <h2 class="mb-2">Filtros</h2>
-                            <select class="sm:w-auto w-full" wire:model.live="filtroProcedencia" id="filtroProcedencia"
+                    <h2 class="mb-2 font-bold text-dorado text-xl sm:mt-0 mt-4">Filtros</h2>
+                    <div class="flex sm:flex-row flex-col items-end gap-y-3 mt-2 sm:gap-x-1">
+
+                        <div class="sm:w-[19%] w-full">
+                            <label for="filtroProcedencia" class="text-verde font-bold">Tipo procedencia</label>
+                            <select class="w-full" wire:model.live="filtroProcedencia" id="filtroProcedencia"
                                 name="filtroProcedencia">
                                 <option value="0">Todos</option>
-                                <option value="1">Internos</option>
-                                <option value="2">Externos</option>
+                                <option value="1">Cuerpo académico UAEMéx</option>
+                                <option value="2">Externos a la UAEMéx</option>
+                                <option value="3">Red de investigación UAEMéx</option>
                             </select>
-                            <select class="sm:w-auto w-full sm:mt-0 mt-4" wire:model.live="filtroEstatus"
-                                id="filtroEstatus" name="filtroEstatus">
+                        </div>
+                        <div class="sm:w-[19%] w-full">
+                            <label for="filtroEstatus" class="text-verde font-bold">Estatus</label>
+                            <select class="w-full" wire:model.live="filtroEstatus" id="filtroEstatus"
+                                name="filtroEstatus">
                                 <option value="0">Todos</option>
                                 <option value="1">Pendintes de revisión</option>
                                 <option value="2">Aprobado</option>
                                 <option value="3">Rechazados</option>
                             </select>
+                        </div>
 
-                            <select name="" id="" class="sm:w-auto w-full sm:mt-0 mt-4"
-                                wire:model.live="selectedArea">
-                                <option value="0">Áreas temáticas</option>
+                        <div class="sm:w-[29%] w-full">
+                            <label for="selectedArea" class="text-verde font-bold">Área temática</label>
+                            <select name="selectedArea" id="selectedArea" class="w-full" wire:model.live="selectedArea">
+                                <option value="0">Todas</option>
                                 @foreach ($optionsAreas as $area)
                                     <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                 @endforeach
                             </select>
+                        </div>
 
+                        <div class="sm:w-[31%] w-full">
+                            <label for="search" class="text-verde font-bold">Buscador</label>
                             <input type="text" wire:model.live="search"
-                                class="inputs-formulario-solicitudes sm:mt-0 mt-4 p-2.5 sm:w-[400px] w-full"
+                                class="inputs-formulario-solicitudes p-2.5 w-full"
                                 placeholder="Buscar por correo, espacio académico, nombre de cuerpo acádemico etc....">
                         </div>
 
                     </div>
+
+
                     <div class="w-full flex justify-end mt-4">
                         <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
                             filtros</button>
                     </div>
                     @if ($registros->first())
-                        <div class="mt-8 overflow-x-auto">
+                        <div class="overflow-x-auto mt-8">
                             <table class="w-full table-auto">
                                 <thead>
                                     <tr class="text-sm">
