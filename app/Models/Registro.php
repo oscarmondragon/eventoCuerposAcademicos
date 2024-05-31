@@ -64,8 +64,8 @@ class Registro extends Model
         return $this->hasOne(Banner::class);
     }
 
-
-
-
-
+    public function fortalezasNecesidades()
+    {
+        return $this->hasMany(FortalezaNecesidad::class);
+    }
 }
