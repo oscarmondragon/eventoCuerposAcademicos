@@ -24,6 +24,7 @@ class RegistroDetail extends Component
     public $estatusSelected;
 
 
+
     #[Validate('required_if:estatusSelected,Rechazar|min:3')]
     public $observaciones = '';
 
@@ -40,10 +41,12 @@ class RegistroDetail extends Component
     {
 
         try {
-            $this->registro = Registro::with('archivos', 'integrantes', 'lineas', 'area.area', 'subareas.subarea', 'banner')->findOrFail($id);
+            $this->registro = Registro::with('archivos', 'integrantes', 'lineas', 'area.area', 'subareas.subarea', 'banner', 'fortalezasNecesidades')->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
+
+        //dd($this->registro->integrantes);
     }
     public function render()
     {
@@ -58,7 +61,6 @@ class RegistroDetail extends Component
         try {
             if ($this->estatusSelected == 'Aprobar') {
                 $this->registro->aprobacion = 1;
-
             } else if ($this->estatusSelected == 'Rechazar') {
                 $this->registro->aprobacion = 0;
                 $this->registro->observaciones = $this->observaciones;
@@ -73,6 +75,5 @@ class RegistroDetail extends Component
             dd("Error en catch:" . $e);
             return redirect()->back()->with('error', 'Error en el proceso de guardado ' . $e->getMessage());
         }
-
     }
 }
