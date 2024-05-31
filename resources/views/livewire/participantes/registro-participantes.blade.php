@@ -698,14 +698,14 @@
                                                                         :key="index">
                                                                         <tr
                                                                             class="border border-b-gray-200 border-transparent ">
-                                                                            <th
-                                                                                x-text="lider.nombre + ' ' + lider.apellidoPaterno + ' ' + lider.apellidoMaterno">
-                                                                            </th>
                                                                             <td
-                                                                                class="flex md:flex-row flex-col gap-2">
+                                                                                x-text="lider.nombre + ' ' + lider.apellidoPaterno + ' ' + lider.apellidoMaterno">
+                                                                            </td>
+                                                                            <td
+                                                                                class="flex md:flex-row flex-col md:gap-x-2 gap-y-2">
                                                                                 <div>
                                                                                     <button type="button"
-                                                                                        class="btn-transition"
+                                                                                        class="btn-transition btn-tablas"
                                                                                         @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
                                                                                         _id: lider._id, 
                                                                                         nombre: lider.nombre, 
@@ -773,7 +773,7 @@
                                                         <table
                                                             class="table-auto text-left text-sm w-3/4 sm:w-full mx-auto">
                                                             <thead>
-                                                                <tr class="bg-blanco">
+                                                                <tr>
                                                                     <th class="w-[50%]">Nombre de los integrantes</th>
                                                                     <th class="w-[35%]">Tipo</th>
                                                                     <th class="w-[15%]">Acción</th>
@@ -784,15 +784,16 @@
                                                                     :key="index">
                                                                     <tr
                                                                         class="border border-b-gray-200 border-transparent ">
-                                                                        <th
+                                                                        <td
                                                                             x-text="integrante.nombre + ' ' + integrante.apellidoPaterno + ' ' + integrante.apellidoMaterno">
-                                                                        </th>
-                                                                        <th x-text="integrante.tipoIntegrante">
-                                                                        </th>
-                                                                        <td class="flex md:flex-row flex-col gap-2">
+                                                                        </td>
+                                                                        <td x-text="integrante.tipoIntegrante">
+                                                                        </td>
+                                                                        <td
+                                                                            class="flex md:flex-row flex-col items-center md:gap-x-2 gap-y-2">
                                                                             <div>
                                                                                 <button type="button"
-                                                                                    class="btn-tablas btn-transition"
+                                                                                    class="button btn-tablas"
                                                                                     @click="$wire.dispatch('openModal', { component: 'modals.integrantes-modal', arguments: { 
                                                                                         _id: integrante._id, 
                                                                                         nombre: integrante.nombre, 
@@ -817,7 +818,7 @@
                                                                             <div>
                                                                                 <button type="button"
                                                                                     @click.stop="integrantes.splice(index, 1); $wire.deleteLinea(integrante)"
-                                                                                    class="btn-tablas btn-transition">
+                                                                                    class="button btn-tablas">
                                                                                     <img src="{{ asset('img/botones/btn_eliminar.png') }}"
                                                                                         alt="Botón eliminar"
                                                                                         title="Eliminar">

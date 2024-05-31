@@ -20,34 +20,42 @@
                                 <button id="about-tab" data-tabs-target="#about" type="button" role="tab"
                                     aria-controls="about" aria-selected="true"
                                     class="inline-block p-4 text-blue-600 rounded-ss-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700 dark:text-blue-500">
-                                    Datos generales
+                                    Pago
                                 </button>
                             </li>
                             <li class="me-2">
                                 <button id="services-tab" data-tabs-target="#services" type="button" role="tab"
                                     aria-controls="services" aria-selected="false"
                                     class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">
-                                    Integrantes
+                                    Datos generales
                                 </button>
                             </li>
                             <li class="me-2">
                                 <button id="statistics-tab" data-tabs-target="#statistics" type="button" role="tab"
                                     aria-controls="statistics" aria-selected="false"
                                     class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">
-                                    Banner
+                                    Integrantes
                                 </button>
                             </li>
                             <li class="me-2">
                                 <button id="pago-tab" data-tabs-target="#pago" type="button" role="tab"
                                     aria-controls="pago" aria-selected="false"
                                     class="inline-block p-4 hover:text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-gray-300">
-                                    Pago
+                                    Banner
                                 </button>
                             </li>
                         </ul>
                         <div id="defaultTabContent">
                             <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about"
                                 role="tabpanel" aria-labelledby="about-tab">
+
+                                pago
+
+                            </div>
+
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="services"
+                                role="tabpanel" aria-labelledby="services-tab">
+
                                 <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5">
                                     <div class="sm:w-1/4 w-full">
                                         <label class="label-titulo">Procedencia:</label>
@@ -151,16 +159,14 @@
                                         @foreach ($registro->fortalezasNecesidades as $necesidad)
                                             @if ($necesidad->tipo == 'Necesidad')
                                                 <span> {{ $necesidad->descripcion }} </span>
-                                                <label class="label-titulo">Lider: </label>
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
 
                             </div>
-                            <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="services"
-                                role="tabpanel" aria-labelledby="services-tab">
-
+                            <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="statistics"
+                                role="tabpanel" aria-labelledby="statistics-tab">
                                 <div class="overflow-x-auto">
                                     <table class="w-full table-auto text-sm">
                                         <thead>
@@ -198,14 +204,6 @@
                                     </table>
                                 </div>
 
-
-
-
-
-                            </div>
-                            <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="statistics"
-                                role="tabpanel" aria-labelledby="statistics-tab">
-                                Banner
                             </div>
 
                             <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="pago"

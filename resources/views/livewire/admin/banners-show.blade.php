@@ -100,7 +100,7 @@
 
                     <div class="flex justify-end mt-5">
                         <button wire:click="export" class="button" title="Exportar Excel">
-                            <img src="{{ 'img/iconos/icExportar.png' }}" alt="asdfadsf" class="w-8">
+                            <img src="{{ asset('img/iconos/icExportar.png') }}" alt="asdfadsf" class="w-8">
                         </button>
                     </div>
 
