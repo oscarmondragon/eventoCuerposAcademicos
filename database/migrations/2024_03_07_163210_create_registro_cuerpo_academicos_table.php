@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('registros', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->enum('tipo_solicitante', ['Externo', 'Interno']);
+            $table->enum('tipo_solicitante', ['Externo', 'Interno', 'Red']);
             $table->string('cuerpo_grupo_red', 200);
             $table->text('productos_logrados');
             $table->text('casos_exito');

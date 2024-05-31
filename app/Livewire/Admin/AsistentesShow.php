@@ -7,10 +7,10 @@ use Livewire\Attributes\Layout;
 
 #[Layout('layouts.app')]
 
-class Banners extends Component
+class AsistentesShow extends Component
 {
     public function render()
     {
-        return view('livewire.admin.banners');
+        return view('livewire.admin.asistentes-show');
     }
 }

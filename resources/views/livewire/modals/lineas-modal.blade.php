@@ -17,7 +17,7 @@
                             </option>
                         @endforeach
                     </select>
-                @elseif($tipoRegistro == 2)
+                @elseif($tipoRegistro == 2 || $tipoRegistro == 3)
                     <input type="text" id="nombre" wire:model.live="nombre" class="input-modal"
                         placeholder="Nombre de la línea" />
                 @endif

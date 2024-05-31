@@ -244,6 +244,8 @@ class ParticipantesForm extends Form
                 $this->tipoRegistro = "Interno";
             } else if ($this->tipoRegistro == 2) {
                 $this->tipoRegistro = "Externo";
+            } else if ($this->tipoRegistro == 3) {
+                $this->tipoRegistro = "Red";
             } else {
                 return "Procedencia invalida.";
             }

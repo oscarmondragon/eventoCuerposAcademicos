@@ -112,7 +112,7 @@ class IntegrantesModal extends ModalComponent
         $tiposFiltro = [];
 
         //Filtramos los tipos de lider de acuerdo a si es externo o interno
-        if ($this->tipoRegistro == '1') {
+        if ($this->tipoRegistro == '1' || $this->tipoRegistro == '3') {
             $tiposFiltro = TipoLider::where('tipo_solicitante', 'Interno')->get();
         } elseif ($this->tipoRegistro == '2') {
             $tiposFiltro = TipoLider::where('tipo_solicitante', 'Externo')->get();
