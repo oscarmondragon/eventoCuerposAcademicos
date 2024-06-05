@@ -83,11 +83,11 @@ class BannersShow extends Component
                     $lider = $item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno;
                 } else
                     if ($item->tipo == 'Integrante') {
-                        $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                    } else
+                    $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                } else
                         if ($item->tipo == 'Colaborador') {
-                            $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                        }
+                    $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                }
             }
             return [ //se colocan todos los datos que llevara el excel de banners
                 'espacio_procedencia' => $banner->espacio_procedencia,
@@ -105,6 +105,7 @@ class BannersShow extends Component
                 'otra_red' => $banner->otra_red,
             ];
         });
+
 
         return view(
             'livewire.admin.banners-show',

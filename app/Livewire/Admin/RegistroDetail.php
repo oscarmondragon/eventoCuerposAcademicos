@@ -8,7 +8,7 @@ use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
+use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.app')]
 
@@ -25,7 +25,7 @@ class RegistroDetail extends Component
 
 
 
-    #[Validate('required_if:estatusSelected,Rechazar|min:3')]
+    #[Validate('required_if:estatusSelected,Rechazar|min:3|max:255')]
     public $observaciones = '';
 
 
@@ -35,6 +35,7 @@ class RegistroDetail extends Component
         'estatusSelected.in_array' => 'Selecciona un estatus',
         'observaciones.required_if' => 'El campo observaciones no puede estar vacio',
         'observaciones.min' => 'El campo observaciones debe contener al menos 3 caracteres',
+        'observaciones.max' => 'El campo observaciones es demasiado largo.',
     ];
 
     public function mount($id)
@@ -46,7 +47,7 @@ class RegistroDetail extends Component
             abort(404);
         }
 
-        //dd($this->registro->integrantes);
+        //dd($this->registro->banner->integrantes);
     }
     public function render()
     {
@@ -74,6 +75,17 @@ class RegistroDetail extends Component
             DB::rollback();
             dd("Error en catch:" . $e);
             return redirect()->back()->with('error', 'Error en el proceso de guardado ' . $e->getMessage());
+        }
+    }
+
+    public function descargarArchivo($rutaArchivo)
+    {
+        //$archivo = null;
+        $ruta = storage_path('app/' . $rutaArchivo);
+        if (Storage::exists($rutaArchivo)) {
+            return response()->download($ruta);
+        } else {
+            abort(404);
         }
     }
 }

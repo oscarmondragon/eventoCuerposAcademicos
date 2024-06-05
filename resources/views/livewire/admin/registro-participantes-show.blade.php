@@ -24,6 +24,15 @@
                                 <option value="3">Red de investigación UAEMéx</option>
                             </select>
                         </div>
+                        <div class="sm:w-[29%] w-full">
+                            <label for="selectedArea" class="text-verde font-bold">Área temática</label>
+                            <select name="selectedArea" id="selectedArea" class="w-full" wire:model.live="selectedArea">
+                                <option value="0">Todas</option>
+                                @foreach ($optionsAreas as $area)
+                                    <option value="{{ $area->id }}">{{ $area->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="sm:w-[19%] w-full">
                             <label for="filtroEstatus" class="text-verde font-bold">Estatus</label>
                             <select class="w-full" wire:model.live="filtroEstatus" id="filtroEstatus"
@@ -35,15 +44,6 @@
                             </select>
                         </div>
 
-                        <div class="sm:w-[29%] w-full">
-                            <label for="selectedArea" class="text-verde font-bold">Área temática</label>
-                            <select name="selectedArea" id="selectedArea" class="w-full" wire:model.live="selectedArea">
-                                <option value="0">Todas</option>
-                                @foreach ($optionsAreas as $area)
-                                    <option value="{{ $area->id }}">{{ $area->nombre }}</option>
-                                @endforeach
-                            </select>
-                        </div>
 
                         <div class="sm:w-[31%] w-full">
                             <label for="search" class="text-verde font-bold">Buscador</label>
@@ -116,7 +116,7 @@
                         </div>
                     @else
                         <div class="text-center text-verde text-xl font-bold mt-7 ">
-                            NO HAY REGISTROS
+                            NO HAY REGISTROS O NO HAY COINCIDENCIAS CON LOS FILTROS
                         </div>
                     @endif
                     <div class="mt-7">
