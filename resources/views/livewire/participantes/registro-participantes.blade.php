@@ -24,7 +24,7 @@
                                     <li>¡Prepara tu información con antelación!</li>
                                     <li>Asegúrate de tener a mano cualquier documento o referencia relevante.</li>
                                     <li>Los campos con <span class="text-rojo">*</span> son obligatorios.</li>
-                                    <li>El formulario esta dividido por secciones, asegurate de completarlas.</li>
+                                    <li>El formulario está dividido por secciones, asegúrate de completarlas.</li>
                                     <li>Al concluir la captura de <span class="font-bold">TODOS</span> los datos
                                         obligatorios debes darle enviar para
                                         guardar tu registro.</li>
@@ -1327,7 +1327,7 @@
                         <input type="checkbox" id="form.aceptoDatos" wire:model.live='form.aceptoDatos'
                             name="form.aceptoDatos" class="mr-2">
                         <label for="form.aceptoDatos">
-                            Acepto aviso de privacidad de la UAEMex y acepto que los datos puedan ser utilizados
+                            Acepto aviso de privacidad de la UAEMéx y acepto que los datos puedan ser utilizados
                             con
                             fines de vinculación y estadísticos.<samp class="text-rojo">*</samp>
                         </label>

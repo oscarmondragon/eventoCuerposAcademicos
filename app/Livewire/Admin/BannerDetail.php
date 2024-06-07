@@ -13,16 +13,19 @@ class BannerDetail extends Component
 {
 
     public $id; //parametro recibido por la ruta
+    public $registro;
 
 
     public function mount($id)
     {
 
         try {
-            $this->registro = Registro::with('banner')->findOrFail($id);
+            $this->registro = Registro::with('banner', 'integrantes')->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             abort(404);
         }
+
+        //dd($this->registro->integrantes);
     }
     public function render()
     {

@@ -9,7 +9,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
 
-                    <h1 class="text-center text-xl text-verde">Resumen detallado: {{ $registro->cuerpo_grupo_red }}
+                    <h1 class="text-center text-xl text-verde">
+                        Resumen detallado: {{ $registro->cuerpo_grupo_red }}
                     </h1>
 
                     <div
@@ -46,10 +47,70 @@
                             </li>
                         </ul>
                         <div id="defaultTabContent">
-                            <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about"
-                                role="tabpanel" aria-labelledby="about-tab">
+                            <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel"
+                                aria-labelledby="about-tab">
 
-                                pago
+                                <div>
+                                    @foreach ($registro->archivos as $archivo)
+                                        @if ($archivo->tipo == 'Boucher')
+                                            <label class="label-titulo">Comprobante:</label>
+                                            <ul class="ml-4">
+                                                <li class="list-none inline-block items-center text-lg">
+                                                    <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                                    </svg>
+                                                    Comprobante de pago
+                                                    <button type="button" class="button "
+                                                        wire:click="descargarArchivo('{{ $archivo->ruta }}')">
+                                                        <img src="{{ asset('img/botones/btn_pdf.png') }}"
+                                                            alt="Descargar archivo" class="w-6 -mb-2"
+                                                            title="Descargar comprobante de pago.">
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        @elseif($archivo->tipo == 'CSF')
+                                            <label class="label-titulo mt-8">Constancia de situación fiscal:</label>
+                                            <ul class="ml-4">
+                                                <li class="list-none inline-block items-center text-lg">
+                                                    <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                                    </svg>
+                                                    CSF
+                                                    <button type="button" class="button "
+                                                        wire:click="descargarArchivo('{{ $archivo->ruta }}')">
+                                                        <img src="{{ asset('img/botones/btn_pdf.png') }}" alt="hola"
+                                                            class="w-6 -mb-2" title="Descargar CSF.">
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        @else
+                                            <label class="label-titulo mt-8">Otros archivos:</label>
+                                            <ul class="">
+                                                <li class="list-none inline-block items-center text-lg">
+                                                    <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
+                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
+                                                    </svg>
+                                                    Otros archivos
+                                                    <button type="button" class="button "
+                                                        wire:click="descargarArchivo('{{ $archivo->ruta }}')">
+                                                        <img src="{{ asset('img/botones/btn_pdf.png') }}" alt="hola"
+                                                            class="w-6 -mb-2" title="Descargar comprobante de pago.">
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        @endif
+                                    @endforeach
+
+                                </div>
 
                             </div>
 
@@ -72,7 +133,7 @@
                                 <div class="mt-8">
                                     <label class="label-titulo">Nombre del Cuerpo Académico, red o grupo de
                                         investigación:</label>
-                                    <span> {{ $registro->cuerpo_grupo_red }}</span>
+                                    <p> {{ $registro->cuerpo_grupo_red }}</p>
                                 </div>
                                 <div class="flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 mt-8">
                                     <div class="sm:w-1/4 w-full">
@@ -131,37 +192,37 @@
 
                                 <div class="mt-8">
                                     <label class="label-titulo">Principales productos logrados:</label>
-                                    <span> {{ $registro->productos_logrados }}</span>
+                                    <p> {{ $registro->productos_logrados }}</p>
                                 </div>
 
                                 <div class="mt-8">
                                     <label class="label-titulo">Casos de éxito de transferencia:</label>
-                                    <span> {{ $registro->casos_exito }}</span>
+                                    <p> {{ $registro->casos_exito }}</p>
                                 </div>
 
                                 <div class="mt-8">
-                                    <label class="label-titulo">Proyección y propuesta de vinculación o servicios que se
+                                    <label class="label-titulo">Proyección y propuesta de vinculación o servicios que
+                                        se
                                         brindan o proyectos para posible vinculación:</label>
-                                    <span> {{ $registro->servicios_proyectos }}</span>
+                                    <p> {{ $registro->servicios_proyectos }}</p>
                                 </div>
 
-                                <div class="flex md:flex-row flex-col md:gap-x-5 gap-y-5 mt-8">
-                                    <div class="sm:w-1/2 w-full">
-                                        <label class="label-titulo">Fortalezas:</label>
-                                        @foreach ($registro->fortalezasNecesidades as $fortaleza)
-                                            @if ($fortaleza->tipo == 'Fortaleza')
-                                                <span>{{ $fortaleza->descripcion }}</span>
-                                            @endif
-                                        @endforeach
-                                    </div>
-                                    <div class="sm:w-1/2 w-full">
-                                        <label class="label-titulo">Necesidades:</label>
-                                        @foreach ($registro->fortalezasNecesidades as $necesidad)
-                                            @if ($necesidad->tipo == 'Necesidad')
-                                                <span> {{ $necesidad->descripcion }} </span>
-                                            @endif
-                                        @endforeach
-                                    </div>
+                                <div class="mt-8">
+                                    <label class="label-titulo">Fortalezas:</label>
+                                    @foreach ($registro->fortalezasNecesidades as $fortaleza)
+                                        @if ($fortaleza->tipo == 'Fortaleza')
+                                            <p>{{ $fortaleza->descripcion }}</p>
+                                        @endif
+                                    @endforeach
+                                </div>
+
+                                <div class="mt-8">
+                                    <label class="label-titulo">Necesidades:</label>
+                                    @foreach ($registro->fortalezasNecesidades as $necesidad)
+                                        @if ($necesidad->tipo == 'Necesidad')
+                                            <p> {{ $necesidad->descripcion }} </p>
+                                        @endif
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -208,7 +269,111 @@
 
                             <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="pago"
                                 role="tabpanel" aria-labelledby="pago-tab">
-                                seccion de pago
+                                <div>
+                                    <label class="label-titulo">Institución de procedencia: </label>
+                                    <p> {{ $registro->banner->espacio_procedencia }} </p>
+                                </div>
+
+                                <div class="mt-8">
+                                    <label class="label-titulo">Cuerpo Académico:</label>
+                                    <p> {{ $registro->banner->cuerpo_grupo_red }} </p>
+                                </div>
+
+                                <div class="mt-8">
+                                    <label class="label-titulo">Área temática: </label>
+                                    <p> {{ $registro->banner->area_tematica }} </p>
+                                </div>
+
+                                <div class="mt-8">
+                                    <label class="label-titulo">Descripción de su principal línea de generación</label>
+                                    <p> {{ $registro->banner->descripcion_linea }} </p>
+                                </div>
+
+                                <div class="mt-8">
+                                    <label class="label-titulo">Integrantes</label>
+                                    <div class="ml-8">
+                                        <div class="mt-5">
+                                            <label class="label-titulo">Lider:</label>
+                                            <ul class="list-disc ml-10">
+                                                @foreach ($registro->integrantes as $lider)
+                                                    @if ($lider->tipo == 'Lider')
+                                                        <li>
+                                                            {{ $lider->grado_academico_abreviado . ' ' . $lider->nombre . ' ' . $lider->apellido_paterno . ' ' . $lider->apellido_materno }}
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+
+                                        <div class="mt-8">
+                                            <label class="label-titulo">Integrantes:</label>
+                                            <ul class="list-disc ml-10">
+                                                @foreach ($registro->integrantes as $integrante)
+                                                    @if ($integrante->tipo == 'Integrante')
+                                                        <li>
+                                                            {{ $integrante->grado_academico_abreviado . ' ' . $integrante->nombre . ' ' . $integrante->apellido_paterno . ' ' . $integrante->apellido_materno }}
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+
+                                        <div class="mt-8">
+                                            <label class="label-titulo">Colaboradores:</label>
+                                            <ul class="list-disc ml-10">
+                                                @foreach ($registro->integrantes as $colaborador)
+                                                    @if ($colaborador->tipo == 'Colaborador')
+                                                        <li>
+                                                            {{ $colaborador->grado_academico_abreviado . ' ' . $colaborador->nombre . ' ' . $colaborador->apellido_paterno . ' ' . $colaborador->apellido_materno }}
+                                                        </li>
+                                                    @endif
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex sm:flex-row flex-col sm:gap-x-4 gap-y-4 mt-8">
+                                    <div class="sm:w-2/5 w-full">
+                                        <label class="label-titulo">Teléfono:</label>
+                                        <p class="inline-block"> {{ $registro->banner->telefono }} </p>
+                                    </div>
+
+                                    <div class="sm:w-3/5 w-full">
+                                        <label class="label-titulo">Correo electrónico:</label>
+                                        <p class="inline-block"> {{ $registro->banner->email }} </p>
+                                    </div>
+                                </div>
+
+                                <div class="flex sm:flex-row flex-col sm:gap-x-4 gap-y-4 justify-between mt-8">
+                                    @if ($registro->banner->facebook != null)
+                                        <div class="sm:w-1/4 w-full">
+                                            <label class="label-titulo">Facebook:</label>
+                                            {{ $registro->banner->facebook }}
+                                        </div>
+                                    @endif
+
+                                    @if ($registro->banner->twitter != null)
+                                        <div class="sm:w-1/4 w-full">
+                                            <label class="label-titulo">X:</label>
+                                            {{ $registro->banner->twitter }}
+                                        </div>
+                                    @endif
+
+                                    @if ($registro->banner->youtube != null)
+                                        <div class="sm:w-1/4 w-full">
+                                            <label class="label-titulo">YouTube:</label>
+                                            {{ $registro->banner->youtube }}
+                                        </div>
+                                    @endif
+
+                                    @if ($registro->banner->otra_red != null)
+                                        <div class="sm:w-1/4 w-full">
+                                            <label class="label-titulo">Otra red:</label>
+                                            {{ $registro->banner->otra_red }}
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -222,7 +387,7 @@
                         </div>
 
                         <div>
-                            <form wire:submit="save" class="">
+                            <form wire:submit="save">
                                 <div>
                                     <label for="estatusSelected" class="block mb-2">
                                         Estatus<span class="font-bold text-red-600">*</span>

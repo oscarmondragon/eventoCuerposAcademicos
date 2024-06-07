@@ -92,7 +92,7 @@
     }
 
     .label-titulo {
-        @apply bg-blanco text-verde sm:inline-block block font-bold p-2 rounded-md;
+        @apply bg-blanco text-verde sm:inline-block block font-bold p-2 mb-2 rounded-md;
     }
 
     .estatus-pendiente {
