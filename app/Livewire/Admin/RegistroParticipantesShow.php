@@ -31,6 +31,8 @@ class RegistroParticipantesShow extends Component
     public $sortColumna = 'updated_at';
     public $sortDireccion = 'DESC';
 
+    public $paginador = 5;
+
 
     public function render()
     {
@@ -75,7 +77,7 @@ class RegistroParticipantesShow extends Component
 
         return view(
             'livewire.admin.registro-participantes-show',
-            ['registros' => $registros->orderBy($this->sortColumna, $this->sortDireccion)->paginate(10, pageName: 'registros')]
+            ['registros' => $registros->orderBy($this->sortColumna, $this->sortDireccion)->paginate($this->paginador, pageName: 'registros')]
         );
     }
 

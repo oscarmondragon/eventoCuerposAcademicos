@@ -23,6 +23,7 @@ class RegistroDetail extends Component
     #[Validate('required|in_array:estatusOptions.*')]
     public $estatusSelected;
 
+    public $estatusDB = null;
 
 
     #[Validate('required_if:estatusSelected,Rechazar|min:3|max:255')]
@@ -38,13 +39,27 @@ class RegistroDetail extends Component
         'observaciones.max' => 'El campo observaciones es demasiado largo.',
     ];
 
+    public $listeners = [
+        'save'
+    ];
+
     public function mount($id)
     {
+
+
 
         try {
             $this->registro = Registro::with('archivos', 'integrantes', 'lineas', 'area.area', 'subareas.subarea', 'banner', 'fortalezasNecesidades')->findOrFail($id);
         } catch (ModelNotFoundException $e) {
             abort(404);
+        }
+
+        $this->estatusDB = $this->registro->aprobacion;
+
+        if ($this->estatusDB == 0) {
+
+            $this->estatusSelected = 'Rechazar';
+            $this->observaciones =  $this->registro->observaciones;
         }
 
         //dd($this->registro->banner->integrantes);
@@ -62,6 +77,7 @@ class RegistroDetail extends Component
         try {
             if ($this->estatusSelected == 'Aprobar') {
                 $this->registro->aprobacion = 1;
+                $this->registro->observaciones = null;
             } else if ($this->estatusSelected == 'Rechazar') {
                 $this->registro->aprobacion = 0;
                 $this->registro->observaciones = $this->observaciones;
