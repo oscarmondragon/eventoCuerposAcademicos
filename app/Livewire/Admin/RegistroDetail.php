@@ -80,9 +80,9 @@ class RegistroDetail extends Component
 
     public function descargarArchivo($rutaArchivo)
     {
-        //$archivo = null;
         $ruta = storage_path('app/' . $rutaArchivo);
-        if (Storage::exists($rutaArchivo)) {
+
+        if (file_exists($ruta)) {
             return response()->download($ruta);
         } else {
             abort(404);
