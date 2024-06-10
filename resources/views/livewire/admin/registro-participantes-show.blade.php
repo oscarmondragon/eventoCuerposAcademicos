@@ -47,9 +47,9 @@
 
                         <div class="sm:w-[31%] w-full">
                             <label for="search" class="text-verde font-bold">Buscador</label>
-                            <input type="text" wire:model.live="search"
+                            <input type="text" wire:model.live="search" id="search"
                                 class="inputs-formulario-solicitudes p-2.5 w-full"
-                                placeholder="Buscar por correo, espacio académico, nombre de cuerpo acádemico etc....">
+                                placeholder="Buscar por correo, espacio académico, nombre de cuerpo acádemico etc...">
                         </div>
 
                     </div>
@@ -59,7 +59,16 @@
                         <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
                             filtros</button>
                     </div>
+
                     @if ($registros->first())
+                        <div class="text-end mt-6">
+                            <label for="paginador">Paginación:</label>
+                            <select name="paginador" id="paginador" wire:model.live="paginador">
+                                @for ($i = 5; $i <= 20; $i += 5)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
+                            </select>
+                        </div>
                         <div class="overflow-x-auto mt-8">
                             <table class="w-full table-auto">
                                 <thead>
@@ -97,7 +106,12 @@
                                                 @if ($registro->aprobacion === null)
                                                     <span class="estatus-pendiente">Pendiente</span>
                                                 @elseif($registro->aprobacion === 0)
-                                                    <span class="estatus-rechazado">Rechazado</span>
+                                                    <button type="button"
+                                                        @click="$wire.dispatch('openModal', {component:'modals.observaciones-modal', arguments: {id: '{{ $registro->id }}',observaciones : '{{ $registro->observaciones }}'}})"
+                                                        class="estatus-rechazado hover:-translate-y-1 hover:scale-110 duration-300"
+                                                        title="Ver más.">
+                                                        Rechazado
+                                                    </button>
                                                 @elseif($registro->aprobacion === 1)
                                                     <span class="estatus-aprobado">Aprobado</span>
                                                 @endif

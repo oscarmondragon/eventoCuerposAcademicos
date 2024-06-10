@@ -387,11 +387,13 @@
                         </div>
 
                         <div>
-                            <form wire:submit="save">
+                            <form x-on:submit.prevent="confirmacion">
                                 <div>
                                     <label for="estatusSelected" class="block mb-2">
                                         Estatus<span class="font-bold text-red-600">*</span>
                                     </label>
+
+                                    {{ $estatusSelected }}
                                     <select name="estatusSelected" id="estatusSelected" wire:model="estatusSelected">
                                         <option value="0">Selecciona una opción</option>
                                         @foreach ($estatusOptions as $estatus)
@@ -406,8 +408,8 @@
                                         <label for="observaciones" class="block mb-2">
                                             Observaciones<span class="font-bold text-red-600">*</span>
                                         </label>
-                                        <textarea id="observaciones" wire:model="observaciones" cols="30" rows="3" class="sm:w-3/5 w-full"
-                                            placeholder="Observaciones"></textarea>
+                                        <textarea id="observaciones" wire:model="observaciones" cols="30" rows="3"
+                                            class="sm:w-3/5 w-full text-rojo font-bold" placeholder="Observaciones"></textarea>
                                         <x-input-error :messages="$errors->get('observaciones')" class="mt-1" />
                                     </div>
                                 </div>
@@ -416,7 +418,7 @@
                                     <a href="{{ route('dashboard') }}">
                                         <x-secondary-button>Regresar</x-secondary-button>
                                     </a>
-                                    <x-primary-button>Guardar</x-primary-button>
+                                    <x-primary-button @click="confirmacion">Guardar</x-primary-button>
                                 </div>
                             </form>
                         </div>
@@ -425,4 +427,29 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmacion() {
+            Swal.fire({
+                customClass: {
+                    title: 'swal2-title'
+                },
+                title: '¿Estas seguro de actualizar el estatus?',
+                text: 'Al presionar confirmar se le notificará al participante el nuevo estatus de su registro via correo electrónico.',
+                position: 'center',
+                icon: 'warning',
+                iconColor: '#9D9361',
+                showCancelButton: true,
+                confirmButtonColor: '#62836C',
+                cancelButtonColor: '#E86562',
+                confirmButtonText: 'Si, confirmar',
+                cancelButtonText: 'Cerrar',
+
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Livewire.dispatch('save');
+                }
+            });
+        }
+    </script>
 </div>

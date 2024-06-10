@@ -26,6 +26,8 @@ class BannersShow extends Component
     public $columna = 'updated_at';
     public $direccion = 'DESC';
 
+    public $paginador = 5;
+
     public $bannersDownload;
 
     public function mount()
@@ -109,7 +111,7 @@ class BannersShow extends Component
 
         return view(
             'livewire.admin.banners-show',
-            ['banners' => $banners->orderBy($this->columna, $this->direccion)->paginate(5, pageName: 'banners')]
+            ['banners' => $banners->orderBy($this->columna, $this->direccion)->paginate($this->paginador, pageName: 'banners')]
         );
     }
 

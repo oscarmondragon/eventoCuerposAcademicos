@@ -11,7 +11,7 @@
                     <h1 class="text-2xl font-medium sm:-mt-5 text-center">Banners</h1>
 
 
-                    <div id="alert-5" class="flex items-center p-4 my-6 text-color_primary rounded-lg bg-verde/40"
+                    {{-- <div id="alert-5" class="flex items-center p-4 my-6 text-color_primary rounded-lg bg-verde/40"
                         role="alert">
                         <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor" viewBox="0 0 20 20">
@@ -32,7 +32,7 @@
                                     stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
                         </button>
-                    </div>
+                    </div> --}}
 
                     <h2 class="mb-2 font-bold text-dorado text-xl sm:mt-0 mt-4">Filtros</h2>
 
@@ -60,19 +60,36 @@
 
                         <div class="sm:w-[48%] w-full">
                             <label for="search" class="text-verde font-bold">Buscador</label>
-                            <input type="text" wire:model.live="search"
+                            <input type="text" wire:model.live="search" id="search"
                                 class="inputs-formulario-solicitudes md:mt-0 mt-2 p-2.5 w-full"
                                 placeholder="Buscar por correo, espacio académico, nombre de cuerpo acádemico etc....">
                         </div>
                     </div>
 
-
                     <div class="text-end mt-3">
                         <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
                             filtros</button>
                     </div>
+
+
                     @if ($banners->first())
-                        <div class="overflow-x-auto mt-8">
+                        <div class="flex items-center justify-between mt-6">
+                            <div>
+                                <p class="text-verde">
+                                    <span class="font-bold">Nota:</span> Aquí solo se muestra la información de los
+                                    registros aprobados.
+                                </p>
+                            </div>
+                            <div>
+                                <label for="paginador">Paginación:</label>
+                                <select name="paginador" id="paginador" wire:model.live="paginador">
+                                    @for ($i = 5; $i <= 20; $i += 5)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                        <div class="overflow-x-auto mt-4">
                             <table class="w-full table-auto text-sm">
                                 <thead>
                                     <tr>
