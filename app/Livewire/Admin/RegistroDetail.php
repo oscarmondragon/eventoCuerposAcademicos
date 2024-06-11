@@ -58,10 +58,16 @@ class RegistroDetail extends Component
 
         $this->estatusDB = $this->registro->aprobacion;
 
-        if ($this->estatusDB == 0) {
+        if ($this->estatusDB === 0) {
 
             $this->estatusSelected = 'Rechazar';
             $this->observaciones = $this->registro->observaciones;
+        }
+
+        if ($this->estatusDB === 1) {
+
+            $this->estatusSelected = 'Aprobar';
+
         }
 
         //dd($this->registro->banner->integrantes);
