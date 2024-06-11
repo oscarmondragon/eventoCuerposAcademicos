@@ -104,6 +104,7 @@ class RegistroParticipantes extends Component
     */
         return view('livewire.participantes.registro-participantes', ['subareasOptions' => $subareasOptions, 'areasOptions' => $areasOptions]);
     }
+
     public function save()
     {
         $this->form->store();
