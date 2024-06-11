@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use Livewire\Attributes\Session;
 use App\Models\Area;
 use App\Models\Registro;
 use Livewire\Component;
@@ -15,9 +16,15 @@ class RegistroParticipantesShow extends Component
 {
     use WithPagination;
 
+    #[Session]
     public $search = '';
+
+    #[Session]
     public $filtroProcedencia = 0;
+
+    #[Session]
     public $filtroEstatus = 0;
+    #[Session]
     public $selectedArea;
     public $optionsAreas;
 

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use Livewire\Attributes\Session;
 use App\Models\Banner;
 use App\Models\Registro;
 use App\Models\Area;
@@ -18,9 +19,12 @@ class BannersShow extends Component
 
     use WithPagination;
 
+    #[Session]
     public $search = '';
     public $filtroProcedencia = 0;
+    #[Session]
     public $filtroArea = 0;
+    #[Session]
     public $optionsArea;
 
     public $columna = 'updated_at';
@@ -85,11 +89,11 @@ class BannersShow extends Component
                     $lider = $item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno;
                 } else
                     if ($item->tipo == 'Integrante') {
-                    $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                } else
+                        $integrantes->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                    } else
                         if ($item->tipo == 'Colaborador') {
-                    $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
-                }
+                            $colaboradores->push($item->gradoAcademicoAbrev . ' ' . $item->nombre . ' ' . $item->apellidoPaterno . ' ' . $item->apellidoMaterno);
+                        }
             }
             return [ //se colocan todos los datos que llevara el excel de banners
                 'espacio_procedencia' => $banner->espacio_procedencia,

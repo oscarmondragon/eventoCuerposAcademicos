@@ -36,10 +36,10 @@ class NewRegistroConPago extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->from(env('MAIL_USERNAME', 'eicari_siea@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
+            //->from(env('MAIL_USERNAME', 'omondragona@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
             ->subject("Confirmación de registro al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
             ->greeting('¡Hola!')
-            ->line('Gracias por su registro, será revisado y de ser validado el pago se le enviará un correo electronico de confirmación!')
+            ->line('¡Gracias por su registro, será revisado y de ser validado el pago se le enviará un correo electronico de confirmación!')
             ->line("DATOS DEL REGISTRO")
             ->line("Correo electrónico: {$this->registro->email}")
             ->line("Nombre del cuerpo académico, red o grupo: {$this->registro->cuerpo_grupo_red}")
