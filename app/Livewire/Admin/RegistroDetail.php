@@ -8,6 +8,8 @@ use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Notifications\RegistroAprobado;
+use App\Notifications\RegistroRechazado;
 use Illuminate\Support\Facades\Storage;
 
 #[Layout('layouts.app')]
@@ -59,7 +61,7 @@ class RegistroDetail extends Component
         if ($this->estatusDB == 0) {
 
             $this->estatusSelected = 'Rechazar';
-            $this->observaciones =  $this->registro->observaciones;
+            $this->observaciones = $this->registro->observaciones;
         }
 
         //dd($this->registro->banner->integrantes);
@@ -84,8 +86,16 @@ class RegistroDetail extends Component
             }
 
             $this->registro->save();
-
             DB::commit();
+
+            //Notificaciones por correo
+            if ($this->registro->aprobacion == 1) {
+                $this->registro->notify(new RegistroAprobado($this->registro));
+
+            } else if ($this->registro->aprobacion == 0) {
+                $this->registro->notify(new RegistroRechazado($this->registro));
+            }
+
             return redirect('/participantes')->with('success', '¡Se ha actualizado el estatus del registro correctamente!.');
         } catch (\Exception $e) {
             DB::rollback();

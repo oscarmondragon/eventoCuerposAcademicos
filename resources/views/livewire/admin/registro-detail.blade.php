@@ -53,7 +53,7 @@
                                 <div>
                                     @foreach ($registro->archivos as $archivo)
                                         @if ($archivo->tipo == 'Boucher')
-                                            <label class="label-titulo">Comprobante:</label>
+                                            @once<label class="label-titulo">Comprobante:</label>@endonce
                                             <ul class="ml-4">
                                                 <li class="list-none inline-block items-center text-lg">
                                                     <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
@@ -62,7 +62,7 @@
                                                         <path
                                                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                                                     </svg>
-                                                    Comprobante de pago
+                                                    Comprobante de pago {{ Str::substr($archivo->ruta, 66) }}
                                                     <button type="button" class="button "
                                                         wire:click="descargarArchivo('{{ $archivo->ruta }}')">
                                                         <img src="{{ asset('img/botones/btn_pdf.png') }}"
@@ -71,8 +71,12 @@
                                                     </button>
                                                 </li>
                                             </ul>
-                                        @elseif($archivo->tipo == 'CSF')
-                                            <label class="label-titulo mt-8">Constancia de situación fiscal:</label>
+                                        @endif
+                                    @endforeach
+                                    @foreach ($registro->archivos as $archivo)
+                                        @if ($archivo->tipo == 'CSF')
+                                            @once<label class="label-titulo mt-8">Constancia de situación
+                                                fiscal:</label> @endonce
                                             <ul class="ml-4">
                                                 <li class="list-none inline-block items-center text-lg">
                                                     <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
@@ -81,29 +85,11 @@
                                                         <path
                                                             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
                                                     </svg>
-                                                    CSF
+                                                    CSF {{ Str::substr($archivo->ruta, 53) }}
                                                     <button type="button" class="button "
                                                         wire:click="descargarArchivo('{{ $archivo->ruta }}')">
                                                         <img src="{{ asset('img/botones/btn_pdf.png') }}" alt="hola"
                                                             class="w-6 -mb-2" title="Descargar CSF.">
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        @else
-                                            <label class="label-titulo mt-8">Otros archivos:</label>
-                                            <ul class="">
-                                                <li class="list-none inline-block items-center text-lg">
-                                                    <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"
-                                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                        fill="currentColor" viewBox="0 0 20 20">
-                                                        <path
-                                                            d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z" />
-                                                    </svg>
-                                                    Otros archivos
-                                                    <button type="button" class="button "
-                                                        wire:click="descargarArchivo('{{ $archivo->ruta }}')">
-                                                        <img src="{{ asset('img/botones/btn_pdf.png') }}" alt="hola"
-                                                            class="w-6 -mb-2" title="Descargar comprobante de pago.">
                                                     </button>
                                                 </li>
                                             </ul>

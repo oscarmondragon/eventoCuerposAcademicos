@@ -13,6 +13,7 @@ use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubareaToRegistro;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Str;
 use Livewire\Form;
 
 class ParticipantesForm extends Form
@@ -398,15 +399,16 @@ class ParticipantesForm extends Form
 
             if (!empty($this->boucher)) {
                 //Guardar en sistema de archivos
+                $archivo = new Archivo;
+
                 $ruta_boucher = "public/" . $registro->id . "/Pago/";
                 $extension = $this->boucher->getClientOriginalExtension();
 
-                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago.' . $extension);
+                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension);
 
-                $rutaCompleta = $ruta_boucher . 'comprobante_pago.' . $extension;
+                $rutaCompleta = $ruta_boucher . 'comprobante_pago_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension;
 
                 //guardar en DB
-                $archivo = new Archivo;
 
                 $archivo->registro_id = $registro->id;
                 $archivo->ruta = $rutaCompleta;
@@ -418,15 +420,16 @@ class ParticipantesForm extends Form
 
             if (!empty($this->csf) && $this->checkFactura == 1 && $this->boucher != null) {
                 //Guardar en sistema de archivos
+                $archivo = new Archivo;
+
                 $ruta_csf = "public/" . $registro->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
 
-                $this->csf->storeAs($ruta_csf, 'CSF.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension);
 
-                $rutaCompleta = $ruta_csf . 'CSF.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension;
 
                 //guardar en DB
-                $archivo = new Archivo;
 
                 $archivo->registro_id = $registro->id;
                 $archivo->ruta = $rutaCompleta;
