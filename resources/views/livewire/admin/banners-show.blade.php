@@ -66,30 +66,30 @@
                         </div>
                     </div>
 
-                    <div class="text-end mt-3">
+                    <div class="text-end mt-3 mb-2">
                         <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
                             filtros</button>
                     </div>
 
 
                     @if ($banners->first())
-                        <div class="flex items-center justify-between mt-6">
-                            <div>
+                        <div class="flex sm:flex-row flex-col sm:justify-between items-center">
+                            <div class="sm:w-auto w-full">
                                 <p class="text-verde">
-                                    <span class="font-bold">Nota:</span> Aquí solo se muestra la información de los
+                                    <span class="font-bold">Nota:</span> Aquí solo se muestra la información de
+                                    los
                                     registros aprobados.
                                 </p>
                             </div>
-                            <div>
-                                <label for="paginador">Paginación:</label>
-                                <select name="paginador" id="paginador" wire:model.live="paginador">
-                                    @for ($i = 5; $i <= 20; $i += 5)
-                                        <option value="{{ $i }}">{{ $i }}</option>
-                                    @endfor
-                                </select>
+                            <div class="sm:w-auto w-full flex items-center sm:justify-start justify-end">
+                                <label class="-mr-3">Exportar</label>
+                                <button wire:click="export" class="button" title="Exportar Excel">
+                                    <img src="{{ asset('img/iconos/icExportar.png') }}" alt="Exportar Excel"
+                                        class="w-8">
+                                </button>
                             </div>
                         </div>
-                        <div class="overflow-x-auto mt-4">
+                        <div class="overflow-x-auto">
                             <table class="w-full table-auto text-sm">
                                 <thead>
                                     <tr>
@@ -129,13 +129,19 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-7">
-                            {{ $banners->links() }}
-                        </div>
-                        <div class="flex justify-end mt-5">
-                            <button wire:click="export" class="button" title="Exportar Excel">
-                                <img src="{{ asset('img/iconos/icExportar.png') }}" alt="asdfadsf" class="w-8">
-                            </button>
+                        <div class="mt-7 flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 items-center">
+                            <div class="sm:w-4/5 w-full">
+                                {{ $banners->links() }}
+                            </div>
+
+                            <div class="sm:w-1/5 w-full text-end">
+                                <label for="paginador">Filas:</label>
+                                <select name="paginador" id="paginador" wire:model.live="paginador">
+                                    @for ($i = 5; $i <= 30; $i += 5)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
                         </div>
                     @else
                         <div class="text-center text-verde text-xl font-bold mt-7 ">

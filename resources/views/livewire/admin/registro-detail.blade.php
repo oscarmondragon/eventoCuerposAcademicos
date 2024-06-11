@@ -1,20 +1,20 @@
 <div>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-verde dark:text-gray-200 leading-tight">
-            {{ $id }}
+        <h2 class="font-semibold text-verde my-auto dark:text-gray-200 leading-tight">
+            {{ $registro->cuerpo_grupo_red }}
         </h2>
     </x-slot>
-    <div class="py-6 text-textos">
+    <div class="py-4 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-10 dark:text-gray-100">
 
-                    <h1 class="text-center text-xl text-verde">
+                    <h1 class="text-xl text-verde sm:flex sm:justify-center hidden">
                         Resumen detallado: {{ $registro->cuerpo_grupo_red }}
                     </h1>
 
                     <div
-                        class="w-full bg-white border border-gray-200 mt-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        class="w-full bg-white border border-gray-200 sm:mt-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
                             id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
                             <li class="me-2">
@@ -392,9 +392,8 @@
                                     <label for="estatusSelected" class="block mb-2">
                                         Estatus<span class="font-bold text-red-600">*</span>
                                     </label>
-
-                                    {{ $estatusSelected }}
-                                    <select name="estatusSelected" id="estatusSelected" wire:model="estatusSelected">
+                                    <select name="estatusSelected" id="estatusSelected" class="sm:w-auto w-full"
+                                        wire:model.live="estatusSelected">
                                         <option value="0">Selecciona una opción</option>
                                         @foreach ($estatusOptions as $estatus)
                                             <option value="{{ $estatus }}">{{ $estatus }}</option>
@@ -414,7 +413,7 @@
                                     </div>
                                 </div>
 
-                                <div class="flex sm:flex-row flex-col sm:justify-end">
+                                <div class="flex sm:flex-row flex-col sm:justify-end sm:mt-0 mt-5">
                                     <a href="{{ route('dashboard') }}">
                                         <x-secondary-button>Regresar</x-secondary-button>
                                     </a>

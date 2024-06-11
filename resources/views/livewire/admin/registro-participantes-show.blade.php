@@ -55,21 +55,15 @@
                     </div>
 
 
-                    <div class="w-full flex justify-end mt-4">
-                        <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
-                            filtros</button>
+                    <div class="w-full flex justify-end items-center gap-x-5 mt-4">
+                        <div>
+                            <button class="button button-limpiar-filtros" wire:click="limpiarFiltros">Limpiar
+                                filtros</button>
+                        </div>
                     </div>
 
                     @if ($registros->first())
-                        <div class="text-end mt-6">
-                            <label for="paginador">Paginación:</label>
-                            <select name="paginador" id="paginador" wire:model.live="paginador">
-                                @for ($i = 5; $i <= 20; $i += 5)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                @endfor
-                            </select>
-                        </div>
-                        <div class="overflow-x-auto mt-8">
+                        <div class="overflow-x-auto mt-4">
                             <table class="w-full table-auto">
                                 <thead>
                                     <tr class="text-sm">
@@ -128,14 +122,24 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="mt-7 flex sm:flex-row flex-col sm:gap-x-5 gap-y-5 items-center">
+                            <div class="sm:w-4/5 w-full">
+                                {{ $registros->links() }}
+                            </div>
+                            <div class="sm:w-1/5 w-full text-end">
+                                <label for="paginador">Filas:</label>
+                                <select name="paginador" id="paginador" wire:model.live="paginador">
+                                    @for ($i = 5; $i <= 30; $i += 5)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
                     @else
                         <div class="text-center text-verde text-xl font-bold mt-7 ">
                             NO HAY REGISTROS O NO HAY COINCIDENCIAS CON LOS FILTROS
                         </div>
                     @endif
-                    <div class="mt-7">
-                        {{ $registros->links() }}
-                    </div>
                 </div>
             </div>
         </div>

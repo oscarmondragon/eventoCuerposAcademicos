@@ -11,7 +11,8 @@ use App\Models\Banner;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Participantes\RegistroParticipantes;
 use App\Livewire\Admin\RegistroParticipantesShow;
-
+use App\Livewire\Participantes\Asistentes;
+use App\Livewire\Participantes\RegistroAsistentes;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::get('/registro-creado', RegistroCreadoMensaje::class)->name('registro.cre
 
 
 Route::get('/', RegistroParticipantes::class)->name('home');
+Route::get('/registro-asistentes', RegistroAsistentes::class)->name('registro-asistentes');
 
 
 //Rutas deshabilitadas por que aun no se programa la parte de usuarios y administradores del sistema
