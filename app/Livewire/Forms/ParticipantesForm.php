@@ -400,13 +400,13 @@ class ParticipantesForm extends Form
             if (!empty($this->boucher)) {
                 //Guardar en sistema de archivos
                 $archivo = new Archivo;
-
+                $id_boucher = Str::substr(Str::ulid(), 20, 26);
                 $ruta_boucher = "public/" . $registro->id . "/Pago/";
                 $extension = $this->boucher->getClientOriginalExtension();
 
-                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension);
+                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago_' . $id_boucher . '.' . $extension);
 
-                $rutaCompleta = $ruta_boucher . 'comprobante_pago_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension;
+                $rutaCompleta = $ruta_boucher . 'comprobante_pago_' . $id_boucher . '.' . $extension;
 
                 //guardar en DB
 
@@ -421,13 +421,14 @@ class ParticipantesForm extends Form
             if (!empty($this->csf) && $this->checkFactura == 1 && $this->boucher != null) {
                 //Guardar en sistema de archivos
                 $archivo = new Archivo;
+                $id_csf = Str::substr(Str::ulid(), 20, 26);
 
                 $ruta_csf = "public/" . $registro->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
 
-                $this->csf->storeAs($ruta_csf, 'CSF_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF_' . $id_csf . '.' . $extension);
 
-                $rutaCompleta = $ruta_csf . 'CSF_' . Str::substr(Str::ulid(), 20, 26) . '.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF_' . $id_csf . '.' . $extension;
 
                 //guardar en DB
 
