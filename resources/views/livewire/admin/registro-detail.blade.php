@@ -13,8 +13,13 @@
                         Resumen detallado: {{ $registro->cuerpo_grupo_red }}
                     </h1>
 
+                    <div class="sm:mt-8 sm:text-end">
+                        <p class="text-gray-500">Fecha de registro: <span
+                                class="font-bold sm:inline-block block">{{ $registro->created_at }}</span> </p>
+                    </div>
+
                     <div
-                        class="w-full bg-white border border-gray-200 sm:mt-8 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                        class="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 rounded-t-lg bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:bg-gray-800"
                             id="defaultTab" data-tabs-toggle="#defaultTabContent" role="tablist">
                             <li class="me-2">
@@ -50,10 +55,13 @@
                             <div class="p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" id="about" role="tabpanel"
                                 aria-labelledby="about-tab">
 
+                                <label class="label-titulo">Requiere factura:</label>
+                                {{ $registro->checkFactura == 1 ? 'Si' : 'No' }}
+
                                 <div>
                                     @foreach ($registro->archivos as $archivo)
                                         @if ($archivo->tipo == 'Boucher')
-                                            @once<label class="label-titulo">Comprobante:</label>@endonce
+                                            @once<label class="label-titulo mt-8">Comprobante:</label>@endonce
                                             <ul class="ml-4">
                                                 <li class="list-none inline-block items-center text-lg">
                                                     <svg class="w-3.5 h-3.5 me-2 text-green-500 dark:text-green-400 inline-block"

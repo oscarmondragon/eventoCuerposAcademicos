@@ -47,9 +47,6 @@ class RegistroDetail extends Component
 
     public function mount($id)
     {
-
-
-
         try {
             $this->registro = Registro::with('archivos', 'integrantes', 'lineas', 'area.area', 'subareas.subarea', 'banner', 'fortalezasNecesidades')->findOrFail($id);
         } catch (ModelNotFoundException $e) {
@@ -67,7 +64,6 @@ class RegistroDetail extends Component
         if ($this->estatusDB === 1) {
 
             $this->estatusSelected = 'Aprobar';
-
         }
 
         //dd($this->registro->banner->integrantes);
@@ -91,13 +87,14 @@ class RegistroDetail extends Component
                 $this->registro->observaciones = $this->observaciones;
             }
 
+            $this->registro->user_id = auth()->user()->id;
+
             $this->registro->save();
             DB::commit();
 
             //Notificaciones por correo
             if ($this->registro->aprobacion == 1) {
                 $this->registro->notify(new RegistroAprobado($this->registro));
-
             } else if ($this->registro->aprobacion == 0) {
                 $this->registro->notify(new RegistroRechazado($this->registro));
             }

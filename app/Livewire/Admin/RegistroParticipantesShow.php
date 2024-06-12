@@ -31,6 +31,7 @@ class RegistroParticipantesShow extends Component
     public $sortColumna = 'updated_at';
     public $sortDireccion = 'DESC';
 
+    #[Session]
     public $paginador = 5;
 
 
@@ -57,6 +58,8 @@ class RegistroParticipantesShow extends Component
             $registros = $registros->where('aprobacion', 1);
         } else if ($this->filtroEstatus == 3) {
             $registros = $registros->where('aprobacion', 0);
+        } elseif ($this->filtroEstatus == 4) {
+            $registros = $registros->where('aprobacion', 1)->where('checkFactura', 1);
         }
 
         if ($this->selectedArea != 0) {
@@ -93,5 +96,6 @@ class RegistroParticipantesShow extends Component
         $this->filtroProcedencia = 0;
         $this->search = '';
         $this->selectedArea = 0;
+        $this->paginador = 5;
     }
 }

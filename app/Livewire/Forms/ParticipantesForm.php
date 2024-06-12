@@ -401,6 +401,7 @@ class ParticipantesForm extends Form
                 //Guardar en sistema de archivos
                 $archivo = new Archivo;
                 $id_boucher = Str::substr(Str::ulid(), 20, 26);
+
                 $ruta_boucher = "public/" . $registro->id . "/Pago/";
                 $extension = $this->boucher->getClientOriginalExtension();
 
