@@ -68,4 +68,9 @@ class Registro extends Model
     {
         return $this->hasMany(FortalezaNecesidad::class);
     }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
