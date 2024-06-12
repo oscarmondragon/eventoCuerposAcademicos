@@ -38,9 +38,10 @@
                             <select class="w-full" wire:model.live="filtroEstatus" id="filtroEstatus"
                                 name="filtroEstatus">
                                 <option value="0">Todos</option>
-                                <option value="1">Pendintes de revisión</option>
-                                <option value="2">Aprobado</option>
+                                <option value="1">Pendientes de revisión</option>
+                                <option value="2">Aprobados</option>
                                 <option value="3">Rechazados</option>
+                                <option value="4">Aprobados req. factura</option>
                             </select>
                         </div>
 
@@ -95,7 +96,9 @@
                                             <td>{{ $registro->email }}</td>
                                             <td>{{ $registro->cuerpo_grupo_red }} </td>
                                             <td>{{ $registro->espacio_procedencia }}</td>
-                                            <td class="text-center">{{ $registro->updated_at }}</td>
+                                            <td
+                                                class="text-center"@isset($registro->usuario->name)title="{{ $registro->usuario->name }}" @endisset>
+                                                {{ $registro->updated_at }}</td>
                                             <td class="text-center">
                                                 @if ($registro->aprobacion === null)
                                                     <span class="estatus-pendiente">Pendiente</span>
