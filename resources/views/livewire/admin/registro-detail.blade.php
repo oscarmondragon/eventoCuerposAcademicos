@@ -15,7 +15,8 @@
 
                     <div class="sm:mt-8 sm:text-end">
                         <p class="text-gray-500">Fecha de registro: <span
-                                class="font-bold sm:inline-block block">{{ $registro->created_at }}</span> </p>
+                                class="font-bold sm:inline-block block">{{ $registro->created_at->format('d-M-Y H:i:s') }}</span>
+                        </p>
                     </div>
 
                     <div

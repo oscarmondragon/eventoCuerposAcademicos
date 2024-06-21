@@ -39,7 +39,7 @@ class RegistroAprobado extends Notification
             // ->from(env('MAIL_USERNAME', 'omondragona@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
             ->subject("Confirmación de participación al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
             ->greeting('¡Hola!')
-            ->line('Es un placer para nosotros notificarte que tu registro ha sido aprobado. ¡Nos vemos el día del evento!')
+            ->line('Es un placer para nosotros notificarte que tu registro ha sido aprobado. Próximamente te haremos llegar el programa oficial del evento.')
             ->line("DATOS DEL REGISTRO")
             ->line("Correo electrónico: {$this->registro->email}")
             ->line("Nombre del cuerpo académico, red o grupo: {$this->registro->cuerpo_grupo_red}")

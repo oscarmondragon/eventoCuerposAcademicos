@@ -39,6 +39,7 @@ class AdjuntoNuevoComprobante extends Notification
         return (new MailMessage)
             ->subject("Notificación: un participante ha subido nuevamente su comprobante de pago al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
             ->greeting('¡Hola!')
+            ->line("Un participante ha subido nuevamente su comprobante de pago al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas")
             ->line("Da click en el botón 'Revisar' para verlo.")
             //->action('Revisar', url('/registro/' . $this->registro->id . '/revision'))
             ->action('Revisar', url('/login'))

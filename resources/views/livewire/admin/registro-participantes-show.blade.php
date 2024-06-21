@@ -98,7 +98,7 @@
                                             <td>{{ $registro->espacio_procedencia }}</td>
                                             <td
                                                 class="text-center"@isset($registro->usuario->name)title="{{ $registro->usuario->name }}" @endisset>
-                                                {{ $registro->updated_at }}</td>
+                                                {{ $registro->updated_at->diffForHumans() }}</td>
                                             <td class="text-center">
                                                 @if ($registro->aprobacion === null)
                                                     <span class="estatus-pendiente">Pendiente</span>
