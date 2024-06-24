@@ -30,8 +30,7 @@ class BannersShow extends Component
     public $columna = 'updated_at';
     public $direccion = 'DESC';
 
-    #[Session]
-    public $paginador = 5;
+    public $paginador = 10;
 
     public $bannersDownload;
 
@@ -135,5 +134,25 @@ class BannersShow extends Component
     public function export()
     {
         return Excel::download(new BannersExport($this->bannersDownload), 'banners.xlsx');
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage(pageName: 'banners');
+    }
+    public function updatedFiltroProcedencia()
+    {
+        $this->resetPage(pageName: 'banners');
+    }
+
+    public function updatedFiltroArea()
+    {
+        $this->resetPage(pageName: 'banners');
+    }
+
+
+    public function updatedPaginador()
+    {
+        $this->resetPage(pageName: 'banners');
     }
 }

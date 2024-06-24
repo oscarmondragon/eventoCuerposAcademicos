@@ -116,7 +116,7 @@
                                             <td>{{ $banner->email }}</td>
                                             <td>{{ $banner->cuerpo_grupo_red }}</td>
                                             <td>{{ $banner->espacio_procedencia }}</td>
-                                            <td class="text-center">{{ $banner->registro->updated_at }}</td>
+                                            <td class="text-center">{{ $banner->updated_at->diffForHumans() }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('banner.ver', ['id' => $banner->registro->id]) }}">
                                                     <button class=" button btn-success" title="Ver">

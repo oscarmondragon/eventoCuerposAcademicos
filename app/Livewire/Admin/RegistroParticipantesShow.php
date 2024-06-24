@@ -32,7 +32,7 @@ class RegistroParticipantesShow extends Component
     public $sortDireccion = 'DESC';
 
     #[Session]
-    public $paginador = 5;
+    public $paginador = 10;
 
 
     public function render()
@@ -96,6 +96,31 @@ class RegistroParticipantesShow extends Component
         $this->filtroProcedencia = 0;
         $this->search = '';
         $this->selectedArea = 0;
-        $this->paginador = 5;
+        //  $this->paginador = 10;
     }
+
+    public function updatedSearch()
+    {
+        $this->resetPage(pageName: 'registros');
+    }
+    public function updatedFiltroProcedencia()
+    {
+        $this->resetPage(pageName: 'registros');
+    }
+    public function updatedFiltroEstatus()
+    {
+        $this->resetPage(pageName: 'registros');
+    }
+    public function updatedselectedArea()
+    {
+        $this->resetPage(pageName: 'registros');
+    }
+
+
+    public function updatedPaginador()
+    {
+        $this->resetPage(pageName: 'registros');
+    }
+
+
 }
