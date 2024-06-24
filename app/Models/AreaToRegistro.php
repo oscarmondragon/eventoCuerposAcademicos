@@ -14,4 +14,9 @@ class AreaToRegistro extends Model
 
     protected $table = "areas_to_registros";
 
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 }

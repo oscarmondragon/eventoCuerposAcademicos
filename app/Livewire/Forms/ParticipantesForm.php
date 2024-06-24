@@ -13,6 +13,7 @@ use App\Models\Registro;
 use Illuminate\Support\Facades\DB;
 use App\Models\SubareaToRegistro;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Str;
 use Livewire\Form;
 
 class ParticipantesForm extends Form
@@ -244,6 +245,8 @@ class ParticipantesForm extends Form
                 $this->tipoRegistro = "Interno";
             } else if ($this->tipoRegistro == 2) {
                 $this->tipoRegistro = "Externo";
+            } else if ($this->tipoRegistro == 3) {
+                $this->tipoRegistro = "Red";
             } else {
                 return "Procedencia invalida.";
             }
@@ -396,15 +399,17 @@ class ParticipantesForm extends Form
 
             if (!empty($this->boucher)) {
                 //Guardar en sistema de archivos
+                $archivo = new Archivo;
+                $id_boucher = Str::substr(Str::ulid(), 20, 26);
+
                 $ruta_boucher = "public/" . $registro->id . "/Pago/";
                 $extension = $this->boucher->getClientOriginalExtension();
 
-                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago.' . $extension);
+                $this->boucher->storeAs($ruta_boucher, 'comprobante_pago_' . $id_boucher . '.' . $extension);
 
-                $rutaCompleta = $ruta_boucher . 'comprobante_pago.' . $extension;
+                $rutaCompleta = $ruta_boucher . 'comprobante_pago_' . $id_boucher . '.' . $extension;
 
                 //guardar en DB
-                $archivo = new Archivo;
 
                 $archivo->registro_id = $registro->id;
                 $archivo->ruta = $rutaCompleta;
@@ -416,15 +421,17 @@ class ParticipantesForm extends Form
 
             if (!empty($this->csf) && $this->checkFactura == 1 && $this->boucher != null) {
                 //Guardar en sistema de archivos
+                $archivo = new Archivo;
+                $id_csf = Str::substr(Str::ulid(), 20, 26);
+
                 $ruta_csf = "public/" . $registro->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
 
-                $this->csf->storeAs($ruta_csf, 'CSF.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF_' . $id_csf . '.' . $extension);
 
-                $rutaCompleta = $ruta_csf . 'CSF.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF_' . $id_csf . '.' . $extension;
 
                 //guardar en DB
-                $archivo = new Archivo;
 
                 $archivo->registro_id = $registro->id;
                 $archivo->ruta = $rutaCompleta;

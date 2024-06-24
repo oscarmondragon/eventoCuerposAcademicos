@@ -4,13 +4,15 @@ namespace App\Livewire\Participantes;
 
 use App\Models\Registro;
 use App\Models\Archivo;
+use App\Notifications\AdjuntoNuevoComprobante;
 use App\Notifications\NewRegistroConPago;
 use Livewire\Attributes\Layout;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Str;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+
 
 #[Layout('layouts.publico')]
 
@@ -68,16 +70,16 @@ class AdjuntarBoucherCorreo extends Component
         try {
             //GUARDAMOS EL BOUCHER
             //Guardar en sistema de archivos
+            $archivo = new Archivo;
+            $id_boucher = Str::substr(Str::ulid(), 20, 26);
             $ruta_boucher = "public/" . $this->registroFound->id . "/Pago/";
             $extension = $this->boucher->getClientOriginalExtension();
 
-            $this->boucher->storeAs($ruta_boucher, 'comprobante_pago.' . $extension);
+            $this->boucher->storeAs($ruta_boucher, 'comprobante_pago_' . $id_boucher . '.' . $extension);
 
-            $rutaCompleta = $ruta_boucher . 'comprobante_pago.' . $extension;
+            $rutaCompleta = $ruta_boucher . 'comprobante_pago_' . $id_boucher . '.' . $extension;
 
             //guardar en DB
-            $archivo = new Archivo;
-
             $archivo->registro_id = $this->registroFound->id;
             $archivo->ruta = $rutaCompleta;
             $archivo->tipo = "Boucher";
@@ -86,16 +88,16 @@ class AdjuntarBoucherCorreo extends Component
 
             if (!empty($this->csf) && $this->checkFactura == 1) {
                 //Guardar en sistema de archivos
+                $archivo = new Archivo;
+                $id_csf = Str::substr(Str::ulid(), 20, 26);
                 $ruta_csf = "public/" . $this->registroFound->id . "/Pago/";
                 $extension = $this->csf->getClientOriginalExtension();
 
-                $this->csf->storeAs($ruta_csf, 'CSF.' . $extension);
+                $this->csf->storeAs($ruta_csf, 'CSF_' . $id_csf . '.' . $extension);
 
-                $rutaCompleta = $ruta_csf . 'CSF.' . $extension;
+                $rutaCompleta = $ruta_csf . 'CSF_' . $id_csf . '.' . $extension;
 
                 //guardar en DB
-                $archivo = new Archivo;
-
                 $archivo->registro_id = $this->registroFound->id;
                 $archivo->ruta = $rutaCompleta;
                 $archivo->tipo = "CSF";
@@ -111,6 +113,7 @@ class AdjuntarBoucherCorreo extends Component
             DB::commit();
 
             $this->registroFound->notify(new NewRegistroConPago($this->registroFound));
+            $this->registroFound->usuario->notify(new AdjuntoNuevoComprobante($this->registroFound));
 
             return redirect('/registro-creado')->with('success', 'Se ha adjuntado su evidencia de pago correctamente. Lo estamos validando, te notificaremos por correo electrónico cuando finalicemos.');
         } catch (\Exception $e) {

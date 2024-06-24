@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
 
-new class extends Component
-{
+new class extends Component {
     public string $name = '';
     public string $email = '';
 
@@ -28,10 +27,22 @@ new class extends Component
     {
         $user = Auth::user();
 
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
-        ]);
+        $validated = $this->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', "regex:'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'", 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            ],
+            [
+                'name.required' => 'El nombre no puede estar vacío.',
+                'name.max' => 'El nombre es demasiado largo.',
+
+                'email.required' => 'El correo electrónico no puede estar vacío.',
+                'email.email' => 'El correo electrónico no tiene un formato valido.',
+                'email.regex' => 'El correo electrónico no tiene un formato valido.',
+                'email.max' => 'El correo electrónico es demasiado largo.',
+                'email.unique' => 'El correo electrónico ya ha sido registrado.',
+            ],
+        );
 
         $user->fill($validated);
 
@@ -65,33 +76,41 @@ new class extends Component
 
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
+        <h2 class="text-lg font-bold text-verde dark:text-gray-100">
+            {{ __('Actualizar datos personales') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
+            {{ __('Actualice la información del perfil y la dirección de correo electrónico de su cuenta.') }}
         </p>
     </header>
 
+    <x-action-message class="bg-verde/40 text-color_primary font-bold my-5 p-2 border-l-4 border-green-700"
+        on="profile-updated">
+        {{ __('Datos actualizados correctamente') }}
+    </x-action-message>
+
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
+            <x-input-label for="name" :value="__('Nombre')" />
+            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full"
+                autofocus autocomplete="name" placeholder="Nombre" />
+            <x-input-error class="mt-1" :messages="$errors->get('name')" />
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
+            <x-input-label for="email" :value="__('Correo electrónico')" />
+            <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full"
+                autocomplete="username" placeholder="Correo electrónico" />
+            <x-input-error class="mt-1" :messages="$errors->get('email')" />
 
-            @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! auth()->user()->hasVerifiedEmail())
+            @if (auth()->user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && !auth()->user()->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                         {{ __('Your email address is unverified.') }}
 
-                        <button wire:click.prevent="sendVerification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                        <button wire:click.prevent="sendVerification"
+                            class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
                             {{ __('Click here to re-send the verification email.') }}
                         </button>
                     </p>
@@ -105,12 +124,8 @@ new class extends Component
             @endif
         </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
-
-            <x-action-message class="me-3" on="profile-updated">
-                {{ __('Saved.') }}
-            </x-action-message>
+        <div class="flex items-center justify-end gap-4">
+            <x-primary-button>{{ __('Actualizar') }}</x-primary-button>
         </div>
     </form>
 </section>

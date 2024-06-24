@@ -12,7 +12,7 @@ use Livewire\Form;
 
 class LoginForm extends Form
 {
-    #[Validate('required|string|email')]
+    #[Validate("required|string|email|regex:'^[^@]+@[^@]+\.[a-zA-Z]{2,}$'|exists:users,email")]
     public string $email = '';
 
     #[Validate('required|string')]
@@ -20,6 +20,17 @@ class LoginForm extends Form
 
     #[Validate('boolean')]
     public bool $remember = false;
+
+    protected $messages =
+    [
+        'email.required' => 'El correo electrónico es obligatorio para poder iniciar sesión.',
+        'email.email' => 'El correo electrónico no tiene un formato valido.',
+        'email.regex' => 'El correo electrónico no tiene un formato valido.',
+        'email.exists' => 'El correo electrónico ingresado no existe.',
+
+        'password.required' => 'La contraseña es obligatoria para poder iniciar sesión.',
+
+    ];
 
     /**
      * Attempt to authenticate the request's credentials.
@@ -30,11 +41,12 @@ class LoginForm extends Form
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only(['email', 'password']), $this->remember)) {
+        if (!Auth::attempt($this->only(['email', 'password']), $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'form.email' => trans('Correo electrónico o contraseña incorrectos.'),
+                $this->password = '',
             ]);
         }
 
@@ -46,7 +58,7 @@ class LoginForm extends Form
      */
     protected function ensureIsNotRateLimited(): void
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -55,7 +67,7 @@ class LoginForm extends Form
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'form.email' => trans('Muchos intentos de inicio de sesión fallidos. Intentalo nuevamente en ' . $seconds . ' segundos.', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -67,6 +79,6 @@ class LoginForm extends Form
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 }

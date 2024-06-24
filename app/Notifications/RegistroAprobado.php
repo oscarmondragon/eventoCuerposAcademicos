@@ -4,14 +4,13 @@ namespace App\Notifications;
 
 use App\Models\Registro;
 use Illuminate\Bus\Queueable;
-use Illuminate\Support\Str;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class NewRegistro extends Notification
+class RegistroAprobado extends Notification
 {
-
+    use Queueable;
 
     /**
      * Create a new notification instance.
@@ -36,14 +35,11 @@ class NewRegistro extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-
         return (new MailMessage)
-            //->from(env('MAIL_USERNAME', 'eicari_siea@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
-            ->subject("Confirmación de registro al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
+            // ->from(env('MAIL_USERNAME', 'omondragona@uaemex.mx'), '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas')
+            ->subject("Confirmación de participación al evento '1er Encuentro Internacional de Cuerpos Académicos y Redes Temáticas' ")
             ->greeting('¡Hola!')
-            ->line("Gracias por su registro, su evidencia de pago aun esta pendiente. Puede adjuntarla presionando el botón 'Completar pago' de este correo.")
-            ->line('¡Pago pendiente!')
-            ->action('Completar pago', url('/registro/' . $this->registro->id . '/completar'))
+            ->line('Es un placer para nosotros notificarte que tu registro ha sido aprobado. Próximamente te haremos llegar el programa oficial del evento.')
             ->line("DATOS DEL REGISTRO")
             ->line("Correo electrónico: {$this->registro->email}")
             ->line("Nombre del cuerpo académico, red o grupo: {$this->registro->cuerpo_grupo_red}")

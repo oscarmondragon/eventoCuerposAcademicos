@@ -33,4 +33,44 @@ class Registro extends Model
     protected $dispatchesEvents = [
         'created' => RegistroCreated::class,
     ];
+
+    public function archivos()
+    {
+        return $this->hasMany(Archivo::class);
+    }
+
+    public function integrantes()
+    {
+        return $this->hasMany(Integrantes::class);
+    }
+
+    public function lineas()
+    {
+        return $this->hasMany(Linea::class);
+    }
+
+    public function area()
+    {
+        return $this->hasOne(AreaToRegistro::class);
+    }
+
+    public function subareas()
+    {
+        return $this->hasMany(SubareaToRegistro::class);
+    }
+
+    public function banner()
+    {
+        return $this->hasOne(Banner::class);
+    }
+
+    public function fortalezasNecesidades()
+    {
+        return $this->hasMany(FortalezaNecesidad::class);
+    }
+
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

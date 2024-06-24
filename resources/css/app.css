@@ -31,7 +31,8 @@
     }
 
     input[type="text"],
-    input[type="email"] {
+    input[type="email"],
+    input[type="password"] {
         @apply bg-blanco text-textos rounded-md border-verde h-10 placeholder:text-sm;
     }
 
@@ -47,7 +48,7 @@
     }
 
     .btn-warning {
-        @apply bg-gray-400 sm:w-auto w-full text-white hover:bg-gray-600 focus:ring-2 focus:outline-none focus:ring-gray-800 mt-2;
+        @apply bg-amarillo-300 sm:w-auto w-full text-white hover:bg-amarillo-500 focus:ring-2 focus:outline-none focus:ring-amarillo-700 mt-2;
     }
 
     .fondo_deg_formulario {
@@ -71,6 +72,10 @@
     .btn-redondo {
         @apply bg-verde btn-transition px-3 py-1 rounded-full text-white text-xl focus:ring-2 focus:outline-none focus:ring-verde;
     }
+
+    .button-limpiar-filtros {
+        @apply bg-blue-600 text-white;
+    }
 }
 
 @layer utilities {
@@ -85,6 +90,33 @@
     .disabled {
         @apply disabled:bg-[#e0dddd] disabled:text-[#777171] disabled:border-[#888181] disabled:cursor-not-allowed;
     }
+
+    .label-titulo {
+        @apply bg-blanco text-verde sm:inline-block block font-bold p-2 mb-2 rounded-md;
+    }
+
+    .estatus-pendiente {
+        @apply border border-yellow-600 rounded-lg text-yellow-600 bg-yellow-100 px-2;
+    }
+
+    .estatus-aprobado {
+        @apply border border-green-600 rounded-lg text-green-600 bg-green-100 px-2;
+    }
+
+    .estatus-rechazado {
+        @apply border border-red-600 rounded-lg text-red-600 bg-red-100 px-2;
+    }
+
+    .integrante-lider {
+        @apply border border-blue-600 rounded-lg text-blue-600 bg-blue-100 px-2;
+    }
+    .integrante {
+        @apply border border-orange-600 rounded-lg text-orange-600 bg-orange-100 px-2;
+    }
+
+    .integrante-colaborador {
+        @apply border border-yellow-600 rounded-lg text-yellow-600 bg-yellow-100 px-2;
+    }
 }
 
 /* sweetalert2 */
@@ -96,4 +128,19 @@
 .swal2-styled {
     transition: none !important;
     box-shadow: none !important;
+}
+
+td {
+    @apply border-b border-gray-200 px-2;
+}
+
+table tr:nth-child(even) {
+    @apply bg-white;
+}
+table tr:nth-child(odd) {
+    @apply bg-blanco;
+}
+
+th {
+    @apply bg-verde/20;
 }
