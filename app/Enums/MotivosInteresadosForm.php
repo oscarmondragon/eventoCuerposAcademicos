@@ -4,6 +4,8 @@ namespace App\Enums;
 
 enum MotivosInteresadosForm: string
 {
+    use BaseEnum;
+
     case IMC = 'Integración de miembro o colaborador';
     case FRGI = 'Formación de red o grupo de investigación';
     case DCPI = 'Desarrollo conjunto de proyectos de investigación';

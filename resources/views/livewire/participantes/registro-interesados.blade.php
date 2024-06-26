@@ -4,7 +4,7 @@
             {{ __('Registro de interesados') }}
         </h2>
     </x-slot>
-    <div class="py-6 text-textos">
+    <div x-data="{ open: false, otro: $wire.entangle('form.otroMotivo') }" class="py-6 text-textos">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="px-10 py-4 dark:text-gray-100">
@@ -15,16 +15,16 @@
                     </div>
 
                     <div>
-                        <form wire:submit="save">
+                        <form wire:submit.prevent="save" id="form">
                             <div class="mt-5">
                                 <label for="cuerpoAcademico" class="mb-2 block">
                                     Cuerpo Académico / Red o Grupo de Investigación / Institución Gubernamental, Social,
                                     Productivo o Empresarial<span class="font-bold text-red-600">*</span>
                                 </label>
                                 <input type="text" name="cuerpoAcademico" id="cuerpoAcademico" class="w-full"
-                                    wire:model.live="cuerpoAcademico"
+                                    wire:model.live="form.cuerpoAcademico"
                                     placeholder="Cuerpo académico, red o grupo de investigación" />
-                                <x-input-error :messages="$errors->get('cuerpoAcademico')" class="mt-1" />
+                                <x-input-error :messages="$errors->get('form.cuerpoAcademico')" class="mt-1" />
                             </div>
 
                             <div class="flex md:flex-row flex-col md:gap-x-5 gap-y-5 mt-5">
@@ -32,14 +32,14 @@
                                     <label for="areaTematica" class="mb-2 block">
                                         Área temática<span class="font-bold text-red-600">*</span>
                                     </label>
-                                    <select name="areaTematica" id="areaTematica" wire:model.live="areaTematica"
+                                    <select name="areaTematica" id="areaTematica" wire:model.live="form.areaTematica"
                                         class="w-full">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($areasTematicas as $area)
-                                            <option value="{{ $area->nombre }}">{{ $area->nombre }}</option>
+                                            <option value="{{ $area->id }}">{{ $area->nombre }}</option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('areaTematica')" class="mt-1" />
+                                    <x-input-error :messages="$errors->get('form.areaTematica')" class="mt-1" />
                                 </div>
 
                                 <div class="md:w-3/5 w-full">
@@ -48,15 +48,14 @@
                                             class="font-bold text-red-600">*</span>
                                     </label>
                                     <input type="text" name="representanteContacto" id="representanteContacto"
-                                        class="w-full" wire:model.live="representanteContacto"
+                                        class="w-full" wire:model.live="form.representanteContacto"
                                         placeholder="Representante que establece contacto" />
-                                    <x-input-error :messages="$errors->get('representanteContacto')" class="mt-1" />
+                                    <x-input-error :messages="$errors->get('form.representanteContacto')" class="mt-1" />
                                 </div>
                             </div>
-
                             <div class="flex md:flex-row flex-col md:gap-x-5 gap-y-5 mt-5">
                                 {{-- Motivo --}}
-                                <div x-data="{ open: false, otro: $wire.entangle('otroMotivo') }" class="md:w-3/5 w-full">
+                                <div class="md:w-3/5 w-full">
                                     <p class="mb-2">
                                         Motivo<span class="font-bold text-red-600">*</span>
                                     </p>
@@ -69,14 +68,15 @@
                                                 stroke-width="2" d="m1 1 4 4 4-4" />
                                         </svg>
                                     </button>
-                                    <div x-show="open" class="bg-blanco rounded-md rounded-t-none w-full">
+                                    <div id="formElement" x-show="open"
+                                        class="bg-blanco rounded-md rounded-t-none w-full">
                                         <ul class="flex flex-col gap-y-1">
                                             <li>
                                                 @foreach ($motivosInteresados as $motivo)
                                                     <div
                                                         class="flex gap-x-2 items-center select-none hover:bg-gray-200 p-1 px-4">
-                                                        <input type="checkbox" name="motivo" id="{{ $motivo }}"
-                                                            class="block"
+                                                        <input type="checkbox" class="inputMotivo" name="group[]"
+                                                            id="{{ $motivo }}" class="block"
                                                             wire:click="addMotivo('{{ $motivo }}')" />
                                                         <label for="{{ $motivo }}" class="w-full block">
                                                             {{ $motivo }}
@@ -86,16 +86,16 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <x-input-error :messages="$errors->get('motivos')" class="mt-1" />
+                                    <x-input-error :messages="$errors->get('form.motivos')" class="mt-1" />
 
                                     <div x-show="otro" class="ml-5 mt-5">
                                         <label for="descripcionMotivo" class="mb-2 block">
-                                            Especificar<span class="font-bold text-red-600">*</span>
+                                            Especificar motivo<span class="font-bold text-red-600">*</span>
                                         </label>
                                         <input type="text" name="descripcionMotivo" id="descripcionMotivo"
-                                            wire:model.live="descripcionMotivo" class="w-full"
+                                            wire:model.live="form.descripcionMotivo" class="w-full"
                                             placeholder="Especificar el motivo" />
-                                        <x-input-error :messages="$errors->get('descripcionMotivo')" class="mt-1" />
+                                        <x-input-error :messages="$errors->get('form.descripcionMotivo')" class="mt-1" />
                                     </div>
                                 </div>
 
@@ -103,13 +103,13 @@
                                     <label for="interes" class="block mb-2">
                                         Interés<span class="font-bold text-red-600">*</span>
                                     </label>
-                                    <select name="interes" id="interes" wire:model.live="interes" class="w-full">
+                                    <select name="interes" id="interes" wire:model.live="form.interes" class="w-full">
                                         <option value="">Selecciona una opción</option>
                                         @foreach ($intereses as $interes)
                                             <option value="{{ $interes }}"> {{ $interes }} </option>
                                         @endforeach
                                     </select>
-                                    <x-input-error :messages="$errors->get('interes')" class="mt-1" />
+                                    <x-input-error :messages="$errors->get('form.interes')" class="mt-1" />
                                 </div>
                             </div>
 
@@ -123,8 +123,9 @@
                                             Institución<span class="font-bold text-red-600">*</span>
                                         </label>
                                         <input type="text" name="institucion" id="institucion"
-                                            wire:model.live="institucion" class="w-full" placeholder="Institución" />
-                                        <x-input-error :messages="$errors->get('institucion')" class="mt-1" />
+                                            wire:model.live="form.institucion" class="w-full"
+                                            placeholder="Institución" />
+                                        <x-input-error :messages="$errors->get('form.institucion')" class="mt-1" />
                                     </div>
 
                                     <div class="flex md:flex-row flex-col md:gap-x-5 gap-y-5">
@@ -134,8 +135,8 @@
                                                 Puesto<span class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" name="puesto" id="puesto"
-                                                wire:model.live="puesto" class="w-full" placeholder="Puesto" />
-                                            <x-input-error :messages="$errors->get('puesto')" class="mt-1" />
+                                                wire:model.live="form.puesto" class="w-full" placeholder="Puesto" />
+                                            <x-input-error :messages="$errors->get('form.puesto')" class="mt-1" />
                                         </div>
 
                                         <div class="md:w-3/5 w-full">
@@ -144,9 +145,9 @@
                                                     class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" name="nombreInteresado" id="nombreInteresado"
-                                                wire:model.live="nombreInteresado" class="w-full"
+                                                wire:model.live="form.nombreInteresado" class="w-full"
                                                 placeholder="Nombre interesado" />
-                                            <x-input-error :messages="$errors->get('nombreInteresado')" class="mt-1" />
+                                            <x-input-error :messages="$errors->get('form.nombreInteresado')" class="mt-1" />
                                         </div>
                                     </div>
 
@@ -169,10 +170,10 @@
                                                     </svg>
                                                 </div>
                                                 <input type="text" name="email" id="email"
-                                                    wire:model.live="email" class="w-full ps-10 p-2.5"
+                                                    wire:model.live="form.email" class="w-full ps-10 p-2.5"
                                                     placeholder="Correo electrónico" />
                                             </div>
-                                            <x-input-error :messages="$errors->first('email')" class="mt-1" />
+                                            <x-input-error :messages="$errors->first('form.email')" class="mt-1" />
                                         </div>
 
                                         <div class="md:w-2/5 w-full">
@@ -194,39 +195,40 @@
                                                 </div>
 
                                                 <input type="text" name="telefono" id="telefono"
-                                                    wire:model.live="telefono" class="w-full ps-10 p-2.5 pr-14"
+                                                    wire:model.live="form.telefono" class="w-full ps-10 p-2.5 pr-14"
                                                     placeholder="Teléfono" />
                                             </div>
 
 
-                                            <x-input-error :messages="$errors->get('telefono')" class="mt-1" />
+                                            <x-input-error :messages="$errors->get('form.telefono')" class="mt-1" />
                                         </div>
                                     </div>
 
-                                    <div x-data="{ sector: $wire.entangle('sector') }" class="flex md:flex-row flex-col md:gap-x-5 gap-y-5">
+                                    <div x-data="{ sector: $wire.entangle('form.sector') }" class="flex md:flex-row flex-col md:gap-x-5 gap-y-5">
                                         <div class="md:w-1/4 w-full">
                                             <label for="sector" class="mb-2 block">
                                                 Sector<span class="font-bold text-red-600">*</span>
                                             </label>
 
-                                            <select name="sector" id="sector" wire:model.live="sector"
+                                            <select name="sector" id="sector" wire:model.live="form.sector"
                                                 class="w-full">
                                                 <option value="">Selecciona una opción</option>
                                                 @foreach ($sectores as $sector)
-                                                    <option value="{{ $sector }}"> {{ $sector }} </option>
+                                                    <option value="{{ $sector }}"> {{ $sector }}
+                                                    </option>
                                                 @endforeach
                                             </select>
-                                            <x-input-error :messages="$errors->get('sector')" class="mt-1" />
+                                            <x-input-error :messages="$errors->get('form.sector')" class="mt-1" />
                                         </div>
 
                                         <div x-show="sector == 'Otro' " class="md:w-3/4 w-full">
-                                            <label for="descripcionSector" class="mb-2 block">Descripción o nombre del
-                                                sector<span class="font-bold text-red-600">*</span>
+                                            <label for="descripcionSector" class="mb-2 block">Especificar sector<span
+                                                    class="font-bold text-red-600">*</span>
                                             </label>
                                             <input type="text" name="descripcionSector" id="descripcionSector"
-                                                wire:model.live="descripcionSector" class="w-full"
+                                                wire:model.live="form.descripcionSector" class="w-full"
                                                 placeholder="Nombre del sector" />
-                                            <x-input-error :messages="$errors->get('descripcionSector')" class="mt-1" />
+                                            <x-input-error :messages="$errors->get('form.descripcionSector')" class="mt-1" />
                                         </div>
                                     </div>
 
@@ -235,15 +237,16 @@
 
                             <div class="sm:w-3/5 w-full mt-5">
                                 <label for="comentario" class="mb-2 block">
-                                    Comentario general<span class="font-bold text-red-600">*</span>
+                                    Comentario general
                                 </label>
-                                <textarea name="comentario" id="comentario" wire:model.live="comentario" cols="30" rows="5"
+                                <textarea name="comentario" id="comentario" wire:model.live="form.comentario" cols="30" rows="5"
                                     class="w-full" placeholder="Comentario general..."></textarea>
-                                <x-input-error :messages="$errors->get('comentario')" class="mt-1" />
+                                <x-input-error :messages="$errors->get('form.comentario')" class="mt-1" />
                             </div>
-
                             <div class="sm:text-end mt-5">
-                                <button type="reset" class="button btn-warning">Limpiar campos</button>
+                                <button type="button" @click="$wire.limpiarCampos; reset(); open = false"
+                                    class="button btn-warning">Limpiar
+                                    campos</button>
                                 <button type="submit" class="button btn-success">Guardar</button>
                             </div>
                         </form>
@@ -253,6 +256,16 @@
         </div>
     </div>
     <script>
+        window.onload = function() { // resetea los inputs de motivos al cargar la pagina
+            this.reset();
+        };
+
+        function reset() { // resetea inputs de motivos
+            document.querySelectorAll('#formElement input[type=checkbox]').forEach(function(checkElement) {
+                checkElement.checked = false;
+            });
+        }
+
         telefono.addEventListener('keyup', (e) => {
             let valorInput = e.target.value;
             telefono.value = valorInput
