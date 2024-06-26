@@ -2,24 +2,39 @@
 
 namespace App\Livewire\Participantes;
 
-use App\Models\Area;
+use App\Enums\TiposForm;
+use App\Livewire\Forms\AsistentesForm;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
+use Livewire\WithFileUploads;
 
-#[Layout('layouts.publico')]
 
 class RegistroAsistentes extends Component
 {
+    use WithFileUploads;
 
-    public $areasTematicas;
+    public $tipos;
+    public AsistentesForm $form;
+
+    public $listeners = [
+        'save'
+    ];
+
+    #[Layout('layouts.publico')]
 
     public function mount()
     {
-        $this->areasTematicas = Area::all();
+        $this->tipos = TiposForm::cases();
     }
 
     public function render()
     {
         return view('livewire.participantes.registro-asistentes');
+    }
+
+    public function save()
+    {
+        $this->form->store();
+        //$this->limpiarCampos();
     }
 }
