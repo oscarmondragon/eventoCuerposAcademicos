@@ -14,7 +14,7 @@
                         </h1>
                     </div>
 
-                    <form wire:submit="save">
+                    <form wire:submit.prevent="save">
                         <div class="flex flex-col gap-y-5 mt-8">
                             <div class="flex md:flex-row flex-col md:gap-x-3">
                                 <div class="w-2/5">
@@ -124,7 +124,7 @@
 
                             <div>
                                 <label for="comentario" class="block mb-2">
-                                    Comentarios<span class="font-bold text-red-600">*</span>
+                                    Comentarios
                                 </label>
                                 <textarea name="comentario" id="comentario" wire:model.live="form.comentario" cols="10" rows="5"
                                     class="w-full" placeholder="Comentarios..."></textarea>
@@ -132,7 +132,8 @@
                             </div>
 
                             <div class="text-end">
-                                <button type="button" class="button btn-warning">Limpiar campos</button>
+                                <button type="button" wire:click="resetFields" class="button btn-warning">Limpiar
+                                    campos</button>
                                 <button type="submit" class="button btn-success">Guardar</button>
                             </div>
                         </div>

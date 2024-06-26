@@ -6,19 +6,15 @@ use App\Enums\TiposForm;
 use App\Livewire\Forms\AsistentesForm;
 use Livewire\Component;
 use Livewire\Attributes\Layout;
-use Livewire\WithFileUploads;
 
 
 class RegistroAsistentes extends Component
 {
-    use WithFileUploads;
+
 
     public $tipos;
     public AsistentesForm $form;
 
-    public $listeners = [
-        'save'
-    ];
 
     #[Layout('layouts.publico')]
 
@@ -35,6 +31,12 @@ class RegistroAsistentes extends Component
     public function save()
     {
         $this->form->store();
-        //$this->limpiarCampos();
+
+        return redirect('/registro-creado')->with('success', 'Sus datos han sido guardados correctamente.');
+    }
+
+    public function resetFields()
+    {
+        $this->form->resetFields();
     }
 }
