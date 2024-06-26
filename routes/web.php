@@ -34,6 +34,7 @@ Route::get('/registro/{id}/completar', AdjuntarBoucherCorreo::class)->name('bouc
 
 Route::get('/', RegistroParticipantes::class)->name('home');
 Route::get('/registro-interesados', RegistroInteresados::class)->name('registro-interesados');
+Route::get('/registro-asistentes', RegistroAsistentes::class)->name('registro-asistentes');
 
 
 //Rutas deshabilitadas por que aun no se programa la parte de usuarios y administradores del sistema
