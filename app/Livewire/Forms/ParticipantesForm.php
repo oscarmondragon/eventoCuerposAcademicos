@@ -145,7 +145,7 @@ class ParticipantesForm extends Form
         'telefonoGeneral.regex' => 'El formato del teléfono no es valido (Solo acepta los caracteres especiales: (), +).',
 
         'correoGeneral.required' => 'El correo electrónico no puede estar vacío.',
-        'correoGeneral.email' => 'El coreo electrónico no tiene un formato valido.',
+        'correoGeneral.email' => 'El correo electrónico no tiene un formato valido.',
         'correoGeneral.unique' => 'Ya existe un registro con este correo electrónico.',
         'correoGeneral.max' => 'El correo electrónico es demasiado largo.',
         'correoGeneral.regex' => 'El coreo electrónico no tiene un formato valido.',
